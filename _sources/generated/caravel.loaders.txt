@@ -1,0 +1,39 @@
+.. AUTO-GENERATED FILE -- DO NOT EDIT!
+
+:orphan:
+
+API documentation of *caravel.loaders*
+=======================================
+
+
+This module defines common loaders for imaging-genetic datasets.
+
+
+.. raw:: html
+
+    <br/>    <!-- Block section -->
+    <table border='1' class='docutils' style='width:100%'>
+    <colgroup><col width='25%'/><col width='75%'/></colgroup>
+    <tbody valign='top'>
+    <tr class='row-odd'>
+    <td><a class='reference internal' href='caravel.loaders.tsv.html'><em>caravel.loaders.tsv</em></a></td>
+    <td>
+        <p>This module defines the TSV dataset loader.</p>
+    </td>
+    </tr>
+    <tr class='row-even'>
+    <td><a class='reference internal' href='caravel.loaders.nifti.html'><em>caravel.loaders.nifti</em></a></td>
+    <td>
+        <p>This module defines the NIFTI dataset loader.</p>
+    </td>
+    </tr>
+    <tr class='row-odd'>
+    <td><a class='reference internal' href='caravel.loaders.loader_base.html'><em>caravel.loaders.loader_base</em></a></td>
+    <td>
+        <p>This module defines the loader base class.</p>
+    </td>
+    </tr>
+    </tbody>
+
+
+    </table>
