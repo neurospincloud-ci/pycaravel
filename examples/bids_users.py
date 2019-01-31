@@ -1,6 +1,6 @@
 """
-BIDS directory parsing
-======================
+BIDS directory parsing (user mode)
+==================================
 
 Credit: A Grigis
 
