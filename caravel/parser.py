@@ -163,7 +163,8 @@ class Caravel(object):
             the layout keys.
         """
         layout = self._load_layout(name)
-        return list(layout.entities.keys())
+        return list([elem.replace("{0}.".format(name), "")
+                     for elem in layout.entities.keys()])
 
     def list_values(self, name, key):
         """ List all the filtering key values available in the layout.
@@ -181,9 +182,10 @@ class Caravel(object):
             the key assocaited values in the layout.
         """
         layout = self._load_layout(name)
-        if key not in layout.entities:
+        _key = "{0}.{1}".format(name, key)
+        if _key not in layout.entities:
             raise ValueError("Unrecognize layout key '{0}'.".format(key))
-        return list(layout.unique(key))
+        return list(layout.unique(_key))
 
     def filter_layout(self, name, extensions=None, **kwargs):
         """ Filter the layout by using a combination of key-values rules.
@@ -212,7 +214,7 @@ class Caravel(object):
         else:
             file_obj = files[0]
             header = ["filename"]
-            for key in layout.entities:
+            for key in self.list_keys(name):
                 if hasattr(file_obj, key):
                     header.append(key)
             data = []
@@ -287,7 +289,7 @@ class Caravel(object):
         layout_root = os.path.join(bids_root, name)
         if not os.path.isdir(layout_root):
             raise ValueError("'{0}' is not a valid directory.")
-        layout = Layout(layout_root, self.conf[name])
+        layout = Layout([(layout_root, self.conf[name])])
         self.layouts[name] = layout
         now = datetime.datetime.now()
         timestamp = "{0}-{1}-{2}".format(now.year, now.month, now.day)
@@ -296,4 +298,3 @@ class Caravel(object):
         with open(outfile, "wb") as open_file:
             pickle.dump(layout, open_file, -1)
         return outfile
-

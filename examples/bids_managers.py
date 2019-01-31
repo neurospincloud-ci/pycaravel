@@ -54,5 +54,10 @@ parser.pickling_layout(
     name="sourcedata",
     outdir="/neurospin/tmp/pycaravel/layout")
 print(parser.list_keys("sourcedata"))
+parser.pickling_layout(
+    bids_root="/neurospin/tmp/pycaravel/hbn",
+    name="derivatives",
+    outdir="/neurospin/tmp/pycaravel/layout")
+print(parser.list_keys("derivatives"))
 
 

@@ -76,5 +76,19 @@ data2 = parser.load_data("sourcedata", search2)
 pprint(data2)
 
 
+#############################################################################
+# And for the derivatives
+# -----------------------
+#
+# We can do the same for the derivatives
+
+print(parser.export_layout("derivatives"))
+print(parser.list_keys("derivatives"))
+print(parser.list_values("derivatives", "process"))
+search3 = parser.filter_layout("derivatives", subject="S01",
+                               process="spmpreproc")
+print(search3)
+data3 = parser.load_data("derivatives", search3)
+pprint(data3)
 
 
