@@ -7,6 +7,9 @@
 # for details.
 ##########################################################################
 
+"""
+This module defines the loader base class.
+"""
 
 class LoaderBase(object):
     """ Base class for all loaders.
@@ -21,8 +24,8 @@ class LoaderBase(object):
         path: str
             the path to the data to be loaded.
 
-        Return
-        ------
+        Returns
+        -------
         out: bool
             True if the file extension is valid, False otherwise.
         """
@@ -39,8 +42,8 @@ class LoaderBase(object):
         path: str
             the path to the data to be loaded.
 
-        Return
-        ------
+        Returns
+        -------
         image: Data
             the loaded data.
         """
@@ -55,8 +58,8 @@ class LoaderBase(object):
         outpath: str
             the path where the the image will be saved.
 
-        Return
-        ------
+        Returns
+        -------
         out: bool
             True if the output file extension is valid, False otherwise.
         """

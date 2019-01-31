@@ -1,5 +1,5 @@
 
-|Python27|_ |Python35|_ | |PyPi|_
+|Python27|_ |Python35|_ |PyPi|_
 
 .. |Python27| image:: https://img.shields.io/badge/python-2.7-blue.svg
 .. _Python27: https://badge.fury.io/py/pycaravel
@@ -32,6 +32,7 @@ The required dependencies to use the software are:
 
 * pandas
 * grabbit
+* nibabel
 
 
 Install

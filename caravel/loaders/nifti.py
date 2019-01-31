@@ -7,9 +7,12 @@
 # for details.
 ##########################################################################
 
+"""
+This module defines the NIFTI dataset loader.
+"""
+
 # Third party import
 import nibabel
-import numpy
 
 # Package import
 from .loader_base import LoaderBase
@@ -28,8 +31,8 @@ class NIFTI(LoaderBase):
         path: str
             the path to the image to be loaded.
 
-        Return
-        ------
+        Returns
+        -------
         data: nibabel Nifti1Image
             the loaded image.
         """

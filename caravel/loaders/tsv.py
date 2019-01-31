@@ -7,6 +7,10 @@
 # for details.
 ##########################################################################
 
+"""
+This module defines the TSV dataset loader.
+"""
+
 # Third party import
 import pandas as pd
 
@@ -27,8 +31,8 @@ class TSV(LoaderBase):
         path: str
             the path to the table to be loaded.
 
-        Return
-        ------
+        Returns
+        -------
         data: pandas DataFrame
             the loaded table.
         """

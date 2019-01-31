@@ -8,7 +8,7 @@
 ##########################################################################
 
 """
-This module defines common loaders imaging-genetic datasets.
+This module defines common loaders for imaging-genetic datasets.
 """
 
 from .nifti import NIFTI

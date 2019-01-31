@@ -7,6 +7,10 @@
 # for details.
 ##########################################################################
 
+"""
+This module contains generic functions to load/save a dataset.
+"""
+
 # Package import
 from caravel.loaders import TSV
 from caravel.loaders import NIFTI

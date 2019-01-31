@@ -7,6 +7,10 @@
 # for details.
 ##########################################################################
 
+"""
+This module contains the generic parser definition.
+"""
+
 # System import
 import os
 import glob
@@ -20,14 +24,12 @@ from grabbit import Layout
 # Package import
 from .io import load
 
-# Define global parameters
-BASE_ENTITIES = ["subject", "session", "task", "run", "suffix"]
-
 
 class Caravel(object):
     """ Object to retrieve data from a BIDS directory or a CubicWeb instance.
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "derivatives", "phenotype")
+    BASE_ENTITIES = ["subject", "session", "task", "run", "suffix"]
 
     def __init__(self, project, layoutdir):
         """ Initialize the Caravel class.
@@ -254,7 +256,7 @@ class Caravel(object):
             if isinstance(_data, pd.DataFrame):
                 file_obj = layout.files[path]
                 for ent_name, ent_val in file_obj.entities.items():
-                    if ent_name in BASE_ENTITIES:
+                    if ent_name in self.BASE_ENTITIES:
                         _data[ent_name] = ent_val
                 _data["dtype"] = name
                 if "participant_id" in _data:

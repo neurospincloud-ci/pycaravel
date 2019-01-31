@@ -8,7 +8,8 @@
 ##########################################################################
 
 """
-This module checks that all the dependencies are installed properly.
+This module provides tools to check that all the dependencies are installed
+properly.
 """
 
 # System import

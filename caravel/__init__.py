@@ -7,6 +7,10 @@
 # for details.
 ##########################################################################
 
+"""
+Main module that contains the 'Caravel' generic parser.
+"""
+
 from .info import __version__
 from .configure import info
 from .parser import Caravel
