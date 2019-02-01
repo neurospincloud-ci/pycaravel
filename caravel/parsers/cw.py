@@ -34,9 +34,7 @@ class CWParser(ParserBase):
         """
         if self.connection is None:
             url = self.conf[name]["url"]
-            #login, password = ask_credential()
-            login = "hurien"
-            password = "PkfeANfxsp!91"
+            login, password = ask_credential()
             self.connection = CWInstanceConnection(
                 url, login, password, verify=True,
                 server_root="/home/{0}".format(login))
