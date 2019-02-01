@@ -8,9 +8,8 @@
 ##########################################################################
 
 """
-Main module that contains the 'Caravel' generic parser.
+This module defines common parsers for imaging-genetic resources.
 """
 
-from .info import __version__
-from .configure import info
-from .parser import get_parser
+from .cw import CWParser
+from .bids import BIDSParser

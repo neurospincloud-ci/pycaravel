@@ -36,7 +36,7 @@ print(caravel.info())
 # possible to specify these rules via the API. Set the layoutdir to None
 # in order to switch to the managers mode.
 
-parser = caravel.Caravel(project="hbn", layoutdir=None)
+parser = caravel.get_parser(project="hbn", layoutdir=None)
 
 #############################################################################
 # Create representation of your BIDS directory

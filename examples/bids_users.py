@@ -33,7 +33,7 @@ print(caravel.info())
 # specify the project name you are working on. For the moement it is not
 # possible to specify these rules via the API.
 
-parser = caravel.Caravel(
+parser = caravel.get_parser(
     project="hbn",
     layoutdir="/neurospin/tmp/pycaravel/layout")
 
