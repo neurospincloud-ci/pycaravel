@@ -9,6 +9,7 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
   **Contents**:
     * `caravel <caravel.html>`_
+    * `caravel.parsers <caravel.parsers.html>`_
     * `caravel.loaders <caravel.loaders.html>`_
 
 .. raw:: html
@@ -29,6 +30,13 @@ This is the classes and functions reference in caravel. Please refer to the gall
         <p>Main module that contains the 'Caravel' generic parser.</p>    </blockquote>
     </div>
     <div class='col-md-4'>
+    <h3><a href='caravel.parsers.html'>
+    caravel.parsers
+    </a></h3>
+    <blockquote>
+        <p>This module defines common parsers for imaging-genetic resources.</p>    </blockquote>
+    </div>
+    <div class='col-md-4'>
     <h3><a href='caravel.loaders.html'>
     caravel.loaders
     </a></h3>
@@ -36,6 +44,8 @@ This is the classes and functions reference in caravel. Please refer to the gall
         <p>This module defines common loaders for imaging-genetic datasets.</p>    </blockquote>
     </div>
 
+    </div>
+    <div class='row'>
     </div>
     </div>
     </div>

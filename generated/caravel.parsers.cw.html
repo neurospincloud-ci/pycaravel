@@ -123,33 +123,33 @@
         <div class="bodywrapper">
           <div class="body" role="main">
             
-  <span class="target" id="module-caravel.loaders.loader_base"></span><p>This module defines the loader base class.</p>
+  <span class="target" id="module-caravel.parsers.cw"></span><p>This module contains the CubicWeb parser definition.</p>
 <dl class="class">
-<dt id="caravel.loaders.loader_base.LoaderBase">
-<em class="property">class </em><code class="descclassname">caravel.loaders.loader_base.</code><code class="descname">LoaderBase</code><a class="reference internal" href="../_modules/caravel/loaders/loader_base.html#LoaderBase"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase" title="Permalink to this definition">¶</a></dt>
-<dd><p>Base class for all loaders.</p>
+<dt id="caravel.parsers.cw.CWParser">
+<em class="property">class </em><code class="descclassname">caravel.parsers.cw.</code><code class="descname">CWParser</code><span class="sig-paren">(</span><em>project</em>, <em>layoutdir</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/cw.html#CWParser"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.parsers.cw.CWParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Object to retrieve data from a CubicWeb instance.</p>
 <dl class="attribute">
-<dt id="caravel.loaders.loader_base.LoaderBase.allowed_extensions">
-<code class="descname">allowed_extensions</code><em class="property"> = []</em><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase.allowed_extensions" title="Permalink to this definition">¶</a></dt>
+<dt id="caravel.parsers.cw.CWParser.EXT">
+<code class="descname">EXT</code><em class="property"> = '.cw'</em><a class="headerlink" href="#caravel.parsers.cw.CWParser.EXT" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
-<dt id="caravel.loaders.loader_base.LoaderBase.can_load">
-<code class="descname">can_load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/loaders/loader_base.html#LoaderBase.can_load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase.can_load" title="Permalink to this definition">¶</a></dt>
-<dd><p>A method checking the file extension.</p>
+<dt id="caravel.parsers.cw.CWParser.export_layout">
+<code class="descname">export_layout</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/cw.html#CWParser.export_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.parsers.cw.CWParser.export_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export a layout as a pandas DataFrame.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path: str</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name: str</strong></p>
 <blockquote>
-<div><p>the path to the data to be loaded.</p>
+<div><p>the name of the layout.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: bool</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">df: pandas DataFrame</p>
 <blockquote class="last">
-<div><p>True if the file extension is valid, False otherwise.</p>
+<div><p>the converted layout.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -158,22 +158,30 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="caravel.loaders.loader_base.LoaderBase.can_save">
-<code class="descname">can_save</code><span class="sig-paren">(</span><em>outpath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/loaders/loader_base.html#LoaderBase.can_save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase.can_save" title="Permalink to this definition">¶</a></dt>
-<dd><p>A method checking the output file extension.</p>
+<dt id="caravel.parsers.cw.CWParser.filter_layout">
+<code class="descname">filter_layout</code><span class="sig-paren">(</span><em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/cw.html#CWParser.filter_layout"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.parsers.cw.CWParser.filter_layout" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the layout by using a combination of key-values rules.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>outpath: str</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name: str</strong></p>
 <blockquote>
-<div><p>the path where the the image will be saved.</p>
+<div><p>the name of the layout.</p>
+</div></blockquote>
+<p><strong>extensions: str or list of str</strong></p>
+<blockquote>
+<div><p>a filtering rule on the file extension.</p>
+</div></blockquote>
+<p><strong>kwargs: dict</strong></p>
+<blockquote>
+<div><p>the filtering options.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">out: bool</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">df: pandas DataFrame</p>
 <blockquote class="last">
-<div><p>True if the output file extension is valid, False otherwise.</p>
+<div><p>the filtered layout.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -182,22 +190,22 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="caravel.loaders.loader_base.LoaderBase.load">
-<code class="descname">load</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/loaders/loader_base.html#LoaderBase.load"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase.load" title="Permalink to this definition">¶</a></dt>
-<dd><p>A method that load the data and associated metadata.</p>
+<dt id="caravel.parsers.cw.CWParser.list_keys">
+<code class="descname">list_keys</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/cw.html#CWParser.list_keys"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.parsers.cw.CWParser.list_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the filtering keys available in the layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>path: str</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name: str</strong></p>
 <blockquote>
-<div><p>the path to the data to be loaded.</p>
+<div><p>the name of the layout.</p>
 </div></blockquote>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">image: Data</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">keys: list</p>
 <blockquote class="last">
-<div><p>the loaded data.</p>
+<div><p>the layout keys.</p>
 </div></blockquote>
 </td>
 </tr>
@@ -206,20 +214,26 @@
 </dd></dl>
 
 <dl class="method">
-<dt id="caravel.loaders.loader_base.LoaderBase.save">
-<code class="descname">save</code><span class="sig-paren">(</span><em>data</em>, <em>outpath</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/loaders/loader_base.html#LoaderBase.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.loaders.loader_base.LoaderBase.save" title="Permalink to this definition">¶</a></dt>
-<dd><p>A method that save the data and associated metadata.</p>
+<dt id="caravel.parsers.cw.CWParser.list_values">
+<code class="descname">list_values</code><span class="sig-paren">(</span><em>name</em>, <em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/cw.html#CWParser.list_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#caravel.parsers.cw.CWParser.list_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the filtering key values available in the layout.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>image: Data</strong></p>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><p class="first"><strong>name: str</strong></p>
 <blockquote>
-<div><p>the data to be saved.</p>
+<div><p>the name of the layout.</p>
 </div></blockquote>
-<p><strong>outpath: str</strong></p>
+<p><strong>key: str</strong></p>
+<blockquote>
+<div><p>the name of key in the layout.</p>
+</div></blockquote>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">values: list</p>
 <blockquote class="last">
-<div><p>the path where the the data will be saved.</p>
+<div><p>the key assocaited values in the layout.</p>
 </div></blockquote>
 </td>
 </tr>

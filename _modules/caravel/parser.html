@@ -20,7 +20,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '0.0.1',
+        VERSION:     '0.0.2',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -86,6 +86,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> <span class="caret"></span></a>
           <ul class="dropdown-menu">
 	        <li><a href="../../generated/caravel.html">Caravel</a></li>
+<li><a href="../../generated/caravel.parsers.html">Caravel.parsers</a></li>
 <li><a href="../../generated/caravel.loaders.html">Caravel.loaders</a></li>
           </ul>
         </li>-->
@@ -100,7 +101,7 @@
 
         <!-- info setup -->
           <p class="doc-version">
-           This documentation is for caravel <strong>version 0.0.1</strong>
+           This documentation is for caravel <strong>version 0.0.2</strong>
           </p>
         <p class="citing">
           If you use the software, please do not hesitate to 
@@ -135,291 +136,40 @@
 <span class="sd">This module contains the generic parser definition.</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c1"># System import</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">import</span> <span class="nn">glob</span>
-<span class="kn">import</span> <span class="nn">pickle</span>
-<span class="kn">import</span> <span class="nn">datetime</span>
-
-<span class="c1"># Third party import</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="kn">as</span> <span class="nn">pd</span>
-<span class="kn">from</span> <span class="nn">grabbit</span> <span class="kn">import</span> <span class="n">Layout</span>
-
 <span class="c1"># Package import</span>
-<span class="kn">from</span> <span class="nn">.io</span> <span class="kn">import</span> <span class="n">load</span>
+<span class="kn">from</span> <span class="nn">caravel.parsers</span> <span class="kn">import</span> <span class="n">CWParser</span>
+<span class="kn">from</span> <span class="nn">caravel.parsers</span> <span class="kn">import</span> <span class="n">BIDSParser</span>
 
 
-<div class="viewcode-block" id="Caravel"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel">[docs]</a><span class="k">class</span> <span class="nc">Caravel</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Object to retrieve data from a BIDS directory or a CubicWeb instance.</span>
+<span class="c1"># Global parameters</span>
+<span class="c1"># &gt; define all the available parsers</span>
+<span class="n">PARSERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">CWParser</span><span class="p">,</span> <span class="n">BIDSParser</span><span class="p">]</span>
+
+
+<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Method to return the appropriate parser for your study.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    project: str</span>
+<span class="sd">        the name of the project you are working on.</span>
+<span class="sd">    layoutdir: str</span>
+<span class="sd">        the location of the pre-generated parsing representations. If None</span>
+<span class="sd">        switch to managers mode.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    parser: obj</span>
+<span class="sd">        the dataset appropriate parser.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">AVAILABLE_LAYOUTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;sourcedata&quot;</span><span class="p">,</span> <span class="s2">&quot;derivatives&quot;</span><span class="p">,</span> <span class="s2">&quot;phenotype&quot;</span><span class="p">)</span>
-    <span class="n">BASE_ENTITIES</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;subject&quot;</span><span class="p">,</span> <span class="s2">&quot;session&quot;</span><span class="p">,</span> <span class="s2">&quot;task&quot;</span><span class="p">,</span> <span class="s2">&quot;run&quot;</span><span class="p">,</span> <span class="s2">&quot;suffix&quot;</span><span class="p">]</span>
+    <span class="k">for</span> <span class="n">parser_class</span> <span class="ow">in</span> <span class="n">PARSERS</span><span class="p">:</span>
+        <span class="n">parser</span> <span class="o">=</span> <span class="n">parser_class</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">parser</span><span class="o">.</span><span class="n">can_load</span><span class="p">():</span>
+            <span class="k">return</span> <span class="n">parser</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;No loader available for &#39;{0}&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">))</span></div>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Initialize the Caravel class.</span>
 
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        project: str</span>
-<span class="sd">            the name of the project you are working on.</span>
-<span class="sd">        layoutdir: str</span>
-<span class="sd">            the location of the pre-generated parsing representations. If None</span>
-<span class="sd">            switch to managers mode.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">_conf</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_conf</span><span class="p">()</span>
-        <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_conf</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Unkown configuration for project &#39;{0}&#39;. Available projects &quot;</span>
-                <span class="s2">&quot;are: {1}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_conf</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">_conf</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
-        <span class="k">if</span> <span class="n">layoutdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">_repr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_repr</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_repr</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Unkown representation for project &#39;{0}&#39;. Available &quot;</span>
-                    <span class="s2">&quot;projects are: {1}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_repr</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="n">_repr</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="nf">_check_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Check if the layout name is supported.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">AVAILABLE_LAYOUTS</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Layout &#39;{0}&#39; is not yet supported. Available layouts are: &quot;</span>
-                <span class="s2">&quot;{1}.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">AVAILABLE_LAYOUTS</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">_get_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">layoutdir</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Get a layout: chack if already loaded or try to load it from</span>
-<span class="sd">        the latest representation. If not found,raise an error.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">layout</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">layoutdir</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Impossible to load layout &#39;{0}&#39;, please specify a layout &quot;</span>
-                    <span class="s2">&quot;directory.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
-
-    <span class="k">def</span> <span class="nf">_get_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; List all the configurations available and sort them by project.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">confdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="s2">&quot;conf&quot;</span><span class="p">)</span>
-        <span class="n">conf</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">confdir</span><span class="p">,</span> <span class="s2">&quot;*.conf&quot;</span><span class="p">)):</span>
-            <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">project</span><span class="p">,</span> <span class="n">name</span> <span class="o">=</span> <span class="n">basename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">conf</span><span class="p">:</span>
-                <span class="n">conf</span><span class="p">[</span><span class="n">project</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">conf</span><span class="p">[</span><span class="n">project</span><span class="p">][</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">path</span>
-        <span class="k">return</span> <span class="n">conf</span>
-
-    <span class="k">def</span> <span class="nf">_get_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; List all the layout representation available and sort them by</span>
-<span class="sd">        dates.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">representations</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">,</span> <span class="s2">&quot;*.pkl&quot;</span><span class="p">)):</span>
-            <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">project</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">basename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">representations</span><span class="p">:</span>
-                <span class="n">representations</span><span class="p">[</span><span class="n">project</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-            <span class="n">representations</span><span class="p">[</span><span class="n">project</span><span class="p">]</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="p">[])</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
-                <span class="p">{</span><span class="s2">&quot;date&quot;</span><span class="p">:</span> <span class="n">timestamp</span><span class="p">,</span> <span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="n">path</span><span class="p">})</span>
-        <span class="k">for</span> <span class="n">project</span><span class="p">,</span> <span class="n">project_data</span> <span class="ow">in</span> <span class="n">representations</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">name_data</span> <span class="ow">in</span> <span class="n">project_data</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                <span class="n">name_data</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span>
-                    <span class="n">x</span><span class="p">[</span><span class="s2">&quot;date&quot;</span><span class="p">],</span> <span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
-        <span class="k">return</span> <span class="n">representations</span>        
-
-    <span class="k">def</span> <span class="nf">_check_conf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Check if configuration is declared for the layout.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;No configuration available for layout &#39;{0}&#39;. Please contact &quot;</span>
-                <span class="s2">&quot;the module developpers to add the support for your project.&quot;</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">_load_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Load a loayout from its pre-generated represnetation.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;A pre-generated &#39;{0}&#39; layout for your project &#39;{1}&#39; is &quot;</span>
-                    <span class="s2">&quot;expected in user mode. Please contact the developpers &quot;</span>
-                    <span class="s2">&quot;of the module.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">))</span>
-            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
-            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">open_file</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
-
-<div class="viewcode-block" id="Caravel.export_layout"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.export_layout">[docs]</a>    <span class="k">def</span> <span class="nf">export_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Export a layout as a pandas DataFrame.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of the layout.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        df: pandas DataFrame</span>
-<span class="sd">            the converted layout.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">layout</span><span class="o">.</span><span class="n">as_data_frame</span><span class="p">()</span></div>
-
-<div class="viewcode-block" id="Caravel.list_keys"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.list_keys">[docs]</a>    <span class="k">def</span> <span class="nf">list_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; List all the filtering keys available in the layout.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of the layout.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        keys: list</span>
-<span class="sd">            the layout keys.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span></div>
-
-<div class="viewcode-block" id="Caravel.list_values"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.list_values">[docs]</a>    <span class="k">def</span> <span class="nf">list_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; List all the filtering key values available in the layout.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of the layout.</span>
-<span class="sd">        key: str</span>
-<span class="sd">            the name of key in the layout.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        values: list</span>
-<span class="sd">            the key assocaited values in the layout.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Unrecognize layout key &#39;{0}&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
-        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">layout</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">key</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="Caravel.filter_layout"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.filter_layout">[docs]</a>    <span class="k">def</span> <span class="nf">filter_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">extensions</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Filter the layout by using a combination of key-values rules.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of the layout.</span>
-<span class="sd">        extensions: str or list of str</span>
-<span class="sd">            a filtering rule on the file extension.</span>
-<span class="sd">        kwargs: dict</span>
-<span class="sd">            the filtering options.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        df: pandas DataFrame</span>
-<span class="sd">            the filtered layout.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">extensions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;extensions&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">extensions</span>
-        <span class="n">header</span> <span class="o">=</span> <span class="bp">None</span>
-        <span class="n">files</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">file_obj</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-            <span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]</span>
-            <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">layout</span><span class="o">.</span><span class="n">entities</span><span class="p">:</span>
-                <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">file_obj</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-                    <span class="n">header</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-            <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
-            <span class="k">for</span> <span class="n">file_obj</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-                <span class="n">row</span> <span class="o">=</span> <span class="p">[]</span>
-                <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">header</span><span class="p">:</span>
-                    <span class="n">row</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">getattr</span><span class="p">(</span><span class="n">file_obj</span><span class="p">,</span> <span class="n">key</span><span class="p">))</span>
-                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
-            <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">header</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">df</span>           </div>
-
-<div class="viewcode-block" id="Caravel.load_data"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.load_data">[docs]</a>    <span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">df</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Load the data contained in the filename column of a pandas</span>
-<span class="sd">        DataFrame.</span>
-
-<span class="sd">        Note:</span>
-<span class="sd">        Only a couple of file extensions are supported. If no loader has been</span>
-<span class="sd">        found None is returned.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of the layout.</span>
-<span class="sd">        df: pandas DataFrame</span>
-<span class="sd">            a table with one &#39;filename&#39; column.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        data: dict</span>
-<span class="sd">            a dictionaray containing the loaded data.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="s2">&quot;filename&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">df</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;One &#39;filename&#39; column expected in your table.&quot;</span><span class="p">)</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_load_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">data</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]:</span>
-            <span class="k">try</span><span class="p">:</span>
-                <span class="n">_data</span> <span class="o">=</span> <span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
-            <span class="k">except</span><span class="p">:</span>
-                <span class="n">_data</span> <span class="o">=</span> <span class="bp">None</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_data</span><span class="p">,</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">):</span>
-                <span class="n">file_obj</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="n">path</span><span class="p">]</span>
-                <span class="k">for</span> <span class="n">ent_name</span><span class="p">,</span> <span class="n">ent_val</span> <span class="ow">in</span> <span class="n">file_obj</span><span class="o">.</span><span class="n">entities</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-                    <span class="k">if</span> <span class="n">ent_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">BASE_ENTITIES</span><span class="p">:</span>
-                        <span class="n">_data</span><span class="p">[</span><span class="n">ent_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">ent_val</span>
-                <span class="n">_data</span><span class="p">[</span><span class="s2">&quot;dtype&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
-                <span class="k">if</span> <span class="s2">&quot;participant_id&quot;</span> <span class="ow">in</span> <span class="n">_data</span><span class="p">:</span>
-                    <span class="n">_data</span><span class="p">[</span><span class="s2">&quot;participant_id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">_data</span><span class="p">[</span><span class="s2">&quot;participant_id&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
-                        <span class="s2">&quot;sub-&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">data</span><span class="p">[</span><span class="n">path</span><span class="p">]</span> <span class="o">=</span> <span class="n">_data</span>
-        <span class="k">return</span> <span class="n">data</span></div>
-
-<div class="viewcode-block" id="Caravel.pickling_layout"><a class="viewcode-back" href="../../generated/caravel.parser.html#caravel.parser.Caravel.pickling_layout">[docs]</a>    <span class="k">def</span> <span class="nf">pickling_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bids_root</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">outdir</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot; Load the requested BIDS layout and save it as a pickle.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        bids_root: str</span>
-<span class="sd">            path to the BIDS folder.</span>
-<span class="sd">        name: str</span>
-<span class="sd">            the name of subfolder to be parsed (the layout name).</span>
-<span class="sd">        outdir: str</span>
-<span class="sd">            the folder where the pickle will be generated.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        outfile: str</span>
-<span class="sd">            the generated layout representation location.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_layout</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_conf</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
-        <span class="n">layout_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">bids_root</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">layout_root</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;&#39;{0}&#39; is not a valid directory.&quot;</span><span class="p">)</span>
-        <span class="n">layout</span> <span class="o">=</span> <span class="n">Layout</span><span class="p">(</span><span class="n">layout_root</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">layout</span>
-        <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
-        <span class="n">timestamp</span> <span class="o">=</span> <span class="s2">&quot;{0}-{1}-{2}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">now</span><span class="o">.</span><span class="n">year</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
-        <span class="n">outfile</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">outdir</span><span class="p">,</span> <span class="s2">&quot;{0}_{1}_{2}.pkl&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timestamp</span><span class="p">))</span>
-        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfile</span><span class="p">,</span> <span class="s2">&quot;wb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
-            <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">layout</span><span class="p">,</span> <span class="n">open_file</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-        <span class="k">return</span> <span class="n">outfile</span></div></div>
 
 </pre></div>
 

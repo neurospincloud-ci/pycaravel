@@ -1,6 +1,6 @@
 """
-BIDS directory parsing
-======================
+BIDS directory parsing (manager mode)
+=====================================
 
 Credit: A Grigis
 
@@ -36,7 +36,7 @@ print(caravel.info())
 # possible to specify these rules via the API. Set the layoutdir to None
 # in order to switch to the managers mode.
 
-parser = caravel.Caravel(project="hbn", layoutdir=None)
+parser = caravel.get_parser(project="hbn", layoutdir=None)
 
 #############################################################################
 # Create representation of your BIDS directory
@@ -54,5 +54,10 @@ parser.pickling_layout(
     name="sourcedata",
     outdir="/neurospin/tmp/pycaravel/layout")
 print(parser.list_keys("sourcedata"))
+parser.pickling_layout(
+    bids_root="/neurospin/tmp/pycaravel/hbn",
+    name="derivatives",
+    outdir="/neurospin/tmp/pycaravel/layout")
+print(parser.list_keys("derivatives"))
 
 

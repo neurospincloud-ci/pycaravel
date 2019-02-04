@@ -1,10 +1,10 @@
 
 
-.. _sphx_glr_auto_gallery_bids_managers.py:
+.. _sphx_glr_auto_gallery_bids_bids_managers.py:
 
 
-BIDS directory parsing
-======================
+BIDS directory parsing (manager mode)
+=====================================
 
 Credit: A Grigis
 
@@ -54,7 +54,7 @@ in order to switch to the managers mode.
 .. code-block:: python
 
 
-    parser = caravel.Caravel(project="hbn", layoutdir=None)
+    parser = caravel.get_parser(project="hbn", layoutdir=None)
 
 
 Create representation of your BIDS directory
@@ -77,6 +77,11 @@ This name must have a conresponding configuration file.
         name="sourcedata",
         outdir="/neurospin/tmp/pycaravel/layout")
     print(parser.list_keys("sourcedata"))
+    parser.pickling_layout(
+        bids_root="/neurospin/tmp/pycaravel/hbn",
+        name="derivatives",
+        outdir="/neurospin/tmp/pycaravel/layout")
+    print(parser.list_keys("derivatives"))
 
 
 
