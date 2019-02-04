@@ -43,7 +43,10 @@ class CWParser(ParserBase):
     def _rset_as_data_frame(self, rset, header):
         """ Convert a CubicWeb rset to a pandas DataFrame.
         """
-        return pd.DataFrame(data=np.asarray(rset), columns=header)
+        if len(rset) > 0:
+            return pd.DataFrame(data=np.asarray(rset), columns=header)
+        else:
+            return pd.DataFrame(columns=header)
 
     def export_layout(self, name):
         """ Export a layout as a pandas DataFrame.
@@ -62,9 +65,10 @@ class CWParser(ParserBase):
         connection = self._get_connection(name)
         selector = "Any X"
         header = ["filename"]
-        for _name, _label in self.conf[name]["attrs"].items():
+        for _alias, _cw_repr in self.conf[name]["attrs"].items():
+            _name, _label = _cw_repr.split("-")
             selector += ", {0}".format(_label)
-            header.append(_name)
+            header.append(_alias)
         rql = self.conf[name]["rql"].replace("Any X", selector)
         rset = connection.execute(rql)
         return self._rset_as_data_frame(rset, header)
@@ -104,7 +108,8 @@ class CWParser(ParserBase):
         connection = self._get_connection(name)
         if key not in self.conf[name]["attrs"]:
             raise ValueError("Unrecognize layout key '{0}'.".format(key))
-        selector = "DISTINCT Any {0}".format(self.conf[name]["attrs"][key])
+        _name, _label = self.conf[name]["attrs"][key].split("-")
+        selector = "DISTINCT Any {0}".format(_label)
         rql = self.conf[name]["rql"].replace("Any X", selector)
         rset = connection.execute(rql)
         return [elem[0] for elem in rset]
@@ -134,10 +139,11 @@ class CWParser(ParserBase):
         split_rql = rql.split(", ")
         key_rql = [elem.split(" ", 1)[1] for elem in split_rql]
         rql_suffix = []
-        for _name, _label in self.conf[name]["attrs"].items():
-            if _name in kwargs:
+        for _alias, _cw_repr in self.conf[name]["attrs"].items():
+            _name, _label = _cw_repr.split("-")
+            if _alias in kwargs:
                 filtered_val = [
-                    "'{0}'".format(elem) for elem in kwargs[_name].split("|")]
+                    "'{0}'".format(elem) for elem in kwargs[_alias].split("|")]
                 _key = "{0} {1}".format(_name, _label)
                 _index = key_rql.index(_key)
                 rql = rql.replace(
@@ -146,31 +152,9 @@ class CWParser(ParserBase):
                         _name, _label, ",".join(filtered_val)))
                 rql_suffix.append(split_rql[_index])
             selector += ", {0}".format(_label)
-            header.append(_name)
+            header.append(_alias)
         rql = rql.replace("Any X", selector)
         if len(rql_suffix) > 0:
             rql = rql + ", " + ", ".join(rql_suffix)
         rset = connection.execute(rql)
         return self._rset_as_data_frame(rset, header)         
-
-    def load_data(self, name, df):
-        """ Load the data contained in the filename column of a pandas
-        DataFrame.
-
-        Note:
-        Only a couple of file extensions are supported. If no loader has been
-        found None is returned.
-
-        Parameters
-        ----------
-        name: str
-            the name of the layout.
-        df: pandas DataFrame
-            a table with one 'filename' column.
-
-        Returns
-        -------
-        data: dict
-            a dictionaray containing the loaded data.
-        """
-        raise NotImplementedError("Not yet implemented.")

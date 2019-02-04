@@ -10,7 +10,7 @@
 # Module current version
 version_major = 0
 version_minor = 0
-version_micro = 1
+version_micro = 2
 
 # Expected by setup.py: string of form "X.Y.Z"
 __version__ = "{0}.{1}.{2}".format(version_major, version_minor, version_micro)
@@ -68,6 +68,8 @@ PROVIDES = ["caravel"]
 REQUIRES = [
     "pandas>=0.19.2",
     "grabbit>=0.2.5",
-    "nibabel>=2.3.1"
+    "nibabel>=2.3.1",
+    "cwbrowser>=2.2.1",
+    "numpy>=1.11.0"
 ]
 EXTRA_REQUIRES = {}

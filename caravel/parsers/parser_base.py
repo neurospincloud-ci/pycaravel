@@ -17,6 +17,12 @@ import json
 import glob
 import pickle
 import datetime
+
+# Third party import
+import pandas as pd
+
+# Package import
+from caravel.io import load
   
 
 class ParserBase(object):
@@ -137,6 +143,7 @@ class ParserBase(object):
         """ Load the configuration associated to a layout.
         """
         if not isinstance(self.conf[name], dict):
+            print(self.conf[name])
             with open(self.conf[name], "rt") as open_file:
                 self.conf[name] = json.load(open_file)
 
@@ -210,7 +217,7 @@ class ParserBase(object):
         raise NotImplementedError("This function has to be defined in child "
                                   "child class.")         
 
-    def load_data(self, name, df):
+    def load_data(self, name, df, replace=None):
         """ Load the data contained in the filename column of a pandas
         DataFrame.
 
@@ -224,11 +231,42 @@ class ParserBase(object):
             the name of the layout.
         df: pandas DataFrame
             a table with one 'filename' column.
+        replace: 2-uplet, default None
+            in the case of a CubicWeb resource, the data are downloaded in a
+            custom folder. Use this parameter to replace the server location
+            by your own location.
 
         Returns
         -------
         data: dict
             a dictionaray containing the loaded data.
         """
-        raise NotImplementedError("This function has to be defined in child "
-                                  "child class.")
+        if "filename" not in df:
+            raise ValueError("One 'filename' column expected in your table.")
+        data = {}
+        for index, path in enumerate(df["filename"]):
+            if isinstance(path, dict):
+                _data = pd.DataFrame.from_records([path])
+                path = ["{0}-{1}".format(key, val)
+                        for key, val in zip(df.columns, df.values[index])
+                        if key != "filename"]
+                path = "_".join(path)
+            else:
+                if replace is not None:
+                    path = path.replace(replace[0], replace[1])
+                try:
+                    _data = load(path)
+                except:
+                    _data = None
+                if isinstance(_data, pd.DataFrame):
+                    layout = self._load_layout(name)
+                    file_obj = layout.files[path]
+                    for ent_name, ent_val in file_obj.entities.items():
+                        if ent_name in self.BASE_ENTITIES:
+                            _data[ent_name] = ent_val
+                    _data["dtype"] = name
+                    if "participant_id" in _data:
+                        _data["participant_id"] = _data[
+                            "participant_id"].str.replace("sub-", "")
+            data[path] = _data
+        return data

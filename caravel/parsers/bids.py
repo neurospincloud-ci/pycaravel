@@ -21,7 +21,6 @@ import pandas as pd
 from grabbit import Layout
 
 # Package import
-from caravel.io import load
 from .parser_base import ParserBase
 
 
@@ -85,14 +84,14 @@ class BIDSParser(ParserBase):
             raise ValueError("Unrecognize layout key '{0}'.".format(key))
         return list(layout.unique(_key))
 
-    def filter_layout(self, name, extensions=None, **kwargs):
+    def filter_layout(self, name, extension=None, **kwargs):
         """ Filter the layout by using a combination of key-values rules.
 
         Parameters
         ----------
         name: str
             the name of the layout.
-        extensions: str or list of str
+        extension: str or list of str
             a filtering rule on the file extension.
         kwargs: dict
             the filtering options.
@@ -103,8 +102,8 @@ class BIDSParser(ParserBase):
             the filtered layout.
         """
         layout = self._load_layout(name)
-        if extensions is not None:
-            kwargs["extensions"] = extensions
+        if extension is not None:
+            kwargs["extensions"] = extension
         header = None
         files = layout.get(**kwargs)
         if len(files) == 0:
@@ -123,47 +122,6 @@ class BIDSParser(ParserBase):
                 data.append(row)
             df = pd.DataFrame(data, columns=header)
         return df           
-
-    def load_data(self, name, df):
-        """ Load the data contained in the filename column of a pandas
-        DataFrame.
-
-        Note:
-        Only a couple of file extensions are supported. If no loader has been
-        found None is returned.
-
-        Parameters
-        ----------
-        name: str
-            the name of the layout.
-        df: pandas DataFrame
-            a table with one 'filename' column.
-
-        Returns
-        -------
-        data: dict
-            a dictionaray containing the loaded data.
-        """
-        if "filename" not in df:
-            raise ValueError("One 'filename' column expected in your table.")
-        layout = self._load_layout(name)
-        data = {}
-        for path in df["filename"]:
-            try:
-                _data = load(path)
-            except:
-                _data = None
-            if isinstance(_data, pd.DataFrame):
-                file_obj = layout.files[path]
-                for ent_name, ent_val in file_obj.entities.items():
-                    if ent_name in self.BASE_ENTITIES:
-                        _data[ent_name] = ent_val
-                _data["dtype"] = name
-                if "participant_id" in _data:
-                    _data["participant_id"] = _data["participant_id"].str.replace(
-                        "sub-", "")
-            data[path] = _data
-        return data
 
     def pickling_layout(self, bids_root, name, outdir):
         """ Load the requested BIDS layout and save it as a pickle.
