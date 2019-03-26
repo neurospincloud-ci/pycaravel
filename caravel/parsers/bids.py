@@ -133,6 +133,8 @@ class BIDSParser(ParserBase):
             the name of subfolder to be parsed (the layout name).
         outdir: str
             the folder where the pickle will be generated.
+        subset: list of str, default None
+            a selector to focus only on specific folders.
 
         Returns
         -------
