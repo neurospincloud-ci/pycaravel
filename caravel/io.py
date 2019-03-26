@@ -14,10 +14,11 @@ This module contains generic functions to load/save a dataset.
 # Package import
 from caravel.loaders import TSV
 from caravel.loaders import NIFTI
+from caravel.loaders import JSON
 
 # Global parameters
 # > define all the available loaders
-LOADERS = [TSV, NIFTI]
+LOADERS = [TSV, NIFTI, JSON]
 
 
 def load(path, **kwargs):

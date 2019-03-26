@@ -17,6 +17,7 @@ import pickle
 import datetime
 
 # Third party import
+import numpy as np
 import pandas as pd
 from grabbit import Layout
 
@@ -110,20 +111,18 @@ class BIDSParser(ParserBase):
             df = pd.DataFrame()
         else:
             file_obj = files[0]
-            header = ["filename"]
-            for key in self.list_keys(name):
-                if hasattr(file_obj, key):
-                    header.append(key)
+            header = ["filename"] + self.list_keys(name)
             data = []
             for file_obj in files:
                 row = []
                 for key in header:
-                    row.append(getattr(file_obj, key))
+                    row.append(getattr(file_obj, key, np.nan))
                 data.append(row)
             df = pd.DataFrame(data, columns=header)
+        df.dropna(axis="columns", how="all", inplace=True)
         return df           
 
-    def pickling_layout(self, bids_root, name, outdir):
+    def pickling_layout(self, bids_root, name, outdir, subset=None):
         """ Load the requested BIDS layout and save it as a pickle.
 
         Parameters
@@ -144,8 +143,14 @@ class BIDSParser(ParserBase):
         self._check_conf(name)
         layout_root = os.path.join(bids_root, name)
         if not os.path.isdir(layout_root):
-            raise ValueError("'{0}' is not a valid directory.")
-        layout = Layout([(layout_root, self.conf[name])])
+            raise ValueError("'{0}' is not a valid directory.".format(
+                layout_root))
+        if subset is None:
+            layout = Layout([(layout_root, self.conf[name])])
+        else:
+            layout = Layout([
+                (os.path.join(layout_root, dirname), self.conf[name])
+                for dirname in subset])
         self.layouts[name] = layout
         now = datetime.datetime.now()
         timestamp = "{0}-{1}-{2}".format(now.year, now.month, now.day)

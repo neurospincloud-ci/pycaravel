@@ -60,7 +60,7 @@ print(parser.export_layout("sourcedata"))
 print(parser.list_keys("sourcedata"))
 print(parser.list_values("sourcedata", "subject"))
 print(parser.list_values("sourcedata", "modality"))
-search1 = parser.filter_layout("sourcedata", subject="S01",
+search1 = parser.filter_layout("sourcedata", subject="NDARLU606ZDD",
                                modality="anat|func")
 print(search1)
 search2 = parser.filter_layout("sourcedata", extension="tsv")
@@ -70,11 +70,12 @@ print(search2)
 # Finally you may want to ask the system to load the filtered data. Only a
 # couple of file extensions are supported. If no loader has been found the
 # filename is returned
-data1 = parser.load_data("sourcedata", search1)
-pprint(data1)
-data2 = parser.load_data("sourcedata", search2)
-pprint(data2)
-
+if not search1.empty:
+    data1 = parser.load_data("sourcedata", search1)
+    pprint(data1)
+if not search2.empty:
+    data2 = parser.load_data("sourcedata", search2)
+    pprint(data2)
 
 #############################################################################
 # And for the derivatives
@@ -82,13 +83,30 @@ pprint(data2)
 #
 # We can do the same for the derivatives
 
+
 print(parser.export_layout("derivatives"))
 print(parser.list_keys("derivatives"))
 print(parser.list_values("derivatives", "process"))
-search3 = parser.filter_layout("derivatives", subject="S01",
-                               process="spmpreproc")
+search3 = parser.filter_layout("derivatives", subject="NDARAE199TDD",
+                               process="scalars")
 print(search3)
 data3 = parser.load_data("derivatives", search3)
 pprint(data3)
+search3bis = parser.filter_layout("derivatives", process="tbss_stats",
+                                  extension="tsv")
+print(search3bis)
+data3bis = parser.load_data("derivatives", search3bis)
+pprint(data3bis)
 
 
+#############################################################################
+# And for the clinical data
+# -------------------------
+#
+# We can do the same for the clinical data denoted in BIDS phenotype
+
+print(parser.export_layout("phenotype"))
+search4 = parser.filter_layout("phenotype", extension="tsv")
+print(search4)
+data4 = parser.load_data("phenotype", search4)
+pprint(data4)

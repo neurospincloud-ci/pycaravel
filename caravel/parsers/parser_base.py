@@ -79,7 +79,7 @@ class ParserBase(object):
         if name not in self.AVAILABLE_LAYOUTS:
             raise ValueError(
                 "Layout '{0}' is not yet supported. Available layouts are: "
-                "{1}.".format(name, AVAILABLE_LAYOUTS))
+                "{1}.".format(name, self.AVAILABLE_LAYOUTS))
 
     @classmethod
     def _get_conf(cls):

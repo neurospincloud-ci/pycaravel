@@ -50,14 +50,20 @@ parser = caravel.get_parser(project="hbn", layoutdir=None)
 # This name must have a conresponding configuration file.
 
 parser.pickling_layout(
-    bids_root="/neurospin/tmp/pycaravel/hbn",
+    bids_root="/neurospin/psy/hbn",
     name="sourcedata",
     outdir="/neurospin/tmp/pycaravel/layout")
 print(parser.list_keys("sourcedata"))
 parser.pickling_layout(
-    bids_root="/neurospin/tmp/pycaravel/hbn",
+    bids_root="/neurospin/psy/hbn/",
     name="derivatives",
+    subset=["tbss_stats", "scalars"],
     outdir="/neurospin/tmp/pycaravel/layout")
 print(parser.list_keys("derivatives"))
+parser.pickling_layout(
+    bids_root="/neurospin/psy/hbn",
+    name="phenotype",
+    outdir="/neurospin/tmp/pycaravel/layout")
+print(parser.list_keys("phenotype"))
 
 

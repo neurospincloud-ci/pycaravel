@@ -11,5 +11,6 @@
 This module defines common loaders for imaging-genetic datasets.
 """
 
-from .nifti import NIFTI
-from .tsv import TSV
+from ._nifti import NIFTI
+from ._tsv import TSV
+from ._json import JSON
