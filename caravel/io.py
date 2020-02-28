@@ -15,10 +15,12 @@ This module contains generic functions to load/save a dataset.
 from caravel.loaders import TSV
 from caravel.loaders import NIFTI
 from caravel.loaders import JSON
+from caravel.loaders import DWI
+from caravel.loaders import TARGZ
 
 # Global parameters
 # > define all the available loaders
-LOADERS = [TSV, NIFTI, JSON]
+LOADERS = [TSV, NIFTI, JSON, DWI, TARGZ]
 
 
 def load(path, **kwargs):
