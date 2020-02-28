@@ -28,7 +28,7 @@ from caravel.io import load
 class ParserBase(object):
     """ Object to retrieve data from a BIDS directory or a CubicWeb instance.
     """
-    AVAILABLE_LAYOUTS = ("sourcedata", "derivatives", "phenotype")
+    AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
 
     def __init__(self, project, layoutdir):
         """ Initialize the Caravel class.
