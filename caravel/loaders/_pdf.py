@@ -8,20 +8,20 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the CSV dataset loader.
 """
 
 # Third party import
-import pandas as pd
+import PyPDF2
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
+class PDF(LoaderBase):
     """ Define the TSV loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".pdf"]
 
     def load(self, path):
         """ A method that load the table data.
@@ -36,16 +36,8 @@ class TSV(LoaderBase):
         data: pandas DataFrame
             the loaded table.
         """
-        return pd.read_table(path, sep="\t", dtype={'participant_id': object})
+        file = open(path, 'rb')
+        fileReader = PyPDF2.PdfFileReader(file)
+        file.close()
 
-    def save(self, data, outpath):
-        """ A method that save the table.
-
-        Parameters
-        ----------
-        data: pandas DataFrame
-            the table to be saved.
-        outpath: str
-            the path where the the table will be saved.
-        """
-        data.to_csv(sep="\t")
+        return fileReader

@@ -8,22 +8,23 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the CSV dataset loader.
 """
 
 # Third party import
 import pandas as pd
+import math
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
+class CSV(LoaderBase):
     """ Define the TSV loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".csv"]
 
-    def load(self, path):
+    def load(self, path, separator=',', header_type='infer', Nrows=None, Skiprows=None):
         """ A method that load the table data.
 
         Parameters
@@ -36,7 +37,9 @@ class TSV(LoaderBase):
         data: pandas DataFrame
             the loaded table.
         """
-        return pd.read_table(path, sep="\t", dtype={'participant_id': object})
+
+        return pd.read_csv(path, header=header_type, sep=separator,
+                nrows=Nrows, skiprows=Skiprows)
 
     def save(self, data, outpath):
         """ A method that save the table.
@@ -48,4 +51,4 @@ class TSV(LoaderBase):
         outpath: str
             the path where the the table will be saved.
         """
-        data.to_csv(sep="\t")
+        data.to_csv()

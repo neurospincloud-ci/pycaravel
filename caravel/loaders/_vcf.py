@@ -8,20 +8,20 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the CSV dataset loader.
 """
 
 # Third party import
-import pandas as pd
+import vcfpy
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
+class VCF(LoaderBase):
     """ Define the TSV loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".vcf"]
 
     def load(self, path):
         """ A method that load the table data.
@@ -33,19 +33,8 @@ class TSV(LoaderBase):
 
         Returns
         -------
-        data: pandas DataFrame
+        data: Ordered dict
             the loaded table.
         """
-        return pd.read_table(path, sep="\t", dtype={'participant_id': object})
 
-    def save(self, data, outpath):
-        """ A method that save the table.
-
-        Parameters
-        ----------
-        data: pandas DataFrame
-            the table to be saved.
-        outpath: str
-            the path where the the table will be saved.
-        """
-        data.to_csv(sep="\t")
+        return vcfpy.Reader.from_path(path)

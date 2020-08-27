@@ -117,7 +117,7 @@ def build_path(keys, path_patterns, strict=False):
     -------
     path: str
         A constructed path for this file based on the provided patterns, or
-        None if no path was built given the combination of keys and patterns.   
+        None if no path was built given the combination of keys and patterns.
     """
     path_patterns = listify(path_patterns)
     keys = {key: listify(val) for key, val in keys.items() if val or val == 0}
@@ -134,7 +134,6 @@ def build_path(keys, path_patterns, strict=False):
 
         # Iterate through the provided path patterns
         new_path = pattern
-
         # Expand options within valid values and
         # check whether keys provided have acceptable value
         tmp_keys = keys.copy()
@@ -149,21 +148,20 @@ def build_path(keys, path_patterns, strict=False):
             if defval and name not in tmp_keys:
                 tmp_keys[name] = [defval]
 
-            # At this point, valid & default values are checked & 
+            # At this point, valid & default values are checked &
             # set - simplify pattern
             new_path = new_path.replace(fmt, '{%s}' % name)
 
         optional_patterns = re.findall(r'(\[.*?\])', new_path)
         # Optional patterns with selector are cast to mandatory or removed
         for op in optional_patterns:
-            for ent_name in {k for k, v in keys.items() if v is not None}:
+            for ent_name in {k for k, v in keys.items() if (v is not None) and not (v[0]!=v[0])}:
                 if ('{%s}' % ent_name) in op:
                     new_path = new_path.replace(op, op[1:-1])
                     continue
 
             # Surviving optional patterns are removed
             new_path = new_path.replace(op, '')
-
         # Replace keys
         fields = {pat[1] for pat in Formatter().parse(new_path)
                   if pat[1] and not pat[1].isdigit()}
@@ -171,17 +169,14 @@ def build_path(keys, path_patterns, strict=False):
             continue
 
         tmp_keys = {k: v for k, v in tmp_keys.items()
-                        if k in fields}
-
+                    if k in fields}
         new_path = [
             new_path.format(**e)
             for e in _expand_keys(tmp_keys)
         ]
-
         if new_path:
             if len(new_path) == 1:
                 new_path = new_path[0]
             return new_path
 
     return None
-

@@ -8,20 +8,20 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the CSV dataset loader.
 """
 
 # Third party import
-import pandas as pd
+from pandas_plink import read_plink1_bin
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
+class PLINK(LoaderBase):
     """ Define the TSV loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".bed"]
 
     def load(self, path):
         """ A method that load the table data.
@@ -33,19 +33,9 @@ class TSV(LoaderBase):
 
         Returns
         -------
-        data: pandas DataFrame
+        data: xarray.core.dataarray.DataArray
             the loaded table.
         """
-        return pd.read_table(path, sep="\t", dtype={'participant_id': object})
+        G = read_plink1_bin(path, verbose=False)
 
-    def save(self, data, outpath):
-        """ A method that save the table.
-
-        Parameters
-        ----------
-        data: pandas DataFrame
-            the table to be saved.
-        outpath: str
-            the path where the the table will be saved.
-        """
-        data.to_csv(sep="\t")
+        return G
