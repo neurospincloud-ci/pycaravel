@@ -54,6 +54,7 @@ def listify(obj):
     """
     return obj if isinstance(obj, (list, tuple, type(None))) else [obj]
 
+
 def _expand_keys(entities):
     """ Generate multiple replacement queries based on all combinations
     of values.

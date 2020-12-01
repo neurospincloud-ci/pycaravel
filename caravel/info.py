@@ -10,7 +10,7 @@
 # Module current version
 version_major = 0
 version_minor = 0
-version_micro = 2
+version_micro = 5
 
 # Expected by setup.py: string of form "X.Y.Z"
 __version__ = "{0}.{1}.{2}".format(version_major, version_minor, version_micro)
@@ -35,14 +35,9 @@ SUMMARY = """
     * a common API to search in those datasets.
     * some utilities to load the retrived data.
 """
-long_description = """
-=========
-pycaravel
-=========
-
-This module has been created to simplify the search of datasets in a BIDS
-directory or a CubicWeb instance.
-"""
+long_description = (
+    "This module has been created to simplify the search of datasets in "
+    "a BIDS directory or a CubicWeb instance.")
 
 # Main setup parameters
 NAME = "pycaravel"
@@ -70,6 +65,7 @@ REQUIRES = [
     "grabbit>=0.2.5",
     "nibabel>=2.3.1",
     "cwbrowser>=2.2.1",
-    "numpy>=1.11.0"
+    "numpy>=1.11.0",
+    "imageio"
 ]
 EXTRA_REQUIRES = {}

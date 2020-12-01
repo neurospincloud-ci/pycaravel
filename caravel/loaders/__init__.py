@@ -16,3 +16,4 @@ from ._tsv import TSV
 from ._json import JSON
 from ._dwi import DWI
 from ._targz import TARGZ
+from ._png import PNG
