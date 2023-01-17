@@ -17,3 +17,5 @@ from ._json import JSON
 from ._dwi import DWI
 from ._targz import TARGZ
 from ._png import PNG
+from ._mp4 import MP4
+from ._edf import EDF
