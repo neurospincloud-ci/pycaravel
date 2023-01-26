@@ -23,7 +23,7 @@ import pandas as pd
 
 # Package import
 from caravel.io import load
-  
+
 
 class ParserBase(object):
     """ Object to retrieve data from a BIDS directory or a CubicWeb instance.
@@ -72,7 +72,7 @@ class ParserBase(object):
         if len(checks) == 0:
             return False
         return all([elem.endswith(self.EXT) for elem in checks])
-        
+
     def _check_layout(self, name):
         """ Check if the layout name is supported.
         """
@@ -115,7 +115,7 @@ class ParserBase(object):
             for name, name_data in project_data.items():
                 name_data.sort(key=lambda x: datetime.datetime.strptime(
                     x["date"], "%Y-%m-%d"))
-        return representations        
+        return representations
 
     def _check_conf(self, name):
         """ Check if configuration is declared for the layout.
@@ -143,7 +143,6 @@ class ParserBase(object):
         """ Load the configuration associated to a layout.
         """
         if not isinstance(self.conf[name], dict):
-            print(self.conf[name])
             with open(self.conf[name], "rt") as open_file:
                 self.conf[name] = json.load(open_file)
 
@@ -215,7 +214,7 @@ class ParserBase(object):
             the filtered layout.
         """
         raise NotImplementedError("This function has to be defined in child "
-                                  "child class.")         
+                                  "child class.")
 
     def load_data(self, name, df, replace=None):
         """ Load the data contained in the filename column of a pandas

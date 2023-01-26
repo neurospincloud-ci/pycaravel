@@ -20,3 +20,5 @@ from ._png import PNG
 from ._csv import CSV
 from ._xlsx import XLSX
 from ._pdf import PDF
+from ._plink import PLINK
+from ._vcf import VCF
