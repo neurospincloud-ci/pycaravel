@@ -17,3 +17,6 @@ from ._json import JSON
 from ._dwi import DWI
 from ._targz import TARGZ
 from ._png import PNG
+from ._csv import CSV
+from ._xlsx import XLSX
+from ._pdf import PDF

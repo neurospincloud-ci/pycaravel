@@ -66,6 +66,7 @@ REQUIRES = [
     "nibabel>=2.3.1",
     "cwbrowser>=2.2.1",
     "numpy>=1.11.0",
-    "imageio"
+    "imageio",
+    "PyPDF2"
 ]
 EXTRA_REQUIRES = {}

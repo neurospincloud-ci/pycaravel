@@ -1,6 +1,6 @@
 # coding: utf-8
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2019
+# NSAp - Copyright (C) CEA, 2021
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -8,20 +8,21 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the XLSX dataset loader.
 """
 
 # Third party import
 import pandas as pd
+import math
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
-    """ Define the TSV loader.
+class XLSX(LoaderBase):
+    """ Define the XLSX loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".xlsx"]
 
     def load(self, path):
         """ A method that load the table data.
@@ -36,7 +37,8 @@ class TSV(LoaderBase):
         data: pandas DataFrame
             the loaded table.
         """
-        return pd.read_table(path, sep="\t")
+
+        return pd.read_excel(path)
 
     def save(self, data, outpath):
         """ A method that save the table.
@@ -48,4 +50,4 @@ class TSV(LoaderBase):
         outpath: str
             the path where the the table will be saved.
         """
-        data.to_csv(outpath, sep="\t")
+        data.to_excel(outpath)

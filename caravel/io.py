@@ -18,10 +18,13 @@ from caravel.loaders import JSON
 from caravel.loaders import DWI
 from caravel.loaders import TARGZ
 from caravel.loaders import PNG
+from caravel.loaders import CSV
+from caravel.loaders import XLSX
+from caravel.loaders import PDF
 
 # Global parameters
 # > define all the available loaders
-LOADERS = [TSV, NIFTI, JSON, DWI, TARGZ, PNG]
+LOADERS = [TSV, CSV, NIFTI, JSON, DWI, TARGZ, XLSX, PDF, PNG]
 
 
 def load(path, **kwargs):
