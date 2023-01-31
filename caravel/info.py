@@ -67,6 +67,8 @@ REQUIRES = [
     "cwbrowser>=2.2.1",
     "numpy>=1.11.0",
     "imageio",
-    "PyPDF2"
+    "PyPDF2",
+    "vcfpy",
+    "pandas-plink"
 ]
 EXTRA_REQUIRES = {}

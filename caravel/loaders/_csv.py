@@ -25,7 +25,7 @@ class CSV(LoaderBase):
     allowed_extensions = [".csv"]
 
     def load(self, path, separator=",", header_type="infer", nrows=None,
-             skiprows=None):
+             skiprows=None, usecols=None):
         """ A method that load the table data.
 
         Parameters
@@ -41,7 +41,7 @@ class CSV(LoaderBase):
         """
 
         return pd.read_csv(path, header=header_type, sep=separator,
-                nrows=nrows, skiprows=skiprows)
+                usecols=usecols, nrows=nrows, skiprows=skiprows)
 
     def save(self, data, outpath):
         """ A method that save the table.
