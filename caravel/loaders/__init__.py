@@ -17,5 +17,10 @@ from ._json import JSON
 from ._dwi import DWI
 from ._targz import TARGZ
 from ._png import PNG
+from ._csv import CSV
+from ._xlsx import XLSX
+from ._pdf import PDF
+from ._plink import PLINK
+from ._vcf import VCF
 from ._mp4 import MP4
 from ._edf import EDF

@@ -1,6 +1,6 @@
 # coding: utf-8
 ##########################################################################
-# NSAp - Copyright (C) CEA, 2019
+# NSAp - Copyright (C) CEA, 2021
 # Distributed under the terms of the CeCILL-B license, as published by
 # the CEA-CNRS-INRIA. Refer to the LICENSE file or to
 # http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
@@ -8,20 +8,20 @@
 ##########################################################################
 
 """
-This module defines the TSV dataset loader.
+This module defines the PDF dataset loader.
 """
 
 # Third party import
-import pandas as pd
+import PyPDF2
 
 # Package import
 from .loader_base import LoaderBase
 
 
-class TSV(LoaderBase):
-    """ Define the TSV loader.
+class PDF(LoaderBase):
+    """ Define the PDF loader.
     """
-    allowed_extensions = [".tsv"]
+    allowed_extensions = [".pdf"]
 
     def load(self, path):
         """ A method that load the table data.
@@ -33,19 +33,11 @@ class TSV(LoaderBase):
 
         Returns
         -------
-        data: pandas DataFrame
+        data: object,
             the loaded table.
         """
-        return pd.read_table(path, sep="\t", dtype={'participant_id': object})
+        file = open(path, "rb")
+        fileReader = PyPDF2.PdfFileReader(file)
+        file.close()
 
-    def save(self, data, outpath):
-        """ A method that save the table.
-
-        Parameters
-        ----------
-        data: pandas DataFrame
-            the table to be saved.
-        outpath: str
-            the path where the the table will be saved.
-        """
-        data.to_csv(outpath, sep="\t")
+        return fileReader
