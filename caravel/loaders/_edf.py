@@ -12,6 +12,7 @@ This module defines the edf dataset loader.
 """
 
 # Third party import
+import pyedflib
 
 # Package import
 from .loader_base import LoaderBase
@@ -24,10 +25,22 @@ class EDF(LoaderBase):
 
     def load(self, path):
         """ A method that load the edf data.
-        """
-        return 0
 
-    def save(self):
+        Parameters
+        ----------
+        path: str
+            the path to the edf to be loaded.
+
+        Returns
+        -------
+        data: pyedflib object
+        """
+        return pyedflib.highlevel.read_edf(path)
+    
+    def save(self, path, signals, signal_headers, header=None):
         """ A method that save the image in edf.
         """
-        return 0
+        pyedflib.highlevel.write_edf(path,
+                                     signals=signals,
+                                     signal_headers=signal_headers,
+                                     header=header) 
