@@ -35,7 +35,7 @@ class EDF(LoaderBase):
         -------
         data: pyedflib object
         """
-        return pyedflib.highlevel.read_edf(path)
+        return pyedflib.EdfReader(path)
 
     def save(self, path, signals, signal_headers, header=None):
         """ A method that save the image in edf.
