@@ -9,17 +9,8 @@
 
 
 # System import
-from __future__ import print_function
 import os
-import re
-import sys
-import platform
-import subprocess
-from pprint import pprint
-from distutils.version import LooseVersion
-from setuptools.command.build_ext import build_ext
-from setuptools import setup, find_packages, Extension
-from setuptools.command.test import test as TestCommand
+from setuptools import setup, find_packages
 
 
 # Package information

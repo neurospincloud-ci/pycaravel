@@ -14,7 +14,6 @@ properly.
 
 # System import
 import importlib
-import distutils
 
 # Package import
 from .info import __version__

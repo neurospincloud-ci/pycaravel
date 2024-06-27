@@ -11,9 +11,6 @@
 This module contains the CubicWeb parser definition.
 """
 
-# System import
-import os
-
 # Third party import
 import numpy as np
 import pandas as pd

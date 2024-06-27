@@ -13,6 +13,7 @@ This module contains the generic parser definition.
 
 # Imports
 import re
+import warnings
 from string import Formatter
 from itertools import product
 
