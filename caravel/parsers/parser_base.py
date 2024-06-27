@@ -26,7 +26,7 @@ from caravel.io import load
 
 
 class ParserBase(object):
-    """ Object to retrieve data from a BIDS directory or a CubicWeb instance.
+    """ Object to retrieve data from a BIDS directory.
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
 
@@ -102,10 +102,8 @@ class ParserBase(object):
         """
         representations = {}
         layout_files = glob.glob(os.path.join(layoutdir, "*.pkl"))
-        layout_files += glob.glob(os.path.join(layoutdir, "*.cw"))
         for path in layout_files:
             basename = os.path.basename(path).replace(".pkl", "")
-            basename = basename.replace(".cw", "")
             project, name, timestamp = basename.split("_")
             if project not in representations:
                 representations[project] = {}

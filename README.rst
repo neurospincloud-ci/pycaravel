@@ -15,7 +15,7 @@ pycaravel
 =========
 
 This module has been created to simplify the search of datasets in a BIDS
-directory or a CubicWeb instance.
+directory.
 
 
 Important links

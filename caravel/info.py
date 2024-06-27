@@ -31,13 +31,13 @@ SUMMARY = """
 
     pycaravel is a Python module for **data searching** that offers:
 
-    * a common API for parsing multiple source of data (BIDS, CubicWeb, ...).
+    * a common API for parsing multiple source of data such as BIDS.
     * a common API to search in those datasets.
     * some utilities to load the retrieved data.
 """
 long_description = (
     "This module has been created to simplify the search of datasets in "
-    "a BIDS directory or a CubicWeb instance.")
+    "a BIDS directory.")
 
 # Main setup parameters
 NAME = "pycaravel"
@@ -46,7 +46,7 @@ MAINTAINER = "Antoine Grigis"
 MAINTAINER_EMAIL = "antoine.grigis@cea.fr"
 DESCRIPTION = description
 LONG_DESCRIPTION = long_description
-EXTRANAME = "NeuroSpin webPage"
+EXTRANAME = "NeuroSpin home page"
 EXTRAURL = "http://joliot.cea.fr/drf/joliot/Pages/Entites_de_recherche/NeuroSpin.aspx"
 URL = "https://github.com/neurospin/pycaravel"
 DOWNLOAD_URL = "https://github.com/neurospin/pycaravel"
@@ -64,7 +64,6 @@ REQUIRES = [
     "pandas>=0.19.2",
     "grabbit>=0.2.5",
     "nibabel>=2.3.1",
-    "cwbrowser>=2.2.1",
     "numpy>=1.11.0",
     "imageio",
     "PyPDF2",
