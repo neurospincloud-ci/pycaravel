@@ -102,7 +102,7 @@ class CWParser(ParserBase):
         Returns
         -------
         values: list
-            the key assocaited values in the layout.
+            the key associated values in the layout.
         """
         self._load_conf(name)
         connection = self._get_connection(name)

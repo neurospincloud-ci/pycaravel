@@ -33,7 +33,7 @@ SUMMARY = """
 
     * a common API for parsing multiple source of data (BIDS, CubicWeb, ...).
     * a common API to search in those datasets.
-    * some utilities to load the retrived data.
+    * some utilities to load the retrieved data.
 """
 long_description = (
     "This module has been created to simplify the search of datasets in "

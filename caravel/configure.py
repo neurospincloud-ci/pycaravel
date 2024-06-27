@@ -75,7 +75,7 @@ _|'''''|_| ''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|
 
 
 def info():
-    """ Dispaly some usefull information about the package.
+    """ Display some useful information about the package.
 
     Returns
     -------

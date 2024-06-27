@@ -77,7 +77,7 @@ class BIDSParser(ParserBase):
         Returns
         -------
         values: list
-            the key assocaited values in the layout.
+            the key associated values in the layout.
         """
         layout = self._load_layout(name)
         _key = "{0}.{1}".format(name, key)

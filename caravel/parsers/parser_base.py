@@ -46,14 +46,14 @@ class ParserBase(object):
         _conf = ParserBase._get_conf()
         if project not in _conf:
             raise ValueError(
-                "Unkown configuration for project '{0}'. Available projects "
+                "Unknown configuration for project '{0}'. Available projects "
                 "are: {1}.".format(project, _conf.keys()))
         self.conf = _conf[project]
         if layoutdir is not None:
             _repr = self._get_repr(layoutdir)
             if project not in _repr:
                 raise ValueError(
-                    "Unkown representation for project '{0}'. Available "
+                    "Unknown representation for project '{0}'. Available "
                     "projects are: {1}.".format(project, _repr.keys()))
             self.representation = _repr[project]
         else:
@@ -123,7 +123,7 @@ class ParserBase(object):
         if name not in self.conf:
             raise ValueError(
                 "No configuration available for layout '{0}'. Please contact "
-                "the module developpers to add the support for your project.")
+                "the module developers to add the support for your project.")
 
     def _load_layout(self, name):
         """ Load a layout from its pre-generated representation.
@@ -132,7 +132,7 @@ class ParserBase(object):
             if name not in self.representation:
                 raise ValueError(
                     "A pre-generated '{0}' layout for your project '{1}' is "
-                    "expected in user mode. Please contact the developpers "
+                    "expected in user mode. Please contact the developers "
                     "of the module.".format(name, self.project))
             path = self.representation[name][-1]["path"]
             with open(path, "rb") as open_file:
@@ -191,7 +191,7 @@ class ParserBase(object):
         Returns
         -------
         values: list
-            the key assocaited values in the layout.
+            the key associated values in the layout.
         """
         raise NotImplementedError("This function has to be defined in child "
                                   "child class.")

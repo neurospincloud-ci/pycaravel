@@ -29,8 +29,8 @@ print(caravel.info())
 # --------------------------------
 #
 # The package provides a common interface to parse a BIDS directory. The
-# parsing rules are defined by projects in the module, so we will beed to
-# specify the project name you are working on. For the moement it is not
+# parsing rules are defined by projects in the module, so you will need to
+# specify the project name you are working on. For the moment it is not
 # possible to specify these rules via the API.
 
 parser = caravel.get_parser(
@@ -54,7 +54,7 @@ print(parser.export_layout("sourcedata"))
 
 #############################################################################
 # It is also possible to filter this dataset. You need first to list all the
-# avaliable filtering keys, then list all the availables values for the
+# available filtering keys, then list all the availables values for the
 # filtering key(s) of interest, and finally filter your dataset.
 
 print(parser.list_keys("sourcedata"))
