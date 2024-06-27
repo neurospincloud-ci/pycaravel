@@ -50,5 +50,5 @@ class JSON(LoaderBase):
         outpath: str
             the path where the the data will be saved.
         """
-        with open(path, "wt") as open_file:
+        with open(outpath, "wt") as open_file:
             json.dump(data, open_file, indent=4)

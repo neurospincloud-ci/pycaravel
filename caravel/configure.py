@@ -14,7 +14,6 @@ properly.
 
 # System import
 import importlib
-import distutils
 
 # Package import
 from .info import __version__
@@ -75,7 +74,7 @@ _|'''''|_| ''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|_|'''''|
 
 
 def info():
-    """ Dispaly some usefull information about the package.
+    """ Display some useful information about the package.
 
     Returns
     -------
