@@ -69,6 +69,7 @@ REQUIRES = [
     "imageio",
     "PyPDF2",
     "vcfpy",
-    "pandas-plink"
+    "pandas-plink",
+    "pyedflib"
 ]
 EXTRA_REQUIRES = {}
