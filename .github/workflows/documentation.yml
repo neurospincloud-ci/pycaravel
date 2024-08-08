@@ -18,6 +18,9 @@ jobs:
         os: [ubuntu-latest]
         python-version: [3.8]
 
+    permissions:
+      contents: write
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
