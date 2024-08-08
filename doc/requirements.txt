@@ -1,3 +1,4 @@
+Jinja2<3.1
 git+https://github.com/AGrigis/pysphinxdoc.git
 pandas
 git+https://github.com/grabbles/grabbit.git
