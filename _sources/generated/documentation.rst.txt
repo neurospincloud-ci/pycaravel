@@ -1,0 +1,154 @@
+.. AUTO-GENERATED FILE -- DO NOT EDIT!
+
+API documentation of CARAVEL
+=============================
+
+This is the classes and functions reference in caravel. Please refer to the gallery for further details, as the class and function raw specifications may not be enough to give full guidelines on their uses.
+
+.. raw:: html
+
+    <!-- Block section -->
+
+    <div class='container-fluid'>
+
+    <div class='float-left'>
+
+    <div class='row'>
+
+    <div class='col-md-4'>
+    <h3><a href='caravel.html'>
+    caravel
+    </a></h3>
+    <blockquote>
+        <p>Main module that contains the 'Caravel' generic parser.</p>    </blockquote>
+    </div>
+    <div class='col-md-4'>
+    <h3><a href='caravel.loaders.html'>
+    caravel.loaders
+    </a></h3>
+    <blockquote>
+        <p>This module defines common loaders for imaging-genetic datasets.</p>    </blockquote>
+    </div>
+    <div class='col-md-4'>
+    <h3><a href='caravel.parsers.html'>
+    caravel.parsers
+    </a></h3>
+    <blockquote>
+        <p>This module defines common parsers for imaging-genetic resources.</p>    </blockquote>
+    </div>
+
+    </div>
+    <div class='row'>
+    </div>
+    </div>
+    </div>
+
+.. rst-class:: documentation-contents
+
+  **Contents**:
+    * `caravel <caravel.html>`_
+        .. hidden-technical-block::
+          :label: [+ show/hide members]
+          :starthidden: true
+
+          `caravel.build_path <caravel.parser.build_path.html>`_
+
+          `caravel.get_parser <caravel.parser.get_parser.html>`_
+
+          `caravel.info <caravel.configure.info.html>`_
+
+          `caravel.io.get_loader <caravel.io.get_loader.html>`_
+
+          `caravel.io.get_saver <caravel.io.get_saver.html>`_
+
+          `caravel.io.load <caravel.io.load.html>`_
+
+          `caravel.io.save <caravel.io.save.html>`_
+
+          `caravel.configure._check_python_versions <caravel.configure._check_python_versions.html>`_
+
+          `caravel.configure.info <caravel.configure.info.html>`_
+
+          `caravel.configure.logo <caravel.configure.logo.html>`_
+
+          `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
+
+          `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
+
+          `caravel.parser.build_path <caravel.parser.build_path.html>`_
+
+          `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
+
+          `caravel.parser.listify <caravel.parser.listify.html>`_
+
+    * `caravel.loaders <caravel.loaders.html>`_
+        .. hidden-technical-block::
+          :label: [+ show/hide members]
+          :starthidden: true
+
+          `caravel.loaders.CSV <caravel.loaders._csv.CSV.html>`_
+
+          `caravel.loaders.DWI <caravel.loaders._dwi.DWI.html>`_
+
+          `caravel.loaders.EDF <caravel.loaders._edf.EDF.html>`_
+
+          `caravel.loaders.JSON <caravel.loaders._json.JSON.html>`_
+
+          `caravel.loaders.MP4 <caravel.loaders._mp4.MP4.html>`_
+
+          `caravel.loaders.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
+
+          `caravel.loaders.PDF <caravel.loaders._pdf.PDF.html>`_
+
+          `caravel.loaders.PLINK <caravel.loaders._plink.PLINK.html>`_
+
+          `caravel.loaders.PNG <caravel.loaders._png.PNG.html>`_
+
+          `caravel.loaders.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+
+          `caravel.loaders.TSV <caravel.loaders._tsv.TSV.html>`_
+
+          `caravel.loaders.VCF <caravel.loaders._vcf.VCF.html>`_
+
+          `caravel.loaders.XLSX <caravel.loaders._xlsx.XLSX.html>`_
+
+          `caravel.loaders.loader_base.LoaderBase <caravel.loaders.loader_base.LoaderBase.html>`_
+
+          `caravel.loaders._nifti.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
+
+          `caravel.loaders._edf.EDF <caravel.loaders._edf.EDF.html>`_
+
+          `caravel.loaders._csv.CSV <caravel.loaders._csv.CSV.html>`_
+
+          `caravel.loaders._tsv.TSV <caravel.loaders._tsv.TSV.html>`_
+
+          `caravel.loaders._vcf.VCF <caravel.loaders._vcf.VCF.html>`_
+
+          `caravel.loaders._png.PNG <caravel.loaders._png.PNG.html>`_
+
+          `caravel.loaders._mp4.MP4 <caravel.loaders._mp4.MP4.html>`_
+
+          `caravel.loaders._plink.PLINK <caravel.loaders._plink.PLINK.html>`_
+
+          `caravel.loaders._pdf.PDF <caravel.loaders._pdf.PDF.html>`_
+
+          `caravel.loaders._targz.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+
+          `caravel.loaders._dwi.DWI <caravel.loaders._dwi.DWI.html>`_
+
+          `caravel.loaders._xlsx.XLSX <caravel.loaders._xlsx.XLSX.html>`_
+
+          `caravel.loaders._json.JSON <caravel.loaders._json.JSON.html>`_
+
+    * `caravel.parsers <caravel.parsers.html>`_
+        .. hidden-technical-block::
+          :label: [+ show/hide members]
+          :starthidden: true
+
+          `caravel.parsers.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
+
+          `caravel.parsers.parser_base.ParserBase <caravel.parsers.parser_base.ParserBase.html>`_
+
+          `caravel.parsers.bids.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
+
+
