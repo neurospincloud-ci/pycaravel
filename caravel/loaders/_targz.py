@@ -38,4 +38,4 @@ class TARGZ(LoaderBase):
         """
         with gzip.open(path, "rb") as open_file:
             for line in open_file:
-                pass 
+                pass

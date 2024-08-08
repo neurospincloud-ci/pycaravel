@@ -41,7 +41,7 @@ class CSV(LoaderBase):
         """
 
         return pd.read_csv(path, header=header_type, sep=separator,
-                usecols=usecols, nrows=nrows, skiprows=skiprows)
+                           usecols=usecols, nrows=nrows, skiprows=skiprows)
 
     def save(self, data, outpath):
         """ A method that save the table.

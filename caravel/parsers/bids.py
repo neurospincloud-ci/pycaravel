@@ -120,7 +120,7 @@ class BIDSParser(ParserBase):
                 data.append(row)
             df = pd.DataFrame(data, columns=header)
         df.dropna(axis="columns", how="all", inplace=True)
-        return df           
+        return df
 
     def pickling_layout(self, bids_root, name, outdir, subset=None):
         """ Load the requested BIDS layout and save it as a pickle.

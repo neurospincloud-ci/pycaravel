@@ -11,6 +11,7 @@
 This module defines the loader base class.
 """
 
+
 class LoaderBase(object):
     """ Base class for all loaders.
     """

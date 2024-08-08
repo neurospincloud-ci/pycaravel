@@ -26,7 +26,7 @@ from caravel.io import load
 
 
 class ParserBase(object):
-    """ Object to retrieve data from a BIDS directory or a CubicWeb instance.
+    """ Base parser to retrieve data from a BIDS directory.
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
 

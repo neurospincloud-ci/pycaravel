@@ -11,5 +11,4 @@
 This module defines common parsers for imaging-genetic resources.
 """
 
-# from .cw import CWParser
 from .bids import BIDSParser

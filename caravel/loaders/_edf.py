@@ -43,4 +43,4 @@ class EDF(LoaderBase):
         pyedflib.highlevel.write_edf(path,
                                      signals=signals,
                                      signal_headers=signal_headers,
-                                     header=header) 
+                                     header=header)

@@ -1,11 +1,11 @@
 
-|Python27|_ |Python35|_ |PyPi|_
+|Python38|_ |Python312|_ |PyPi|_
 
-.. |Python27| image:: https://img.shields.io/badge/python-2.7-blue.svg
-.. _Python27: https://badge.fury.io/py/pycaravel
+.. |Python38| image:: https://img.shields.io/badge/python-3.8-blue.svg
+.. _Python38: https://github.com/neurospincloud-ci/pycaravel
 
-.. |Python35| image:: https://img.shields.io/badge/python-3.5-blue.svg
-.. _Python35: https://badge.fury.io/py/pycaravel
+.. |Python312| image:: https://img.shields.io/badge/python-3.12-blue.svg
+.. _Python312: https://github.com/neurospincloud-ci/pycaravel
 
 .. |PyPi| image:: https://badge.fury.io/py/pycaravel.svg
 .. _PyPi: https://badge.fury.io/py/pycaravel
@@ -14,15 +14,15 @@
 pycaravel
 =========
 
-This module has been created to simplify the search of datasets in a BIDS
-directory or a CubicWeb instance.
+This module is designed to simplify continuous integration (CI) of data from
+multiple projects.
 
 
 Important links
 ===============
 
-- Official source code repo: https://github.com/neurospin/pycaravel
-- HTML documentation (last stable release): http://neurospin.github.io/pycaravel
+- Official source code repo: https://github.com/neurospincloud-ci/pycaravel
+- HTML documentation (last stable release): http://neurospincloud-ci.github.io/pycaravel
 
 
 Dependencies
@@ -33,6 +33,12 @@ The required dependencies to use the software are:
 * pandas
 * grabbit
 * nibabel
+* numpy
+* imageio
+* PyPDF2
+* vcfpy
+* pandas-plink
+* pyEDFlib
 
 
 Install

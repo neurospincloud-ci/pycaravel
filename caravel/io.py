@@ -28,7 +28,8 @@ from caravel.loaders import EDF
 
 # Global parameters
 # > define all the available loaders
-LOADERS = [MP4, EDF, PNG, TSV, CSV, NIFTI, JSON, DWI, TARGZ, XLSX, PDF, PLINK, VCF]
+LOADERS = [MP4, EDF, PNG, TSV, CSV, NIFTI, JSON, DWI, TARGZ, XLSX, PDF,
+           PLINK, VCF]
 
 
 def load(path, **kwargs):

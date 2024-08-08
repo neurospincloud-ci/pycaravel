@@ -1,0 +1,11 @@
+git+https://github.com/AGrigis/pysphinxdoc.git
+pandas
+git+https://github.com/grabbles/grabbit.git
+nibabel
+numpy
+imageio
+PyPDF2
+vcfpy
+pandas-plink
+pyEDFlib
+sphinx==3.5.4

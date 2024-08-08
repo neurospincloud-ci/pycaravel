@@ -61,7 +61,8 @@ def _expand_keys(entities):
 
     Examples
     --------
-    >>> entities = {'subject': ['01', '02'], 'session': ['1', '2'], 'task': ['rest', 'finger']}
+    >>> entities = {'subject': ['01', '02'], 'session': ['1', '2'],
+                    'task': ['rest', 'finger']}
     >>> out = _expand_entities(entities)
     >>> len(out)
     8
@@ -87,7 +88,8 @@ def _expand_keys(entities):
     return [{k: v for k, v in zip(keys, combs)} for combs in values]
 
 
-_PATTERN_FIND = re.compile(r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
+_PATTERN_FIND = re.compile(
+    r"({([\w\d]*?)(?:<([^>]+)>)?(?:\|((?:\.?[\w])+))?\})")
 
 
 def build_path(keys, path_patterns, strict=False):
@@ -144,7 +146,7 @@ def build_path(keys, path_patterns, strict=False):
                 warnings.warn("Pattern '{0}' is inconsistent as it defines an "
                               "invalid default value.".format(fmt))
             if (valid_expanded and name in keys and
-                set(keys[name]) - set(valid_expanded)):
+                    set(keys[name]) - set(valid_expanded)):
                 continue
             if defval and name not in tmp_keys:
                 tmp_keys[name] = [defval]
@@ -156,7 +158,8 @@ def build_path(keys, path_patterns, strict=False):
         optional_patterns = re.findall(r'(\[.*?\])', new_path)
         # Optional patterns with selector are cast to mandatory or removed
         for op in optional_patterns:
-            for ent_name in {k for k, v in keys.items() if (v is not None) and not (v[0]!=v[0])}:
+            for (ent_name in {k for k, v in keys.items() if (v is not None)
+                              and not (v[0] != v[0])}):
                 if ('{%s}' % ent_name) in op:
                     new_path = new_path.replace(op, op[1:-1])
                     continue
