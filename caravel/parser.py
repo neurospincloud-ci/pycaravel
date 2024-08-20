@@ -15,9 +15,6 @@ This module contains the generic parser definition.
 import re
 from string import Formatter
 from itertools import product
-
-# Package import
-# from caravel.parsers import CWParser
 from caravel.parsers import BIDSParser
 
 
@@ -26,13 +23,15 @@ from caravel.parsers import BIDSParser
 PARSERS = [BIDSParser]
 
 
-def get_parser(project, layoutdir):
+def get_parser(project, confdir, layoutdir):
     """ Method to return the appropriate parser for your study.
 
     Parameters
     ----------
     project: str
         the name of the project you are working on.
+    confdir: str
+        the locations of the configuration file of the current project.
     layoutdir: str
         the location of the pre-generated parsing representations. If None
         switch to managers mode.
@@ -43,7 +42,7 @@ def get_parser(project, layoutdir):
         the dataset appropriate parser.
     """
     for parser_class in PARSERS:
-        parser = parser_class(project, layoutdir)
+        parser = parser_class(project, confdir, layoutdir)
         if parser.can_load():
             return parser
     raise ValueError("No loader available for '{0}'.".format(project))

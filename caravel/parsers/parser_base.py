@@ -30,20 +30,22 @@ class ParserBase(object):
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
 
-    def __init__(self, project, layoutdir):
+    def __init__(self, project, confdir, layoutdir):
         """ Initialize the Caravel class.
 
         Parameters
         ----------
         project: str
             the name of the project you are working on.
+        confdir: str
+            the locations of the configuration file of the current project.
         layoutdir: str
             the location of the pre-generated parsing representations. If None
             switch to managers mode.
         """
         self.project = project
         self.layouts = {}
-        _conf = ParserBase._get_conf()
+        _conf = ParserBase._get_conf(confdir)
         if project not in _conf:
             raise ValueError(
                 "Unkown configuration for project '{0}'. Available projects "
@@ -82,11 +84,9 @@ class ParserBase(object):
                 "{1}.".format(name, self.AVAILABLE_LAYOUTS))
 
     @classmethod
-    def _get_conf(cls):
+    def _get_conf(cls, confdir):
         """ List all the configurations available and sort them by project.
         """
-        confdir = os.path.join(
-            os.path.abspath(os.path.dirname(__file__)), os.pardir, "conf")
         conf = {}
         for path in glob.glob(os.path.join(confdir, "*.conf")):
             basename = os.path.basename(path).replace(".conf", "")
@@ -102,10 +102,8 @@ class ParserBase(object):
         """
         representations = {}
         layout_files = glob.glob(os.path.join(layoutdir, "*.pkl"))
-        layout_files += glob.glob(os.path.join(layoutdir, "*.cw"))
         for path in layout_files:
             basename = os.path.basename(path).replace(".pkl", "")
-            basename = basename.replace(".cw", "")
             project, name, timestamp = basename.split("_")
             if project not in representations:
                 representations[project] = {}

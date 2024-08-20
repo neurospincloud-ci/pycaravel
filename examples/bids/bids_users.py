@@ -14,14 +14,10 @@ In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 """
 
+import os
 import caravel
 
 print(caravel.__version__)
-
-#############################################################################
-# Now you can run the the configuration info function to see if all the
-# dependencies are installed properly:
-
 print(caravel.info())
 
 #############################################################################
@@ -33,9 +29,10 @@ print(caravel.info())
 # specify the project name you are working on. For the moement it is not
 # possible to specify these rules via the API.
 
+cwdir = os.path.dirname(os.path.realpath(__file__))
 parser = caravel.get_parser(
-    project="hbn",
-    layoutdir="/neurospin/tmp/pycaravel/layout")
+    project="hbn", confdir=os.path.join(cwdir, os.pardir, "conf"),
+    layoutdir=cwdir)
 
 #############################################################################
 # You can now list the available configurations for your project, and the

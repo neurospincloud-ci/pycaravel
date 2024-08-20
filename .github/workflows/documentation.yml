@@ -45,6 +45,8 @@ jobs:
         sphinxdoc -v 2 -p . -n caravel -o tmp/doc
         cd tmp/doc
         make raw-html
+        ls source/_static
+        ls build/html/_static
         cd ../..
     - name: Upload documentation as an artifact
       uses: actions/upload-artifact@v4

@@ -30,15 +30,16 @@ data from multiple projects.
 SUMMARY = """
 .. container:: summary-carousel
 
-    pycaravel is a Python module for **data searching** that offers:
+    pycaravel is a Python module to simplify continuous integration (CI) of
+    data from multiple projects:
 
     1. a common API for parsing multiple source of data (currently only BIDS).
     2. a common API to search in those datasets.
-    3. some utilities to load the retrived data.
+    3. a common APU to validate incoming data.
 """
 long_description = (
-    "This module has been created to simplify the search of datasets in "
-    "a BIDS directory or a CubicWeb instance.")
+    "This module is designed to simplify continuous integration (CI) "
+    "of data from multiple projects. ")
 
 # Main setup parameters
 NAME = "pycaravel"
