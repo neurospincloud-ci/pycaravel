@@ -1,0 +1,302 @@
+#! /usr/bin/env python3
+##########################################################################
+# NSAp - Copyright (C) CEA, 2020 - 2024
+# Distributed under the terms of the CeCILL-B license, as published by
+# the CEA-CNRS-INRIA. Refer to the LICENSE file or to
+# http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
+# for details.
+##########################################################################
+
+# Imports
+import os
+import json
+import re
+import shutil
+import logging
+from pprint import pprint
+from collections import namedtuple
+from datetime import datetime
+import numpy as np
+import caravel
+from caravel.utils import export_report
+from caravel.mail import EmailManager
+from caravel.validation import run_validation
+from caravel.nextcloud import NextCloud, ShareType, Permission
+
+
+def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
+         smtp_host, smtp_port, support_email, test_mod=False, verbose=0):
+    """ The validation/integration script.
+
+    You need first to mount the WEBDAV shares using the mount.davfs command.
+
+    Parameters
+    ----------
+    project: str
+        the name of the project: a correspoing Python module MUST be available.
+    upload_mounts: list
+        the folders that contains the data to be validated: each folder
+        MUST end with '-upload' and begin with '<family>'.
+    allowed_subjects: str
+        a text file containing a list of allowed PSC1.
+    working_dir: str
+        a working directory.
+    nextcloud_url: str
+        the URL of the NextCloud service.
+    smtp_host: str
+        the SMTP host name.
+    smtp_port: int
+        the SMTP port.
+    support_email: str
+        the support email in case of internal error.
+    test_mod: bool, deafault=False
+        if set select only the '<family>.structure' validators.
+    verbose: int, default 0
+        increase the verbosity level: 0 silent, [1, 2] verbose.
+    """
+    # Retrieve environment variables
+    if login is None:
+        login = os.environ.get("NEXTCLOUD_ADMIN_USER")
+    if password is None:
+        password = os.environ.get("NEXTCLOUD_ADMIN_PASSWORD")
+    if login is None or password is None:
+        raise ValueError("Please define first the 'NEXTCLOUD_USERNAME' and "
+                         "'NEXTCLOUD_PASSWORD' variable.")
+
+    # Parameters and configurations
+    project_module = importlib.import_module(project)
+    runtime = {
+        "tool": "validation_and_integration",
+        "timestamp": datetime.now().isoformat(),
+        "caravel_version": caravel.__version__,
+        f"{project}_version": project_module.__version__}
+    logdir = os.path.join(working_dir, "logs")
+    if not os.path.isdir(logdir):
+        os.mkdir(logdir)
+    logfile = os.path.join(logdir, f"stdout_{runtime['timestamp']}.log")
+    logger = logging.getLogger("caravel")
+    validation_module = importlib.import_module(f"{project}.validation")
+    if verbose > 0:
+        validation_module.ValidationBase.__level__ = "debug"
+        validation_module.ValidationBase.setup_logging(logfile=logfile)
+    layoutdir = os.path.join(working_dir, "layout")
+    if not os.path.isdir(layoutdir):
+        os.mkdir(layoutdir)
+    datadir = os.path.join(working_dir, "data")
+    if not os.path.isdir(datadir):
+        os.mkdir(datadir)
+    email_manager = EmailManager(smtp_host, smtp_port)
+    subjects = None
+    if allowed_subjects is not None:
+        subjects = np.loadtxt(allowed_subjects, dtype=str)
+    logger.info(f"Allowed subjects: {subjects}")
+    if verbose > 0:
+        pprint(f"[info] Starting {project} validation/integration ...")
+        pprint("[info] Runtime:")
+        pprint(runtime)
+        pprint("[info] Inputs:")
+        pprint(inputs)
+
+    # Step 1: Create a connection to the NextCloud service.
+    session = NextCloud(
+        endpoint=nextcloud_url, user=login, password=password,
+        json_output=True, verify=False)
+
+    # Step 2: Check that provided mounts are shared, properly named and ready
+    # for validation (i.e. does not contain the 'wip' file and can be linked to
+    # a collected path.
+    shares = session.get_shares()
+    shares = dict([(os.path.basename(item["path"]), item)
+                   for item in shares.data
+                   if item["share_type"] == ShareType.GROUP])
+    logger.debug(f"Shares: {shares}")
+    groups = session.get_groups().data["groups"]
+    logger.debug(f"Groups: {groups}")
+    data = []
+    Point = namedtuple("DataItem",
+                       ("uploadname uploaddir collectname colletdir wipfile "
+                        "family mails"))
+    for path in upload_mounts:
+        if not path.endswith("-upload"):
+            raise ValueError(f"Mount suffix MUST be '-upload': '{path}'.")
+        name = os.path.basename(path)
+        if name not in shares:
+            raise ValueError(f"Mount '{path}' is not a shared.")
+        _, family, _ = re.split("-|_", name)
+        logger.info(f"Family: {family}")
+        wip_file = os.path.join(path, "wip")
+        if not os.path.isfile(wip_file):
+            tocheck_path.append(path)
+        local_wipfile = os.path.join(datadir, "wip")
+        if not os.path.isfile(local_wipfile):
+            os.mknod(local_wipfile)
+        collected_path = path.replace("-upload", "-collected")
+        collected_name = os.path.basename(collected_path)
+        if not os.path.isdir(collected_path):
+            raise ValueError(
+                f"An associated '-collected' path is expected for '{path}'.")
+        if name not in groups:
+            raise ValueError(f"An associated group is expected for '{name}'.")
+        group_users = session.get_group(name).data["users"]
+        logger.debug(f"Group members: {group_users}")
+        to_addrs = []
+        for uid in group_users:
+            mail = session.get_user(uid).data["email"]
+            if mail is not None:
+                to_addrs.append(mail)
+        logger.debug(f"To emails: {to_addrs}")
+        data.append(DataItem(name, path, collected_name, collected_path,
+                             wip_file, family, to_addrs))
+    logger.info(f"Path to check: {[item.uploaddir for item in data]}")
+
+    # Step 3: Generate a report for each path to check.
+    outputs = []
+    for item in data:
+        logger.info(f"Processing '{item.uploaddir}'...")
+        share = shares[item.uploadname]
+        res = session.update_share(share["id"], Permission.READ)
+        status_fct = getattr(
+            validation_module, f"get_{item.family}_status", None)
+        if status_fct is None:
+            raise ValueError(
+                f"You need to define a status function for '{item.family}'.")
+        already_integrated = status_fct(item.collectdir)
+        logger.info(f"Already integrated: {already_integrated}")
+        projectdir = os.path.dirname(os.path.realpath(project_module.__file__))
+        parser = caravel.get_parser(
+            project=f"{project}-{item.family}",
+            confdir=os.path.join(projectdir, "conf"), layoutdir=None)
+        if os.path.isdir(os.path.join(item.uploaddir, "sourcedata")):
+            parser.pickling_layout(
+                bids_root=item.uploaddir, name="sourcedata", outdir=layoutdir)
+        if os.path.isdir(os.path.join(item.uploaddir, "rawdata")):
+            parser.pickling_layout(
+                bids_root=item.uploaddir, name="rawdata", outdir=layoutdir)
+        if test_mod:
+            family_selector = f"{item.family}.structure"
+        else:
+            family_selector = f"{item.family}.*"
+        validators = validation_module.get_validators(family=family_selector)
+        logger.info(f"Validators: {validators}")
+        data = {
+            "layoutdir": layoutdir,
+            "project": f"{project}-{item.family}",
+            "already_integrated": already_integrated}
+        if subjects is not None:
+            data["allowed_subjects"] = subjects
+        report = run_validation(data, validators=validators, logfile=logfile)
+        logger.info(f"Report: {report}")
+        in_error = "Internal error" in repr(report)
+        if in_error:
+            email_manager.send_mail(
+                item.mails + [support_email], subject="NeuroSpin data collection",
+                body=("The validation/integration process has failed due to an "
+                      "internal error. The support team is in copy of this email "
+                      "and will fix the problem quickly."),
+                from_addr="noreply@cea.fr", files=None)
+        else:
+            if [report[i] for i in report if report[i] != {}]:
+                mail_txt = (
+                    "The validation/integration process is now complete. "
+                    "Your last upload did not pass the checks, "
+                    "Please connect the service to see the report file "
+                    "and correct your input.")
+            else:
+                mail_txt = (
+                    "The validation/integration process is now complete. "
+                    "Your last upload passed the checks, "
+                    "you can see the result in the 'collected' "
+                    "folder of your modality.")
+            outputs.append((item, report))
+            res = session.update_share(share["id"], Permission.ALL)
+            email_manager.send_mail(
+                item.mails, subject="NeuroSpin data collection",
+                body=(mail_txt),
+                from_addr="noreply@cea.fr", files=None)
+
+    # Step 4: Finally integrate the data listed by the 'list_<family>_datasets'
+    # function or generate report issues.
+    for item, report in outputs:
+        for filename in ("report.json", "report.docx"):
+            if os.path.isfile(os.path.join(item.collectdir, filename)):
+                res = session.delete_path(
+                    "admin", path=os.path.join(
+                        project, item.collectname, filename))
+                if not res.is_ok:
+                    raise ValueError(f"Unable to delete '{filename}'.")
+        if all(len(val) == 0 for val in report.values()):
+            logger.info(f"Ready to integrate: '{item.uploaddir}'.")
+            list_fct = getattr(
+                validation_module, f"list_{item.family}_datasets", None)
+            if list_fct is None:
+                raise ValueError(
+                    "You need to define a list datasets function for "
+                    f"'{family}'.")
+            datasets = list_fct(item.uploaddir)
+            logger.info(f"Datasets to move: {datasets}")
+            for dirname in datasets:
+                is_already_collected = os.pth.isdir(
+                    os.path.join(item.collectdir, dirname))
+                if not is_already_collected:
+                    path = os.path.join(project, item.collectname)
+                    splits = dirname.split(os.sep)
+                    for name in splits:
+                        path = os.path.join(path, name)
+                        res = session.create_folder("admin", folder_path=path)
+                        if not res.is_ok:
+                            raise ValueError(
+                                f"Unable to CREATE directory '{path}'.")
+                    res = session.move_path(
+                        "admin",
+                        path=os.path.join(
+                            project, item.uploadname, dirname),
+                        destination_path=os.path.join(
+                            project, item.collectname, dirname),
+                        overwrite=False)
+                    if not res.is_ok:
+                        raise ValueError(
+                            f"Unable to INTEGRATE data '{dirname}'.")
+                    for idx in range(len(splits)):
+                        path = os.sep.join(
+                            [project, item.collectname] + splits[:-idx])
+                        res = session.list_folders("admin", path=path)
+                        if res.data is not None and len(res.data == 0):
+                            res = session.delete_path("admin", path=path)
+                            if not res.is_ok:
+                                raise ValueError(
+                                    f"Unable to delete path: '{path}.")
+        else:
+            logger.info("In error: {item.uploaddir}")
+            local_reportfile = os.path.join(
+                datadir, f"report_{runtime['timestamp']}.json")
+            with open(local_reportfile, "wt") as open_file:
+                json.dump(report, open_file, indent=2)
+            local_docx_reportfile = os.path.join(
+                datadir, f"report_{runtime['timestamp']}.docx")
+            export_report(report, runtime["timestamp"], local_docx_reportfile)
+            for path in (local_reportfile, local_docx_reportfile):
+                filename = os.path.basename(path)
+                res = session.upload_file(
+                    "admin", local_filepath=local_reportfile,
+                    remote_filepath=os.path.join(
+                        project, item.collectname, filename))
+                if not res.is_ok:
+                    raise ValueError(f"Unable to upload '{filename}'.")
+        res = session.upload_file(
+            "admin", local_filepath=local_wipfile,
+            remote_filepath=os.path.join(project, item.collectname, "wip"))
+        if not res.is_ok:
+            raise ValueError("Unable to upload WIP file.")
+
+    # Update the outputs and save them and the inputs in a 'logs' directory.
+    for name, final_struct in [("inputs", inputs), ("outputs", outputs),
+                               ("runtime", runtime)]:
+        log_file = os.path.join(logdir, f"{name}_{runtime['timestamp']}.json")
+        with open(log_file, "wt") as open_file:
+            json.dump(final_struct, open_file, sort_keys=True,
+                      check_circular=True, indent=4)
+
+
+if __name__ == "__main__":
+    import fire
+    fire.Fire(main)

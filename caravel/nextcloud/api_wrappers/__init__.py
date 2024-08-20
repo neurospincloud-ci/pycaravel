@@ -1,3 +1,7 @@
+"""
+NextCloud Python API from https://github.com/matejak/nextcloud-API.git.
+"""
+
 from .activity import Activity
 from .apps import Apps
 from .capabilities import Capabilities
