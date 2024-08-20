@@ -43,7 +43,7 @@ This is the classes and functions reference in caravel. Please refer to the gall
     caravel.nextcloud.api_wrappers
     </a></h3>
     <blockquote>
-    </blockquote>
+        <p>NextCloud Python API from <a class="reference external" href="https://github.com/matejak/nextcloud-API.git">https://github.com/matejak/nextcloud-API.git</a>.</p>    </blockquote>
     </div>
     <div class='col-md-4'>
     <h3><a href='caravel.parsers.html'>
