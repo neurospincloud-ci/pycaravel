@@ -87,7 +87,7 @@
                             
                             
                             <li>API</li>
-                            <li><a href="caravel.html">caravel</a></li><li><a href="caravel.loaders.html">caravel.loaders</a></li><li><a href="caravel.parsers.html">caravel.parsers</a></li>
+                            <li><a href="caravel.html">caravel</a></li><li><a href="caravel.loaders.html">caravel.loaders</a></li><li><a href="caravel.nextcloud.html">caravel.nextcloud</a></li><li><a href="caravel.nextcloud.api_wrappers.html">caravel.nextcloud.api_wrappers</a></li><li><a href="caravel.parsers.html">caravel.parsers</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -141,7 +141,7 @@
 </div>
 <dl class="py class">
 <dt id="caravel.parser.BIDSParser">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">caravel.parser.</span></code><code class="sig-name descname"><span class="pre">BIDSParser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layoutdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/bids.html#BIDSParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caravel.parser.BIDSParser" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">caravel.parser.</span></code><code class="sig-name descname"><span class="pre">BIDSParser</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">project</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confdir</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">layoutdir</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/caravel/parsers/bids.html#BIDSParser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#caravel.parser.BIDSParser" title="Permalink to this definition">¶</a></dt>
 <dd><p>Object to retrieve data from a BIDS directory.</p>
 <p>Initialize the Caravel class.</p>
 <dl class="field-list">
@@ -149,6 +149,10 @@
 <dd class="field-odd"><p><strong>project</strong> : str</p>
 <blockquote>
 <div><p>the name of the project you are working on.</p>
+</div></blockquote>
+<p><strong>confdir</strong> : str</p>
+<blockquote>
+<div><p>the locations of the configuration file of the current project.</p>
 </div></blockquote>
 <p><strong>layoutdir</strong> : str</p>
 <blockquote>

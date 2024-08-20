@@ -168,7 +168,7 @@
                                 
                             
                             <li>API</li>
-                            <li><a href="../../generated/caravel.html">caravel</a></li><li><a href="../../generated/caravel.loaders.html">caravel.loaders</a></li><li><a href="../../generated/caravel.parsers.html">caravel.parsers</a></li>
+                            <li><a href="../../generated/caravel.html">caravel</a></li><li><a href="../../generated/caravel.loaders.html">caravel.loaders</a></li><li><a href="../../generated/caravel.nextcloud.html">caravel.nextcloud</a></li><li><a href="../../generated/caravel.nextcloud.api_wrappers.html">caravel.nextcloud.api_wrappers</a></li><li><a href="../../generated/caravel.parsers.html">caravel.parsers</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -230,14 +230,11 @@ In this tutorial you will learn how to parse and search in a BIDS directory.</p>
 <h2>First checks<a class="headerlink" href="#first-checks" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
 <p>In order to test if pycaravel package is installed on your machine, you can
 check the package version.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">caravel</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">caravel</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="n">caravel</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>Now you can run the the configuration info function to see if all the
-dependencies are installed properly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><a href="../../generated/caravel.info.html#caravel.info" title="caravel.info" class="sphx-glr-backref-module-caravel sphx-glr-backref-type-py-function"><span class="n">caravel</span><span class="o">.</span><span class="n">info</span></a><span class="p">())</span>
+<span class="nb">print</span><span class="p">(</span><a href="../../generated/caravel.info.html#caravel.info" title="caravel.info" class="sphx-glr-backref-module-caravel sphx-glr-backref-type-py-function"><span class="n">caravel</span><span class="o">.</span><span class="n">info</span></a><span class="p">())</span>
 </pre></div>
 </div>
 </div>
@@ -247,9 +244,10 @@ dependencies are installed properly:</p>
 parsing rules are defined by projects in the module, so we will beed to
 specify the project name you are working on. For the moement it is not
 possible to specify these rules via the API.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">parser</span> <span class="o">=</span> <a href="../../generated/caravel.get_parser.html#caravel.get_parser" title="caravel.get_parser" class="sphx-glr-backref-module-caravel sphx-glr-backref-type-py-function"><span class="n">caravel</span><span class="o">.</span><span class="n">get_parser</span></a><span class="p">(</span>
-    <span class="n">project</span><span class="o">=</span><span class="s2">&quot;hbn&quot;</span><span class="p">,</span>
-    <span class="n">layoutdir</span><span class="o">=</span><span class="s2">&quot;/neurospin/tmp/pycaravel/layout&quot;</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">cwdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">realpath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+<span class="n">parser</span> <span class="o">=</span> <a href="../../generated/caravel.get_parser.html#caravel.get_parser" title="caravel.get_parser" class="sphx-glr-backref-module-caravel sphx-glr-backref-type-py-function"><span class="n">caravel</span><span class="o">.</span><span class="n">get_parser</span></a><span class="p">(</span>
+    <span class="n">project</span><span class="o">=</span><span class="s2">&quot;hbn&quot;</span><span class="p">,</span> <span class="n">confdir</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">cwdir</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">),</span>
+    <span class="n">layoutdir</span><span class="o">=</span><span class="n">cwdir</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>You can now list the available configurations for your project, and the

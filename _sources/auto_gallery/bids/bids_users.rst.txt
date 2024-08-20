@@ -32,30 +32,19 @@ First checks
 In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-21
+.. GENERATED FROM PYTHON SOURCE LINES 16-23
 
 .. code-block:: default
 
 
+    import os
     import caravel
 
     print(caravel.__version__)
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 22-24
-
-Now you can run the the configuration info function to see if all the
-dependencies are installed properly:
-
-.. GENERATED FROM PYTHON SOURCE LINES 24-27
-
-.. code-block:: default
-
-
     print(caravel.info())
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 28-35
+.. GENERATED FROM PYTHON SOURCE LINES 24-31
 
 Create a parser for your project
 --------------------------------
@@ -65,23 +54,24 @@ parsing rules are defined by projects in the module, so we will beed to
 specify the project name you are working on. For the moement it is not
 possible to specify these rules via the API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 35-40
+.. GENERATED FROM PYTHON SOURCE LINES 31-37
 
 .. code-block:: default
 
 
+    cwdir = os.path.dirname(os.path.realpath(__file__))
     parser = caravel.get_parser(
-        project="hbn",
-        layoutdir="/neurospin/tmp/pycaravel/layout")
+        project="hbn", confdir=os.path.join(cwdir, os.pardir, "conf"),
+        layoutdir=cwdir)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-44
+.. GENERATED FROM PYTHON SOURCE LINES 38-41
 
 You can now list the available configurations for your project, and the
 available layout representations pre-generated. Note that these
 representations are sorted by dates, and that the latest one will be used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 44-50
+.. GENERATED FROM PYTHON SOURCE LINES 41-47
 
 .. code-block:: default
 
@@ -92,11 +82,11 @@ representations are sorted by dates, and that the latest one will be used.
     pprint(parser.representation)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-52
+.. GENERATED FROM PYTHON SOURCE LINES 48-49
 
 You can export the whole 'sourcedata' layout in a pandas DataFrame.
 
-.. GENERATED FROM PYTHON SOURCE LINES 52-55
+.. GENERATED FROM PYTHON SOURCE LINES 49-52
 
 .. code-block:: default
 
@@ -104,13 +94,13 @@ You can export the whole 'sourcedata' layout in a pandas DataFrame.
     print(parser.export_layout("sourcedata"))
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 56-59
+.. GENERATED FROM PYTHON SOURCE LINES 53-56
 
 It is also possible to filter this dataset. You need first to list all the
 avaliable filtering keys, then list all the availables values for the
 filtering key(s) of interest, and finally filter your dataset.
 
-.. GENERATED FROM PYTHON SOURCE LINES 59-69
+.. GENERATED FROM PYTHON SOURCE LINES 56-66
 
 .. code-block:: default
 
@@ -125,13 +115,13 @@ filtering key(s) of interest, and finally filter your dataset.
     print(search2)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 70-73
+.. GENERATED FROM PYTHON SOURCE LINES 67-70
 
 Finally you may want to ask the system to load the filtered data. Only a
 couple of file extensions are supported. If no loader has been found the
 filename is returned
 
-.. GENERATED FROM PYTHON SOURCE LINES 73-80
+.. GENERATED FROM PYTHON SOURCE LINES 70-77
 
 .. code-block:: default
 
@@ -143,14 +133,14 @@ filename is returned
         pprint(data2)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 81-85
+.. GENERATED FROM PYTHON SOURCE LINES 78-82
 
 And for the derivatives
 -----------------------
 
 We can do the same for the derivatives
 
-.. GENERATED FROM PYTHON SOURCE LINES 85-102
+.. GENERATED FROM PYTHON SOURCE LINES 82-99
 
 .. code-block:: default
 
@@ -172,14 +162,14 @@ We can do the same for the derivatives
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 103-107
+.. GENERATED FROM PYTHON SOURCE LINES 100-104
 
 And for the clinical data
 -------------------------
 
 We can do the same for the clinical data denoted in BIDS phenotype
 
-.. GENERATED FROM PYTHON SOURCE LINES 107-113
+.. GENERATED FROM PYTHON SOURCE LINES 104-110
 
 .. code-block:: default
 

@@ -16,14 +16,10 @@ In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 """
 
+import os
 import caravel
 
 print(caravel.__version__)
-
-#############################################################################
-# Now you can run the the configuration info function to see if all the
-# dependencies are installed properly:
-
 print(caravel.info())
 
 #############################################################################
@@ -36,7 +32,10 @@ print(caravel.info())
 # possible to specify these rules via the API. Set the layoutdir to None
 # in order to switch to the managers mode.
 
-parser = caravel.get_parser(project="hbn", layoutdir=None)
+cwdir = os.path.dirname(os.path.realpath(__file__))
+parser = caravel.get_parser(
+    project="hbn", confdir=os.path.join(cwdir, os.pardir, "conf"),
+    layoutdir=None)
 
 #############################################################################
 # Create representation of your BIDS directory
@@ -52,18 +51,16 @@ parser = caravel.get_parser(project="hbn", layoutdir=None)
 parser.pickling_layout(
     bids_root="/neurospin/psy/hbn",
     name="sourcedata",
-    outdir="/neurospin/tmp/pycaravel/layout")
+    outdir=cwdir)
 print(parser.list_keys("sourcedata"))
 parser.pickling_layout(
     bids_root="/neurospin/psy/hbn/",
     name="derivatives",
     subset=["tbss_stats", "scalars"],
-    outdir="/neurospin/tmp/pycaravel/layout")
+    outdir=cwdir)
 print(parser.list_keys("derivatives"))
 parser.pickling_layout(
     bids_root="/neurospin/psy/hbn",
     name="phenotype",
-    outdir="/neurospin/tmp/pycaravel/layout")
+    outdir=cwdir)
 print(parser.list_keys("phenotype"))
-
-

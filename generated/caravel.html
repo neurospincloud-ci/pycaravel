@@ -147,6 +147,42 @@
                                         
                                         
                                     
+                                        
+                                        
+                                        
+                                            
+                                            
+                                    
+                                
+                                    
+                                        
+                                        
+                                        
+                                    
+                                        
+                                        
+                                        
+                                            
+                                            
+                                    
+                                
+                                    
+                                        
+                                        
+                                        
+                                    
+                                        
+                                        
+                                        
+                                            
+                                            
+                                    
+                                
+                                    
+                                        
+                                        
+                                        
+                                    
                                 
                                     
                                         
@@ -159,7 +195,13 @@
                                     
 						                <li> <a href='#caravel'>Caravel</a> </li>                                    
                                     
+						                <li> <a href='#caravel-validation'>Caravel.validation</a> </li>                                    
+                                    
 						                <li> <a href='#caravel-io'>Caravel.io</a> </li>                                    
+                                    
+						                <li> <a href='#caravel-utils'>Caravel.utils</a> </li>                                    
+                                    
+						                <li> <a href='#caravel-mail'>Caravel.mail</a> </li>                                    
                                     
 						                <li> <a href='#caravel-configure'>Caravel.configure</a> </li>                                    
                                     
@@ -168,7 +210,7 @@
                                 
                             
                             <li>API</li>
-                            <li><a href="#">caravel</a></li><li><a href="caravel.loaders.html">caravel.loaders</a></li><li><a href="caravel.parsers.html">caravel.parsers</a></li>
+                            <li><a href="#">caravel</a></li><li><a href="caravel.loaders.html">caravel.loaders</a></li><li><a href="caravel.nextcloud.html">caravel.nextcloud</a></li><li><a href="caravel.nextcloud.api_wrappers.html">caravel.nextcloud.api_wrappers</a></li><li><a href="caravel.parsers.html">caravel.parsers</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -230,6 +272,25 @@
 </dd>
 </dl>
 </div>
+<div class="section" id="caravel-validation">
+<h2>caravel.validation<a class="headerlink" href="#caravel-validation" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
+<p>This module provides a registry with function to be applied during
+the validation stage.</p>
+<dl class="documentation-contents simple">
+<dt><strong>Classes</strong>:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="caravel.validation.MetaRegister.html">caravel.validation.MetaRegister</a></p></li>
+<li><p><a class="reference external" href="caravel.validation.ValidationBase.html">caravel.validation.ValidationBase</a></p></li>
+<li><p><a class="reference external" href="caravel.validation.ValidationDecorator.html">caravel.validation.ValidationDecorator</a></p></li>
+</ul>
+</dd>
+<dt><strong>Functions</strong>:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="caravel.validation.get_validators.html">caravel.validation.get_validators</a></p></li>
+<li><p><a class="reference external" href="caravel.validation.listify.html">caravel.validation.listify</a></p></li>
+<li><p><a class="reference external" href="caravel.validation.run_validation.html">caravel.validation.run_validation</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
 <div class="section" id="caravel-io">
 <h2>caravel.io<a class="headerlink" href="#caravel-io" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
 <p>This module contains generic functions to load/save a dataset.</p>
@@ -243,13 +304,32 @@
 </dd>
 </dl>
 </div>
+<div class="section" id="caravel-utils">
+<h2>caravel.utils<a class="headerlink" href="#caravel-utils" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
+<p>This module provides common utilities.</p>
+<dl class="documentation-contents simple">
+<dt><strong>Functions</strong>:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="caravel.utils.export_report.html">caravel.utils.export_report</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="caravel-mail">
+<h2>caravel.mail<a class="headerlink" href="#caravel-mail" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
+<p>A module to simplify email sending.</p>
+<dl class="documentation-contents simple">
+<dt><strong>Classes</strong>:</dt><dd><ul class="simple">
+<li><p><a class="reference external" href="caravel.mail.EmailManager.html">caravel.mail.EmailManager</a></p></li>
+</ul>
+</dd>
+</dl>
+</div>
 <div class="section" id="caravel-configure">
 <h2>caravel.configure<a class="headerlink" href="#caravel-configure" title="Permalink to this headline">¶</a><i class='fas fa-angle-right'></i></h2>
 <p>This module provides tools to check that all the dependencies are installed
 properly.</p>
 <dl class="documentation-contents simple">
 <dt><strong>Functions</strong>:</dt><dd><ul class="simple">
-<li><p><a class="reference external" href="caravel.configure._check_python_versions.html">caravel.configure._check_python_versions</a></p></li>
 <li><p><a class="reference external" href="caravel.configure.info.html">caravel.configure.info</a></p></li>
 <li><p><a class="reference external" href="caravel.configure.logo.html">caravel.configure.logo</a></p></li>
 </ul>

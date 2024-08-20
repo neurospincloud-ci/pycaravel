@@ -30,6 +30,22 @@ This is the classes and functions reference in caravel. Please refer to the gall
         <p>This module defines common loaders for imaging-genetic datasets.</p>    </blockquote>
     </div>
     <div class='col-md-4'>
+    <h3><a href='caravel.nextcloud.html'>
+    caravel.nextcloud
+    </a></h3>
+    <blockquote>
+    </blockquote>
+    </div>
+
+    </div>
+    <div class='row'>    <div class='col-md-4'>
+    <h3><a href='caravel.nextcloud.api_wrappers.html'>
+    caravel.nextcloud.api_wrappers
+    </a></h3>
+    <blockquote>
+    </blockquote>
+    </div>
+    <div class='col-md-4'>
     <h3><a href='caravel.parsers.html'>
     caravel.parsers
     </a></h3>
@@ -37,8 +53,6 @@ This is the classes and functions reference in caravel. Please refer to the gall
         <p>This module defines common parsers for imaging-genetic resources.</p>    </blockquote>
     </div>
 
-    </div>
-    <div class='row'>
     </div>
     </div>
     </div>
@@ -57,6 +71,18 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.info <caravel.configure.info.html>`_
 
+          `caravel.validation.MetaRegister <caravel.validation.MetaRegister.html>`_
+
+          `caravel.validation.ValidationBase <caravel.validation.ValidationBase.html>`_
+
+          `caravel.validation.ValidationDecorator <caravel.validation.ValidationDecorator.html>`_
+
+          `caravel.validation.get_validators <caravel.validation.get_validators.html>`_
+
+          `caravel.validation.listify <caravel.validation.listify.html>`_
+
+          `caravel.validation.run_validation <caravel.validation.run_validation.html>`_
+
           `caravel.io.get_loader <caravel.io.get_loader.html>`_
 
           `caravel.io.get_saver <caravel.io.get_saver.html>`_
@@ -65,7 +91,9 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.io.save <caravel.io.save.html>`_
 
-          `caravel.configure._check_python_versions <caravel.configure._check_python_versions.html>`_
+          `caravel.utils.export_report <caravel.utils.export_report.html>`_
+
+          `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
 
           `caravel.configure.info <caravel.configure.info.html>`_
 
@@ -139,6 +167,108 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.loaders._xlsx.XLSX <caravel.loaders._xlsx.XLSX.html>`_
 
           `caravel.loaders._json.JSON <caravel.loaders._json.JSON.html>`_
+
+    * `caravel.nextcloud <caravel.nextcloud.html>`_
+        .. hidden-technical-block::
+          :label: [+ show/hide members]
+          :starthidden: true
+
+          `caravel.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
+
+          `caravel.nextcloud.Permission <caravel.nextcloud.base.Permission.html>`_
+
+          `caravel.nextcloud.ShareType <caravel.nextcloud.base.ShareType.html>`_
+
+          `caravel.nextcloud.response.NextCloudResponse <caravel.nextcloud.response.NextCloudResponse.html>`_
+
+          `caravel.nextcloud.response.OCSResponse <caravel.nextcloud.response.OCSResponse.html>`_
+
+          `caravel.nextcloud.response.WebDAVResponse <caravel.nextcloud.response.WebDAVResponse.html>`_
+
+          `caravel.nextcloud.requester.NextCloudConnectionError <caravel.nextcloud.requester.NextCloudConnectionError.html>`_
+
+          `caravel.nextcloud.requester.OCSRequester <caravel.nextcloud.requester.OCSRequester.html>`_
+
+          `caravel.nextcloud.requester.Requester <caravel.nextcloud.requester.Requester.html>`_
+
+          `caravel.nextcloud.requester.WebDAVRequester <caravel.nextcloud.requester.WebDAVRequester.html>`_
+
+          `caravel.nextcloud.requester.catch_connection_error <caravel.nextcloud.requester.catch_connection_error.html>`_
+
+          `caravel.nextcloud.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
+
+          `caravel.nextcloud.base.OCSCode <caravel.nextcloud.base.OCSCode.html>`_
+
+          `caravel.nextcloud.base.Permission <caravel.nextcloud.base.Permission.html>`_
+
+          `caravel.nextcloud.base.ShareType <caravel.nextcloud.base.ShareType.html>`_
+
+          `caravel.nextcloud.base.WithRequester <caravel.nextcloud.base.WithRequester.html>`_
+
+          `caravel.nextcloud.base.datetime_to_expire_date <caravel.nextcloud.base.datetime_to_expire_date.html>`_
+
+    * `caravel.nextcloud.api_wrappers <caravel.nextcloud.api_wrappers.html>`_
+        .. hidden-technical-block::
+          :label: [+ show/hide members]
+          :starthidden: true
+
+          `caravel.nextcloud.api_wrappers.Activity <caravel.nextcloud.api_wrappers.activity.Activity.html>`_
+
+          `caravel.nextcloud.api_wrappers.Apps <caravel.nextcloud.api_wrappers.apps.Apps.html>`_
+
+          `caravel.nextcloud.api_wrappers.Capabilities <caravel.nextcloud.api_wrappers.capabilities.Capabilities.html>`_
+
+          `caravel.nextcloud.api_wrappers.FederatedCloudShare <caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare.html>`_
+
+          `caravel.nextcloud.api_wrappers.Forms <caravel.nextcloud.api_wrappers.forms.Forms.html>`_
+
+          `caravel.nextcloud.api_wrappers.Group <caravel.nextcloud.api_wrappers.group.Group.html>`_
+
+          `caravel.nextcloud.api_wrappers.GroupFolders <caravel.nextcloud.api_wrappers.group_folders.GroupFolders.html>`_
+
+          `caravel.nextcloud.api_wrappers.Notifications <caravel.nextcloud.api_wrappers.notifications.Notifications.html>`_
+
+          `caravel.nextcloud.api_wrappers.Share <caravel.nextcloud.api_wrappers.share.Share.html>`_
+
+          `caravel.nextcloud.api_wrappers.User <caravel.nextcloud.api_wrappers.user.User.html>`_
+
+          `caravel.nextcloud.api_wrappers.UserLDAP <caravel.nextcloud.api_wrappers.user_ldap.UserLDAP.html>`_
+
+          `caravel.nextcloud.api_wrappers.WEBDAV_CLASS <caravel.nextcloud.api_wrappers.webdav.WEBDAV_CLASS.html>`_
+
+          `caravel.nextcloud.api_wrappers.WebDAV <caravel.nextcloud.api_wrappers.webdav.WebDAV.html>`_
+
+          `caravel.nextcloud.api_wrappers.user_ldap.UserLDAP <caravel.nextcloud.api_wrappers.user_ldap.UserLDAP.html>`_
+
+          `caravel.nextcloud.api_wrappers.user_ldap.getter_method <caravel.nextcloud.api_wrappers.user_ldap.getter_method.html>`_
+
+          `caravel.nextcloud.api_wrappers.user_ldap.setter_method <caravel.nextcloud.api_wrappers.user_ldap.setter_method.html>`_
+
+          `caravel.nextcloud.api_wrappers.share.Share <caravel.nextcloud.api_wrappers.share.Share.html>`_
+
+          `caravel.nextcloud.api_wrappers.notifications.Notifications <caravel.nextcloud.api_wrappers.notifications.Notifications.html>`_
+
+          `caravel.nextcloud.api_wrappers.forms.Forms <caravel.nextcloud.api_wrappers.forms.Forms.html>`_
+
+          `caravel.nextcloud.api_wrappers.activity.Activity <caravel.nextcloud.api_wrappers.activity.Activity.html>`_
+
+          `caravel.nextcloud.api_wrappers.webdav.File <caravel.nextcloud.api_wrappers.webdav.File.html>`_
+
+          `caravel.nextcloud.api_wrappers.webdav.WebDAV <caravel.nextcloud.api_wrappers.webdav.WebDAV.html>`_
+
+          `caravel.nextcloud.api_wrappers.webdav.WebDAVStatusCodes <caravel.nextcloud.api_wrappers.webdav.WebDAVStatusCodes.html>`_
+
+          `caravel.nextcloud.api_wrappers.capabilities.Capabilities <caravel.nextcloud.api_wrappers.capabilities.Capabilities.html>`_
+
+          `caravel.nextcloud.api_wrappers.user.User <caravel.nextcloud.api_wrappers.user.User.html>`_
+
+          `caravel.nextcloud.api_wrappers.group.Group <caravel.nextcloud.api_wrappers.group.Group.html>`_
+
+          `caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare <caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare.html>`_
+
+          `caravel.nextcloud.api_wrappers.group_folders.GroupFolders <caravel.nextcloud.api_wrappers.group_folders.GroupFolders.html>`_
+
+          `caravel.nextcloud.api_wrappers.apps.Apps <caravel.nextcloud.api_wrappers.apps.Apps.html>`_
 
     * `caravel.parsers <caravel.parsers.html>`_
         .. hidden-technical-block::

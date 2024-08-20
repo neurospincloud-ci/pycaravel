@@ -87,7 +87,7 @@
                             
                             
                             <li>API</li>
-                            <li><a href="../../../generated/caravel.html">caravel</a></li><li><a href="../../../generated/caravel.loaders.html">caravel.loaders</a></li><li><a href="../../../generated/caravel.parsers.html">caravel.parsers</a></li>
+                            <li><a href="../../../generated/caravel.html">caravel</a></li><li><a href="../../../generated/caravel.loaders.html">caravel.loaders</a></li><li><a href="../../../generated/caravel.nextcloud.html">caravel.nextcloud</a></li><li><a href="../../../generated/caravel.nextcloud.api_wrappers.html">caravel.nextcloud.api_wrappers</a></li><li><a href="../../../generated/caravel.parsers.html">caravel.parsers</a></li>
 						</ul>
 					</li>
 				</ul>
@@ -168,20 +168,22 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">AVAILABLE_LAYOUTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;sourcedata&quot;</span><span class="p">,</span> <span class="s2">&quot;rawdata&quot;</span><span class="p">,</span> <span class="s2">&quot;derivatives&quot;</span><span class="p">,</span> <span class="s2">&quot;phenotype&quot;</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">project</span><span class="p">,</span> <span class="n">confdir</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Initialize the Caravel class.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        project: str</span>
 <span class="sd">            the name of the project you are working on.</span>
+<span class="sd">        confdir: str</span>
+<span class="sd">            the locations of the configuration file of the current project.</span>
 <span class="sd">        layoutdir: str</span>
 <span class="sd">            the location of the pre-generated parsing representations. If None</span>
 <span class="sd">            switch to managers mode.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">project</span> <span class="o">=</span> <span class="n">project</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span> <span class="o">=</span> <span class="p">{}</span>
-        <span class="n">_conf</span> <span class="o">=</span> <span class="n">ParserBase</span><span class="o">.</span><span class="n">_get_conf</span><span class="p">()</span>
+        <span class="n">_conf</span> <span class="o">=</span> <span class="n">ParserBase</span><span class="o">.</span><span class="n">_get_conf</span><span class="p">(</span><span class="n">confdir</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_conf</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;Unkown configuration for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available projects &quot;</span>
@@ -220,11 +222,9 @@
                 <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">AVAILABLE_LAYOUTS</span><span class="p">))</span>
 
     <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">_get_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">_get_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">confdir</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; List all the configurations available and sort them by project.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">confdir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
-            <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)),</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">,</span> <span class="s2">&quot;conf&quot;</span><span class="p">)</span>
         <span class="n">conf</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">confdir</span><span class="p">,</span> <span class="s2">&quot;*.conf&quot;</span><span class="p">)):</span>
             <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.conf&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
@@ -240,10 +240,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">representations</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">layout_files</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">,</span> <span class="s2">&quot;*.pkl&quot;</span><span class="p">))</span>
-        <span class="n">layout_files</span> <span class="o">+=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">,</span> <span class="s2">&quot;*.cw&quot;</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">layout_files</span><span class="p">:</span>
             <span class="n">basename</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.pkl&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
-            <span class="n">basename</span> <span class="o">=</span> <span class="n">basename</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;.cw&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
             <span class="n">project</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">timestamp</span> <span class="o">=</span> <span class="n">basename</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">representations</span><span class="p">:</span>
                 <span class="n">representations</span><span class="p">[</span><span class="n">project</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>

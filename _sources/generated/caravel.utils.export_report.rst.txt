@@ -6,9 +6,9 @@
 
     This page is a reference documentation. It only explains the function signature, and not how to use it. Please refer to the :ref:`gallery <sphx_glr_auto_gallery>` for the big picture.
 
-.. autofunction:: caravel.configure._check_python_versions
+.. autofunction:: caravel.utils.export_report
 
-.. minigallery:: caravel.configure._check_python_versions
+.. minigallery:: caravel.utils.export_report
     :add-heading: Examples
     :heading-level: -
 

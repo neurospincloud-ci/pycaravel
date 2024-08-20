@@ -34,30 +34,19 @@ First checks
 In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 
-.. GENERATED FROM PYTHON SOURCE LINES 18-23
+.. GENERATED FROM PYTHON SOURCE LINES 18-25
 
 .. code-block:: default
 
 
+    import os
     import caravel
 
     print(caravel.__version__)
-
-
-.. GENERATED FROM PYTHON SOURCE LINES 24-26
-
-Now you can run the the configuration info function to see if all the
-dependencies are installed properly:
-
-.. GENERATED FROM PYTHON SOURCE LINES 26-29
-
-.. code-block:: default
-
-
     print(caravel.info())
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 30-38
+.. GENERATED FROM PYTHON SOURCE LINES 26-34
 
 Create a parser for your project
 --------------------------------
@@ -68,15 +57,18 @@ specify the project name you are working on. For the moment it is not
 possible to specify these rules via the API. Set the layoutdir to None
 in order to switch to the managers mode.
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-41
+.. GENERATED FROM PYTHON SOURCE LINES 34-40
 
 .. code-block:: default
 
 
-    parser = caravel.get_parser(project="hbn", layoutdir=None)
+    cwdir = os.path.dirname(os.path.realpath(__file__))
+    parser = caravel.get_parser(
+        project="hbn", confdir=os.path.join(cwdir, os.pardir, "conf"),
+        layoutdir=None)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 42-51
+.. GENERATED FROM PYTHON SOURCE LINES 41-50
 
 Create representation of your BIDS directory
 --------------------------------------------
@@ -88,7 +80,7 @@ using the following function, specifying the BIDS root directory and
 the subfolder name to be parsed (sourcedata, derivatives, phenotype, ...).
 This name must have a conresponding configuration file.
 
-.. GENERATED FROM PYTHON SOURCE LINES 51-70
+.. GENERATED FROM PYTHON SOURCE LINES 50-67
 
 .. code-block:: default
 
@@ -96,21 +88,19 @@ This name must have a conresponding configuration file.
     parser.pickling_layout(
         bids_root="/neurospin/psy/hbn",
         name="sourcedata",
-        outdir="/neurospin/tmp/pycaravel/layout")
+        outdir=cwdir)
     print(parser.list_keys("sourcedata"))
     parser.pickling_layout(
         bids_root="/neurospin/psy/hbn/",
         name="derivatives",
         subset=["tbss_stats", "scalars"],
-        outdir="/neurospin/tmp/pycaravel/layout")
+        outdir=cwdir)
     print(parser.list_keys("derivatives"))
     parser.pickling_layout(
         bids_root="/neurospin/psy/hbn",
         name="phenotype",
-        outdir="/neurospin/tmp/pycaravel/layout")
+        outdir=cwdir)
     print(parser.list_keys("phenotype"))
-
-
 
 
 .. rst-class:: sphx-glr-timing

@@ -1,7 +1,7 @@
 ..  caravel documentation master file
 
 
-This module has been created to simplify the search of datasets in a BIDS directory or a CubicWeb instance.
+This module is designed to simplify continuous integration (CI) of data from multiple projects. 
 
 
 .. toctree::
