@@ -77,3 +77,6 @@ REQUIRES = [
     "python-docx"
 ]
 EXTRA_REQUIRES = {}
+SCRIPTS = [
+    "caravel/scripts/project-ci"
+]
