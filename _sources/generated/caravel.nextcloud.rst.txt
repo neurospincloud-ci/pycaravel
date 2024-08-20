@@ -8,7 +8,7 @@ API documentation of *caravel.nextcloud*
 caravel.nextcloud
 ^^^^^^^^^^^^^^^^^
 
-
+NextCloud Python API from https://github.com/matejak/nextcloud-API.git.
 
 .. rst-class:: documentation-contents
 
