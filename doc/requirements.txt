@@ -9,4 +9,6 @@ PyPDF2
 vcfpy
 pandas-plink
 pyEDFlib
+requests
+python-docx
 sphinx==3.5.4

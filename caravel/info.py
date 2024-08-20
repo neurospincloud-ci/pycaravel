@@ -72,6 +72,8 @@ REQUIRES = [
     "PyPDF2",
     "vcfpy",
     "pandas-plink",
-    "pyEDFlib"
+    "pyEDFlib",
+    "requests",
+    "python-docx"
 ]
 EXTRA_REQUIRES = {}

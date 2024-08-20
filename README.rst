@@ -41,7 +41,7 @@ Important links
 ===============
 
 - Official source code repo: https://github.com/neurospincloud-ci/pycaravel
-- HTML documentation (last stable release): http://neurospincloud-ci.github.io/pycaravel
+- HTML documentation: http://neurospincloud-ci.github.io/pycaravel
 
 
 Dependencies
@@ -58,6 +58,8 @@ The required dependencies to use the software are:
 * vcfpy
 * pandas-plink
 * pyEDFlib
+* requests
+* python-docx
 
 
 Install
