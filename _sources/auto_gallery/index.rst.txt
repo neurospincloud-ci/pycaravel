@@ -76,6 +76,63 @@ available in the module.
 
 
 
+.. _sphx_glr_auto_gallery_validation:
+
+Validation use cases
+--------------------
+
+Introductory examples that teach how to use the validation
+available in the module.
+
+
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Credit: A Grigis">
+
+.. only:: html
+
+ .. figure:: /auto_gallery/validation/images/thumb/sphx_glr_rlink_validation_thumb.png
+     :alt: Validation
+
+     :ref:`sphx_glr_auto_gallery_validation_rlink_validation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_gallery/validation/rlink_validation
+
+.. raw:: html
+
+    <div class="sphx-glr-thumbcontainer" tooltip="Credit: A Grigis">
+
+.. only:: html
+
+ .. figure:: /auto_gallery/validation/images/thumb/sphx_glr_ensemble_validation_thumb.png
+     :alt: Validation
+
+     :ref:`sphx_glr_auto_gallery_validation_ensemble_validation.py`
+
+.. raw:: html
+
+    </div>
+
+
+.. toctree::
+   :hidden:
+
+   /auto_gallery/validation/ensemble_validation
+.. raw:: html
+
+    <div class="sphx-glr-clear"></div>
+
+
+
 .. only :: html
 
  .. container:: sphx-glr-footer
