@@ -47,6 +47,7 @@ jobs:
         make raw-html
         ls source/_static
         ls build/html/_static
+        cp -r source/_static/* build/html/_static
         cd ../..
     - name: Upload documentation as an artifact
       uses: actions/upload-artifact@v4
