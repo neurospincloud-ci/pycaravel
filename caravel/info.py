@@ -35,7 +35,7 @@ SUMMARY = """
 
     1. a common API for parsing multiple source of data (currently only BIDS).
     2. a common API to search in those datasets.
-    3. a common APU to validate incoming data.
+    3. a common API to validate incoming data.
 """
 long_description = (
     "This module is designed to simplify continuous integration (CI) "
