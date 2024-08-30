@@ -9,10 +9,12 @@
 
 # Imports
 import os
-import json
 import re
+import json
 import shutil
+import inspect
 import logging
+import importlib
 from pprint import pprint
 from collections import namedtuple
 from datetime import datetime
@@ -25,7 +27,8 @@ from caravel.nextcloud import NextCloud, ShareType, Permission
 
 
 def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
-         smtp_host, smtp_port, support_email, test_mod=False, verbose=0):
+         smtp_host, smtp_port, support_email, test_mod=False, login=None,
+         password=None, verbose=0):
     """ The validation/integration script.
 
     You need first to mount the WEBDAV shares using the mount.davfs command.
@@ -51,6 +54,10 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         the support email in case of internal error.
     test_mod: bool, deafault=False
         if set select only the '<family>.structure' validators.
+    login: str, default None
+        the NextCloud service login to use.
+    password: str, default None
+        the associated NextCloud login password.
     verbose: int, default 0
         increase the verbosity level: 0 silent, [1, 2] verbose.
     """
@@ -80,8 +87,9 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         validation_module.ValidationBase.__level__ = "debug"
         validation_module.ValidationBase.setup_logging(logfile=logfile)
     layoutdir = os.path.join(working_dir, "layout")
-    if not os.path.isdir(layoutdir):
-        os.mkdir(layoutdir)
+    if os.path.isdir(layoutdir):
+        shutil.rmtree(layoutdir)
+    os.mkdir(layoutdir)
     datadir = os.path.join(working_dir, "data")
     if not os.path.isdir(datadir):
         os.mkdir(datadir)
@@ -90,6 +98,11 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     if allowed_subjects is not None:
         subjects = np.loadtxt(allowed_subjects, dtype=str)
     logger.info(f"Allowed subjects: {subjects}")
+    sig = inspect.signature(main)
+    vals = [locals()[param] for param in sig.parameters.keys()]
+    inputs = sig.bind(*vals).arguments
+    if not isinstance(upload_mounts, list):
+        upload_mounts = [upload_mounts]
     if verbose > 0:
         pprint(f"[info] Starting {project} validation/integration ...")
         pprint("[info] Runtime:")
@@ -109,27 +122,29 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     shares = dict([(os.path.basename(item["path"]), item)
                    for item in shares.data
                    if item["share_type"] == ShareType.GROUP])
-    logger.debug(f"Shares: {shares}")
+    logger.debug(f"Shares: {shares.keys()}")
     groups = session.get_groups().data["groups"]
     logger.debug(f"Groups: {groups}")
     data = []
-    Point = namedtuple("DataItem",
-                       ("uploadname uploaddir collectname colletdir wipfile "
-                        "family mails"))
+    DataItem = namedtuple("DataItem",
+                          ("uploadname uploaddir collectname collectdir "
+                           "wipfile family mails"))
+    local_wipfile = os.path.join(datadir, "wip")
+    local_mountfile = os.path.join(datadir, "ismounted")
+    for local_file in (local_wipfile, local_mountfile):
+        if not os.path.isfile(local_file):
+            os.mknod(local_file)
     for path in upload_mounts:
         if not path.endswith("-upload"):
             raise ValueError(f"Mount suffix MUST be '-upload': '{path}'.")
         name = os.path.basename(path)
         if name not in shares:
-            raise ValueError(f"Mount '{path}' is not a shared.")
+            raise ValueError(f"Mount '{path}' is not a share.")
         _, family, _ = re.split("-|_", name)
         logger.info(f"Family: {family}")
         wip_file = os.path.join(path, "wip")
-        if not os.path.isfile(wip_file):
-            tocheck_path.append(path)
-        local_wipfile = os.path.join(datadir, "wip")
-        if not os.path.isfile(local_wipfile):
-            os.mknod(local_wipfile)
+        if os.path.isfile(wip_file):
+            continue        
         collected_path = path.replace("-upload", "-collected")
         collected_name = os.path.basename(collected_path)
         if not os.path.isdir(collected_path):
@@ -145,33 +160,56 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
             if mail is not None:
                 to_addrs.append(mail)
         logger.debug(f"To emails: {to_addrs}")
-        data.append(DataItem(name, path, collected_name, collected_path,
-                             wip_file, family, to_addrs))
-    logger.info(f"Path to check: {[item.uploaddir for item in data]}")
+        item = DataItem(name, path, collected_name, collected_path,
+                        wip_file, family, to_addrs)
+        data.append(item)       
+        res = session.upload_file(
+            "admin", local_filepath=local_mountfile,
+            remote_filepath=os.path.join(project, item.uploadname, "ismounted"))
+        if not res.is_ok:
+            raise ValueError("Unable to upload ISMOUNTED file.")
+        is_local_file = os.path.isfile(os.path.join(path, "ismounted"))
+        res = session.delete_path(
+            "admin", path=os.path.join(project, item.uploadname, "ismounted"))
+        if not res.is_ok:
+            raise ValueError("Unable to delete ISMOUNTED file.")
+        if not is_local_file:
+            raise ValueError(
+                f"Mount '{path}' is not a mounted to the good folder.")
+    logger.info(f"Folder to integrate: {[item.uploaddir for item in data]}")
 
     # Step 3: Generate a report for each path to check.
     outputs = []
     for item in data:
         logger.info(f"Processing '{item.uploaddir}'...")
+        logger.debug(f"Generate report for item: {item}")
         share = shares[item.uploadname]
         res = session.update_share(share["id"], Permission.READ)
         status_fct = getattr(
             validation_module, f"get_{item.family}_status", None)
         if status_fct is None:
             raise ValueError(
-                f"You need to define a status function for '{item.family}'.")
+                f"You need to define a 'get_{item.family}_status' status "
+                f"function for '{item.family}'.")
         already_integrated = status_fct(item.collectdir)
         logger.info(f"Already integrated: {already_integrated}")
         projectdir = os.path.dirname(os.path.realpath(project_module.__file__))
         parser = caravel.get_parser(
             project=f"{project}-{item.family}",
             confdir=os.path.join(projectdir, "conf"), layoutdir=None)
-        if os.path.isdir(os.path.join(item.uploaddir, "sourcedata")):
-            parser.pickling_layout(
-                bids_root=item.uploaddir, name="sourcedata", outdir=layoutdir)
-        if os.path.isdir(os.path.join(item.uploaddir, "rawdata")):
-            parser.pickling_layout(
-                bids_root=item.uploaddir, name="rawdata", outdir=layoutdir)
+        contain_data = False
+        for dirname in ("sourcedata", "rawdata"):
+            if os.path.isdir(os.path.join(item.uploaddir, dirname)):
+                parser.pickling_layout(
+                    bids_root=item.uploaddir, name=dirname, outdir=layoutdir)
+                contain_data = True
+        if not contain_data:
+            res = session.upload_file(
+                "admin", local_filepath=local_wipfile,
+                remote_filepath="/".join([project, item.uploadname, "wip"]))
+            if not res.is_ok:
+                raise ValueError("Unable to upload WIP file.")
+            raise ValueError("No data to integrate.")
         if test_mod:
             family_selector = f"{item.family}.structure"
         else:
@@ -180,6 +218,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         logger.info(f"Validators: {validators}")
         data = {
             "layoutdir": layoutdir,
+            "confdir": os.path.join(projectdir, "conf"),
             "project": f"{project}-{item.family}",
             "already_integrated": already_integrated}
         if subjects is not None:
@@ -217,11 +256,12 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     # Step 4: Finally integrate the data listed by the 'list_<family>_datasets'
     # function or generate report issues.
     for item, report in outputs:
+        logger.debug(f"Integrate item: {item}")
         for filename in ("report.json", "report.docx"):
-            if os.path.isfile(os.path.join(item.collectdir, filename)):
+            if os.path.isfile(os.path.join(item.uploaddir, filename)):
                 res = session.delete_path(
-                    "admin", path=os.path.join(
-                        project, item.collectname, filename))
+                    "admin", path="/".join([
+                        project, item.uploadname, filename]))
                 if not res.is_ok:
                     raise ValueError(f"Unable to delete '{filename}'.")
         if all(len(val) == 0 for val in report.values()):
@@ -230,61 +270,68 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                 validation_module, f"list_{item.family}_datasets", None)
             if list_fct is None:
                 raise ValueError(
-                    "You need to define a list datasets function for "
-                    f"'{family}'.")
+                    f"You need to define a 'list_{item.family}_datasets' list "
+                    f"datasets function for '{family}'.")
             datasets = list_fct(item.uploaddir)
             logger.info(f"Datasets to move: {datasets}")
             for dirname in datasets:
-                is_already_collected = os.pth.isdir(
-                    os.path.join(item.collectdir, dirname))
-                if not is_already_collected:
-                    path = os.path.join(project, item.collectname)
+                is_already_collected = os.path.isdir(os.path.join(
+                    item.collectdir, dirname))
+                if is_already_collected:
+                    logger.info(f"- {dirname}: SKIP")
+                else:
+                    logger.info(f"- {dirname}...")
+                    path = "/".join([project, item.collectname])
                     splits = dirname.split(os.sep)
-                    for name in splits:
-                        path = os.path.join(path, name)
-                        res = session.create_folder("admin", folder_path=path)
-                        if not res.is_ok:
-                            raise ValueError(
-                                f"Unable to CREATE directory '{path}'.")
+                    for idx in range(1, len(splits)):
+                        suffix = os.sep.join(splits[:idx])
+                        if not os.path.isdir(os.path.join(
+                                item.collectdir, os.sep.join(splits[:idx]))):
+                            res = session.create_folder(
+                                "admin",
+                                folder_path="/".join([path] + splits[:idx]))
+                            if not res.is_ok:
+                                raise ValueError(
+                                    f"Unable to CREATE directory '{path}'.")
+                    srcdir = "/".join([project, item.uploadname, dirname])
+                    dstdir = "/".join([project, item.collectname, dirname])
                     res = session.move_path(
-                        "admin",
-                        path=os.path.join(
-                            project, item.uploadname, dirname),
-                        destination_path=os.path.join(
-                            project, item.collectname, dirname),
+                        "admin", path=srcdir, destination_path=dstdir,
                         overwrite=False)
                     if not res.is_ok:
                         raise ValueError(
-                            f"Unable to INTEGRATE data '{dirname}'.")
-                    for idx in range(len(splits)):
-                        path = os.sep.join(
-                            [project, item.collectname] + splits[:-idx])
-                        res = session.list_folders("admin", path=path)
-                        if res.data is not None and len(res.data == 0):
-                            res = session.delete_path("admin", path=path)
+                            f"Unable to INTEGRATE data '{dirname}': "
+                            f"{srcdir} -> {dstdir}.")
+                    path = "/".join([project, item.uploadname])
+                    for idx in range(len(splits), 0, -1):
+                        currentdir = os.path.join(
+                            item.uploaddir, os.sep.join(splits[:idx]))
+                        if (os.path.isdir(currentdir) and
+                                len(os.listdir(currentdir)) == 0):
+                            res = session.delete_path(
+                                "admin", path="/".join([path] + splits[:idx]))
                             if not res.is_ok:
                                 raise ValueError(
-                                    f"Unable to delete path: '{path}.")
+                                    "Unable to delete path: "
+                                    f"'{'/'.join([path] + splits[:idx])}.")
         else:
-            logger.info("In error: {item.uploaddir}")
-            local_reportfile = os.path.join(
-                datadir, f"report_{runtime['timestamp']}.json")
+            logger.info(f"In error: {item.uploaddir}")
+            local_reportfile = os.path.join(datadir, f"report.json")
             with open(local_reportfile, "wt") as open_file:
                 json.dump(report, open_file, indent=2)
-            local_docx_reportfile = os.path.join(
-                datadir, f"report_{runtime['timestamp']}.docx")
+            local_docx_reportfile = os.path.join(datadir, f"report.docx")
             export_report(report, runtime["timestamp"], local_docx_reportfile)
             for path in (local_reportfile, local_docx_reportfile):
                 filename = os.path.basename(path)
                 res = session.upload_file(
                     "admin", local_filepath=local_reportfile,
-                    remote_filepath=os.path.join(
-                        project, item.collectname, filename))
+                    remote_filepath="/".join(
+                        [project, item.uploadname, filename]))
                 if not res.is_ok:
                     raise ValueError(f"Unable to upload '{filename}'.")
         res = session.upload_file(
             "admin", local_filepath=local_wipfile,
-            remote_filepath=os.path.join(project, item.collectname, "wip"))
+            remote_filepath="/".join([project, item.uploadname, "wip"]))
         if not res.is_ok:
             raise ValueError("Unable to upload WIP file.")
 

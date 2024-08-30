@@ -65,16 +65,17 @@ VERSION = __version__
 PROVIDES = ["caravel"]
 REQUIRES = [
     "pandas",
-    "grabbit",
+    "grabbit @ git+https://github.com/grabbles/grabbit.git",
     "nibabel",
     "numpy",
-    "imageio",
+    "imageio[ffmpeg]",
     "PyPDF2",
     "vcfpy",
     "pandas-plink",
     "pyEDFlib",
     "requests",
-    "python-docx"
+    "python-docx",
+    "fire"
 ]
 EXTRA_REQUIRES = {}
 SCRIPTS = [

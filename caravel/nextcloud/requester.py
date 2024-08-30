@@ -49,7 +49,6 @@ class Requester:
         res = requests.get(
             url, auth=self.auth_pk, headers=self.h_get, params=params,
             verify=self.verify)
-        print(res.text)
         return self.rtn(res)
 
     @catch_connection_error
