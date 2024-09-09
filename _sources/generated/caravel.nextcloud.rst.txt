@@ -29,22 +29,6 @@ caravel.nextcloud.response
     * `caravel.nextcloud.response.OCSResponse <caravel.nextcloud.response.OCSResponse.html>`_
     * `caravel.nextcloud.response.WebDAVResponse <caravel.nextcloud.response.WebDAVResponse.html>`_
 
-caravel.nextcloud.requester
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-
-.. rst-class:: documentation-contents
-
-  **Classes**:
-    * `caravel.nextcloud.requester.NextCloudConnectionError <caravel.nextcloud.requester.NextCloudConnectionError.html>`_
-    * `caravel.nextcloud.requester.OCSRequester <caravel.nextcloud.requester.OCSRequester.html>`_
-    * `caravel.nextcloud.requester.Requester <caravel.nextcloud.requester.Requester.html>`_
-    * `caravel.nextcloud.requester.WebDAVRequester <caravel.nextcloud.requester.WebDAVRequester.html>`_
-
-  **Functions**:
-    * `caravel.nextcloud.requester.catch_connection_error <caravel.nextcloud.requester.catch_connection_error.html>`_
-
 caravel.nextcloud.nextcloud
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -70,4 +54,20 @@ caravel.nextcloud.base
 
   **Functions**:
     * `caravel.nextcloud.base.datetime_to_expire_date <caravel.nextcloud.base.datetime_to_expire_date.html>`_
+
+caravel.nextcloud.requester
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.nextcloud.requester.NextCloudConnectionError <caravel.nextcloud.requester.NextCloudConnectionError.html>`_
+    * `caravel.nextcloud.requester.OCSRequester <caravel.nextcloud.requester.OCSRequester.html>`_
+    * `caravel.nextcloud.requester.Requester <caravel.nextcloud.requester.Requester.html>`_
+    * `caravel.nextcloud.requester.WebDAVRequester <caravel.nextcloud.requester.WebDAVRequester.html>`_
+
+  **Functions**:
+    * `caravel.nextcloud.requester.catch_connection_error <caravel.nextcloud.requester.catch_connection_error.html>`_
 
