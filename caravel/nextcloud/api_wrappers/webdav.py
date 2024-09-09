@@ -54,6 +54,36 @@ class WebDAV(WithRequester):
                      else [each.as_dict() for each in files_data])
         return resp
 
+    def isfile(self, uid, path):
+        """ Check file of given user exists.
+        """
+        _, basename = path.rsplit("/", 1)
+        dirs, files = self.lsdir(uid, path)
+        return basename in files
+
+    def isdir(self, uid, path):
+        """ Check dir of given user exists.
+        """
+        _, basename = path.rsplit("/", 1)
+        dirs, files = self.lsdir(uid, path)
+        return basename in dirs
+
+    def lsdir(self, uid, path):
+        """ List directory of a given user.
+        """
+        assert path.startswith("/")
+        dirname, basename = path.rsplit("/", 1)
+        resp = self.list_folders(uid, path=dirname, depth=1)
+        dirs, files = [], []
+        for item in resp.data[1:]:
+            if item["resource_type"] == "collection":
+                dirs.append(item["href"].split("/")[-2])
+            elif item["resource_type"] is None:
+                files.append(item["href"].split("/")[-1])
+            else:
+                raise ValueError("Uknown resource type!")
+        return dirs, files
+
     def download_file(self, uid, path):
         """ Download file of given user by path.
 
