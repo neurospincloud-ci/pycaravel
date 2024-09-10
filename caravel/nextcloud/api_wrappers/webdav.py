@@ -59,14 +59,14 @@ class WebDAV(WithRequester):
         """
         dirname, basename = path.rsplit("/", 1)
         dirs, files = self.lsdir(uid, dirname)
-        return basename in files
+        return basename in (files or [])
 
     def isdir(self, uid, path):
         """ Check dir of given user exists.
         """
         dirname, basename = path.rsplit("/", 1)
         dirs, files = self.lsdir(uid, dirname)
-        return basename in dirs
+        return basename in (dirs or [])
 
     def lsdir(self, uid, path):
         """ List directory of a given user.
@@ -74,6 +74,8 @@ class WebDAV(WithRequester):
         assert path == "" or path.startswith("/")
         resp = self.list_folders(uid, path=path, depth=1)
         dirs, files = [], []
+        if resp.data is None:
+            return None, None
         for item in resp.data[1:]:
             if item["resource_type"] == "collection":
                 dirs.append(item["href"].split("/")[-2])
