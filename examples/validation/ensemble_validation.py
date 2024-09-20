@@ -15,6 +15,13 @@ check the package version.
 """
 
 import os
+from pprint import pprint
+
+import ensemble
+from ensemble.validation import get_validators
+from ensemble.validation import ValidationBase
+
+from caravel.validation import run_validation
 import caravel
 
 print(caravel.__version__)
@@ -26,9 +33,6 @@ print(caravel.info())
 #
 # First load the validators of the 'ensemble' project that only check the
 # VIDEO data.
-
-from ensemble.validation import get_validators
-from ensemble.validation import ValidationBase
 
 ValidationBase.__level__ = "debug"
 ValidationBase.setup_logging()
@@ -42,10 +46,6 @@ print(validators)
 # ----------------
 #
 # Apply the loaded validators and generate a report.
-
-import ensemble
-from pprint import pprint
-from caravel.validation import run_validation
 
 datadir = "/neurospin/rlink/workspace/ci_toy/ensemble/ensemble-videoraw-upload"
 projectdir = os.path.dirname(os.path.realpath(ensemble.__file__))
