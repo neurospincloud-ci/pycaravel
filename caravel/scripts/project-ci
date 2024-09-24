@@ -171,7 +171,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     shares = dict([(os.path.basename(item["path"]), item)
                    for item in shares.data
                    if item["share_type"] == ShareType.GROUP])
-    logger.debug(f"Shares: {shares.keys()}")
+    logger.debug(f"Shares: {list(shares.keys())}")
     groups = session.get_groups().data["groups"]
     logger.debug(f"Groups: {groups}")
     data = []
@@ -192,7 +192,8 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         _, family, _ = re.split("-|_", name)
         logger.info(f"Family: {family}")
         wip_file = os.path.join(path, "wip")
-        if os.path.isfile(wip_file):
+        if session.isfile(
+            "admin", "/".join([project, item.uploadname, "wip"])):
             continue        
         collected_path = path.replace("-upload", "-collected")
         collected_name = os.path.basename(collected_path)
@@ -214,10 +215,11 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         data.append(item)       
         res = session.upload_file(
             "admin", local_filepath=local_mountfile,
-            remote_filepath=os.path.join(project, item.uploadname, "ismounted"))
+            remote_filepath="/".join([project, item.uploadname, "ismounted"]))
         if not res.is_ok:
             raise ValueError("Unable to upload ISMOUNTED file.")
-        is_local_file = os.path.isfile(os.path.join(path, "ismounted"))
+        is_local_file = session.isfile(
+            "admin", "/".join([project, item.uploadname, "ismounted"]))
         res = session.delete_path(
             "admin", path=os.path.join(project, item.uploadname, "ismounted"))
         if not res.is_ok:
