@@ -193,8 +193,8 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         logger.info(f"Family: {family}")
         wip_file = os.path.join(path, "wip")
         if session.isfile(
-            "admin", "/".join([project, item.uploadname, "wip"])):
-            continue        
+            "admin", "/".join(["/", project, name, "wip"])):
+            continue
         collected_path = path.replace("-upload", "-collected")
         collected_name = os.path.basename(collected_path)
         if not os.path.isdir(collected_path):
@@ -212,14 +212,14 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         logger.debug(f"To emails: {to_addrs}")
         item = DataItem(name, path, collected_name, collected_path,
                         wip_file, family, to_addrs)
-        data.append(item)       
+        data.append(item)
         res = session.upload_file(
             "admin", local_filepath=local_mountfile,
             remote_filepath="/".join([project, item.uploadname, "ismounted"]))
         if not res.is_ok:
             raise ValueError("Unable to upload ISMOUNTED file.")
         is_local_file = session.isfile(
-            "admin", "/".join([project, item.uploadname, "ismounted"]))
+            "admin", "/".join(["/", project, item.uploadname, "ismounted"]))
         res = session.delete_path(
             "admin", path=os.path.join(project, item.uploadname, "ismounted"))
         if not res.is_ok:
