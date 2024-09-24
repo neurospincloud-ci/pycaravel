@@ -71,14 +71,6 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.info <caravel.configure.info.html>`_
 
-          `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
-
-          `caravel.configure.info <caravel.configure.info.html>`_
-
-          `caravel.configure.logo <caravel.configure.logo.html>`_
-
-          `caravel.utils.export_report <caravel.utils.export_report.html>`_
-
           `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
 
           `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
@@ -88,14 +80,6 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
 
           `caravel.parser.listify <caravel.parser.listify.html>`_
-
-          `caravel.io.get_loader <caravel.io.get_loader.html>`_
-
-          `caravel.io.get_saver <caravel.io.get_saver.html>`_
-
-          `caravel.io.load <caravel.io.load.html>`_
-
-          `caravel.io.save <caravel.io.save.html>`_
 
           `caravel.validation.MetaRegister <caravel.validation.MetaRegister.html>`_
 
@@ -108,6 +92,22 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.validation.listify <caravel.validation.listify.html>`_
 
           `caravel.validation.run_validation <caravel.validation.run_validation.html>`_
+
+          `caravel.io.get_loader <caravel.io.get_loader.html>`_
+
+          `caravel.io.get_saver <caravel.io.get_saver.html>`_
+
+          `caravel.io.load <caravel.io.load.html>`_
+
+          `caravel.io.save <caravel.io.save.html>`_
+
+          `caravel.utils.export_report <caravel.utils.export_report.html>`_
+
+          `caravel.configure.info <caravel.configure.info.html>`_
+
+          `caravel.configure.logo <caravel.configure.logo.html>`_
+
+          `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
 
     * `caravel.loaders <caravel.loaders.html>`_
         .. hidden-technical-block::
@@ -140,33 +140,33 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.loaders.XLSX <caravel.loaders._xlsx.XLSX.html>`_
 
+          `caravel.loaders._tsv.TSV <caravel.loaders._tsv.TSV.html>`_
+
+          `caravel.loaders.loader_base.LoaderBase <caravel.loaders.loader_base.LoaderBase.html>`_
+
+          `caravel.loaders._edf.EDF <caravel.loaders._edf.EDF.html>`_
+
+          `caravel.loaders._pdf.PDF <caravel.loaders._pdf.PDF.html>`_
+
+          `caravel.loaders._xlsx.XLSX <caravel.loaders._xlsx.XLSX.html>`_
+
+          `caravel.loaders._vcf.VCF <caravel.loaders._vcf.VCF.html>`_
+
           `caravel.loaders._plink.PLINK <caravel.loaders._plink.PLINK.html>`_
 
           `caravel.loaders._png.PNG <caravel.loaders._png.PNG.html>`_
 
+          `caravel.loaders._targz.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+
           `caravel.loaders._json.JSON <caravel.loaders._json.JSON.html>`_
-
-          `caravel.loaders._mp4.MP4 <caravel.loaders._mp4.MP4.html>`_
-
-          `caravel.loaders._pdf.PDF <caravel.loaders._pdf.PDF.html>`_
-
-          `caravel.loaders._edf.EDF <caravel.loaders._edf.EDF.html>`_
-
-          `caravel.loaders._tsv.TSV <caravel.loaders._tsv.TSV.html>`_
-
-          `caravel.loaders._xlsx.XLSX <caravel.loaders._xlsx.XLSX.html>`_
-
-          `caravel.loaders._nifti.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
 
           `caravel.loaders._csv.CSV <caravel.loaders._csv.CSV.html>`_
 
-          `caravel.loaders.loader_base.LoaderBase <caravel.loaders.loader_base.LoaderBase.html>`_
-
-          `caravel.loaders._targz.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+          `caravel.loaders._mp4.MP4 <caravel.loaders._mp4.MP4.html>`_
 
           `caravel.loaders._dwi.DWI <caravel.loaders._dwi.DWI.html>`_
 
-          `caravel.loaders._vcf.VCF <caravel.loaders._vcf.VCF.html>`_
+          `caravel.loaders._nifti.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
 
     * `caravel.nextcloud <caravel.nextcloud.html>`_
         .. hidden-technical-block::
@@ -184,8 +184,6 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.nextcloud.response.OCSResponse <caravel.nextcloud.response.OCSResponse.html>`_
 
           `caravel.nextcloud.response.WebDAVResponse <caravel.nextcloud.response.WebDAVResponse.html>`_
-
-          `caravel.nextcloud.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
 
           `caravel.nextcloud.base.OCSCode <caravel.nextcloud.base.OCSCode.html>`_
 
@@ -206,6 +204,8 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.nextcloud.requester.WebDAVRequester <caravel.nextcloud.requester.WebDAVRequester.html>`_
 
           `caravel.nextcloud.requester.catch_connection_error <caravel.nextcloud.requester.catch_connection_error.html>`_
+
+          `caravel.nextcloud.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
 
     * `caravel.nextcloud.api_wrappers <caravel.nextcloud.api_wrappers.html>`_
         .. hidden-technical-block::
@@ -238,21 +238,29 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.nextcloud.api_wrappers.WebDAV <caravel.nextcloud.api_wrappers.webdav.WebDAV.html>`_
 
-          `caravel.nextcloud.api_wrappers.share.Share <caravel.nextcloud.api_wrappers.share.Share.html>`_
-
-          `caravel.nextcloud.api_wrappers.group.Group <caravel.nextcloud.api_wrappers.group.Group.html>`_
-
-          `caravel.nextcloud.api_wrappers.activity.Activity <caravel.nextcloud.api_wrappers.activity.Activity.html>`_
-
-          `caravel.nextcloud.api_wrappers.forms.Forms <caravel.nextcloud.api_wrappers.forms.Forms.html>`_
-
-          `caravel.nextcloud.api_wrappers.user.User <caravel.nextcloud.api_wrappers.user.User.html>`_
-
           `caravel.nextcloud.api_wrappers.webdav.File <caravel.nextcloud.api_wrappers.webdav.File.html>`_
 
           `caravel.nextcloud.api_wrappers.webdav.WebDAV <caravel.nextcloud.api_wrappers.webdav.WebDAV.html>`_
 
           `caravel.nextcloud.api_wrappers.webdav.WebDAVStatusCodes <caravel.nextcloud.api_wrappers.webdav.WebDAVStatusCodes.html>`_
+
+          `caravel.nextcloud.api_wrappers.forms.Forms <caravel.nextcloud.api_wrappers.forms.Forms.html>`_
+
+          `caravel.nextcloud.api_wrappers.group.Group <caravel.nextcloud.api_wrappers.group.Group.html>`_
+
+          `caravel.nextcloud.api_wrappers.apps.Apps <caravel.nextcloud.api_wrappers.apps.Apps.html>`_
+
+          `caravel.nextcloud.api_wrappers.notifications.Notifications <caravel.nextcloud.api_wrappers.notifications.Notifications.html>`_
+
+          `caravel.nextcloud.api_wrappers.activity.Activity <caravel.nextcloud.api_wrappers.activity.Activity.html>`_
+
+          `caravel.nextcloud.api_wrappers.share.Share <caravel.nextcloud.api_wrappers.share.Share.html>`_
+
+          `caravel.nextcloud.api_wrappers.user.User <caravel.nextcloud.api_wrappers.user.User.html>`_
+
+          `caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare <caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare.html>`_
+
+          `caravel.nextcloud.api_wrappers.capabilities.Capabilities <caravel.nextcloud.api_wrappers.capabilities.Capabilities.html>`_
 
           `caravel.nextcloud.api_wrappers.user_ldap.UserLDAP <caravel.nextcloud.api_wrappers.user_ldap.UserLDAP.html>`_
 
@@ -260,15 +268,7 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.nextcloud.api_wrappers.user_ldap.setter_method <caravel.nextcloud.api_wrappers.user_ldap.setter_method.html>`_
 
-          `caravel.nextcloud.api_wrappers.apps.Apps <caravel.nextcloud.api_wrappers.apps.Apps.html>`_
-
-          `caravel.nextcloud.api_wrappers.notifications.Notifications <caravel.nextcloud.api_wrappers.notifications.Notifications.html>`_
-
           `caravel.nextcloud.api_wrappers.group_folders.GroupFolders <caravel.nextcloud.api_wrappers.group_folders.GroupFolders.html>`_
-
-          `caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare <caravel.nextcloud.api_wrappers.federated_cloudshares.FederatedCloudShare.html>`_
-
-          `caravel.nextcloud.api_wrappers.capabilities.Capabilities <caravel.nextcloud.api_wrappers.capabilities.Capabilities.html>`_
 
     * `caravel.parsers <caravel.parsers.html>`_
         .. hidden-technical-block::

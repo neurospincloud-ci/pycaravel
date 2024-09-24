@@ -17,38 +17,6 @@ Main module that contains the 'Caravel' generic parser.
     * `caravel.get_parser <caravel.parser.get_parser.html>`_
     * `caravel.info <caravel.configure.info.html>`_
 
-caravel.mail
-^^^^^^^^^^^^
-
-A module to simplify email sending.
-
-.. rst-class:: documentation-contents
-
-  **Classes**:
-    * `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
-
-caravel.configure
-^^^^^^^^^^^^^^^^^
-
-This module provides tools to check that all the dependencies are installed
-properly.
-
-.. rst-class:: documentation-contents
-
-  **Functions**:
-    * `caravel.configure.info <caravel.configure.info.html>`_
-    * `caravel.configure.logo <caravel.configure.logo.html>`_
-
-caravel.utils
-^^^^^^^^^^^^^
-
-This module provides common utilities.
-
-.. rst-class:: documentation-contents
-
-  **Functions**:
-    * `caravel.utils.export_report <caravel.utils.export_report.html>`_
-
 caravel.parser
 ^^^^^^^^^^^^^^
 
@@ -64,19 +32,6 @@ This module contains the generic parser definition.
     * `caravel.parser.build_path <caravel.parser.build_path.html>`_
     * `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
     * `caravel.parser.listify <caravel.parser.listify.html>`_
-
-caravel.io
-^^^^^^^^^^
-
-This module contains generic functions to load/save a dataset.
-
-.. rst-class:: documentation-contents
-
-  **Functions**:
-    * `caravel.io.get_loader <caravel.io.get_loader.html>`_
-    * `caravel.io.get_saver <caravel.io.get_saver.html>`_
-    * `caravel.io.load <caravel.io.load.html>`_
-    * `caravel.io.save <caravel.io.save.html>`_
 
 caravel.validation
 ^^^^^^^^^^^^^^^^^^
@@ -95,4 +50,49 @@ the validation stage.
     * `caravel.validation.get_validators <caravel.validation.get_validators.html>`_
     * `caravel.validation.listify <caravel.validation.listify.html>`_
     * `caravel.validation.run_validation <caravel.validation.run_validation.html>`_
+
+caravel.io
+^^^^^^^^^^
+
+This module contains generic functions to load/save a dataset.
+
+.. rst-class:: documentation-contents
+
+  **Functions**:
+    * `caravel.io.get_loader <caravel.io.get_loader.html>`_
+    * `caravel.io.get_saver <caravel.io.get_saver.html>`_
+    * `caravel.io.load <caravel.io.load.html>`_
+    * `caravel.io.save <caravel.io.save.html>`_
+
+caravel.utils
+^^^^^^^^^^^^^
+
+This module provides common utilities.
+
+.. rst-class:: documentation-contents
+
+  **Functions**:
+    * `caravel.utils.export_report <caravel.utils.export_report.html>`_
+
+caravel.configure
+^^^^^^^^^^^^^^^^^
+
+This module provides tools to check that all the dependencies are installed
+properly.
+
+.. rst-class:: documentation-contents
+
+  **Functions**:
+    * `caravel.configure.info <caravel.configure.info.html>`_
+    * `caravel.configure.logo <caravel.configure.logo.html>`_
+
+caravel.mail
+^^^^^^^^^^^^
+
+A module to simplify email sending.
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
 
