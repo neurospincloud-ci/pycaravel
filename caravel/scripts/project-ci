@@ -189,7 +189,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         name = os.path.basename(path)
         if name not in shares:
             raise ValueError(f"Mount '{path}' is not a share.")
-        _, family, _ = re.split("-|_", name)
+        family= re.split("-|_", name)[1]
         logger.info(f"Family: {family}")
         wip_file = os.path.join(path, "wip")
         if session.isfile(
