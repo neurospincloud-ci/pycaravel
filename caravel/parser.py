@@ -151,14 +151,14 @@ def build_path(keys, path_patterns, strict=False):
 
             # At this point, valid & default values are checked &
             # set - simplify pattern
-            new_path = new_path.replace(fmt, '{%s}' % name)
+            new_path = new_path.replace(fmt, '{{{}}}'.format(name))
 
         optional_patterns = re.findall(r'(\[.*?\])', new_path)
         # Optional patterns with selector are cast to mandatory or removed
         for op in optional_patterns:
             for ent_name in {k for k, v in keys.items() if (v is not None)
                              and not (v[0] != v[0])}:
-                if ('{%s}' % ent_name) in op:
+                if ('{{{}}}'.format(ent_name)) in op:
                     new_path = new_path.replace(op, op[1:-1])
                     continue
 
