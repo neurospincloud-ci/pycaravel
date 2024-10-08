@@ -82,7 +82,7 @@ class WebDAV(WithRequester):
             elif item["resource_type"] is None:
                 files.append(item["href"].split("/")[-1])
             else:
-                raise ValueError("Uknown resource type!")
+                raise ValueError("Unknown resource type!")
         return dirs, files
 
     def download_file(self, uid, path):
