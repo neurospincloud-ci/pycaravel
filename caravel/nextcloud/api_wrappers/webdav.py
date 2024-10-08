@@ -93,7 +93,7 @@ class WebDAV(WithRequester):
         Exception will be raised if path doesn't exist, path is a directory,
         file with same name already exists in working directory.
         """
-        additional_url = "/".join([uid, path])
+        additional_url = f"{uid}/{path}"
         filename = path.split('/')[-1] if '/' in path else path
         file_data = self.list_folders(uid=uid, path=path, depth=0)
         if not file_data:
@@ -115,26 +115,26 @@ class WebDAV(WithRequester):
         """
         with open(local_filepath, 'rb') as f:
             file_content = f.read()
-        additional_url = "/".join([uid, remote_filepath])
+        additional_url = f"{uid}/{remote_filepath}"
         return self.requester.put(additional_url, data=file_content)
 
     def create_folder(self, uid, folder_path):
         """ Create folder on Nextcloud storage.
         """
         return self.requester.make_collection(
-            additional_url="/".join([uid, folder_path]))
+            additional_url=f"{uid}/{folder_path}")
 
     def delete_path(self, uid, path):
         """ Delete file or folder with all content of given user by path.
         """
-        url = "/".join([uid, path])
+        url = f"{uid}/{path}"
         return self.requester.delete(url=url)
 
     def move_path(self, uid, path, destination_path, overwrite=False):
         """ Move file or folder to destination.
         """
-        path_url = "/".join([uid, path])
-        destination_path_url = "/".join([uid, destination_path])
+        path_url = f"{uid}/{path}"
+        destination_path_url = f"{uid}/{destination_path}"
         return self.requester.move(
             url=path_url, destination=destination_path_url,
             overwrite=overwrite)
@@ -142,8 +142,8 @@ class WebDAV(WithRequester):
     def copy_path(self, uid, path, destination_path, overwrite=False):
         """ Copy file or folder to destination.
         """
-        path_url = "/".join([uid, path])
-        destination_path_url = "/".join([uid, destination_path])
+        path_url = f"{uid}/{path}"
+        destination_path_url = f"{uid}/{destination_path}"
         return self.requester.copy(
             url=path_url, destination=destination_path_url,
             overwrite=overwrite)
@@ -160,7 +160,7 @@ class WebDAV(WithRequester):
           </d:set>
         </d:propertyupdate>
         """
-        url = "/".join([uid, path])
+        url = f"{uid}/{path}"
         return self.requester.proppatch(additional_url=url, data=data)
 
     def list_favorites(self, uid, path=""):
@@ -175,7 +175,7 @@ class WebDAV(WithRequester):
                  </oc:filter-rules>
          </oc:filter-files>
         """
-        url = "/".join([uid, path])
+        url = f"{uid}/{path}"
         res = self.requester.report(additional_url=url, data=data)
         if not res.is_ok:
             res.data = None
