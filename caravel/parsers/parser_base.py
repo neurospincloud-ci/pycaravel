@@ -253,7 +253,7 @@ class ParserBase(object):
                     path = path.replace(replace[0], replace[1])
                 try:
                     _data = load(path)
-                except:
+                except Exception:
                     _data = None
                 if isinstance(_data, pd.DataFrame):
                     layout = self._load_layout(name)
