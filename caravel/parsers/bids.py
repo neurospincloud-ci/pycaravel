@@ -119,7 +119,7 @@ class BIDSParser(ParserBase):
                     row.append(getattr(file_obj, key, np.nan))
                 data.append(row)
             df = pd.DataFrame(data, columns=header)
-        df.dropna(axis="columns", how="all", inplace=True)
+        df = df.dropna(axis="columns", how="all")
         return df
 
     def pickling_layout(self, bids_root, name, outdir, subset=None):
