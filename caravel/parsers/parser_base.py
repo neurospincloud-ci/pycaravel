@@ -47,15 +47,15 @@ class ParserBase:
         _conf = ParserBase._get_conf(confdir)
         if project not in _conf:
             raise ValueError(
-                "Unknown configuration for project '{0}'. Available projects "
+                "Unknown configuration for project '{}'. Available projects "
                 "are: {1}.".format(project, _conf.keys()))
         self.conf = _conf[project]
         if layoutdir is not None:
             _repr = self._get_repr(layoutdir)
             if project not in _repr:
                 raise ValueError(
-                    "Unknown representation for project '{0}'. Available "
-                    "projects are: {1}.".format(project, _repr.keys()))
+                    "Unknown representation for project '{}'. Available "
+                    "projects are: {}.".format(project, _repr.keys()))
             self.representation = _repr[project]
         else:
             self.representation = {"manager": [{"path": "to_be_created.pkl"}]}
@@ -79,8 +79,8 @@ class ParserBase:
         """
         if name not in self.AVAILABLE_LAYOUTS:
             raise ValueError(
-                "Layout '{0}' is not yet supported. Available layouts are: "
-                "{1}.".format(name, self.AVAILABLE_LAYOUTS))
+                "Layout '{}' is not yet supported. Available layouts are: "
+                "{}.".format(name, self.AVAILABLE_LAYOUTS))
 
     @classmethod
     def _get_conf(cls, confdir):
@@ -128,7 +128,7 @@ class ParserBase:
         if name not in self.layouts:
             if name not in self.representation:
                 raise ValueError(
-                    "A pre-generated '{0}' layout for your project '{1}' is "
+                    "A pre-generated '{}' layout for your project '{}' is "
                     "expected in user mode. Please contact the developers "
                     "of the module.".format(name, self.project))
             path = self.representation[name][-1]["path"]
@@ -243,7 +243,7 @@ class ParserBase:
         for index, path in enumerate(df["filename"]):
             if isinstance(path, dict):
                 _data = pd.DataFrame.from_records([path])
-                path = ["{0}-{1}".format(key, val)
+                path = ["{}-{}".format(key, val)
                         for key, val in zip(df.columns, df.to_numpy()[index])
                         if key != "filename"]
                 path = "_".join(path)

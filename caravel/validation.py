@@ -43,7 +43,7 @@ class MetaRegister(type):
         new_cls = type.__new__(cls, name, bases, attrs)
         if name in cls.REGISTRY:
             raise ValueError(
-                "'{0}' name already used in registry.".format(name))
+                "'{}' name already used in registry.".format(name))
         if name != "ValidationBase":
             cls.REGISTRY[name] = new_cls
         return new_cls
@@ -109,7 +109,7 @@ class ValidationBase(metaclass=MetaRegister):
         data: dict
             the input data for the test.
         """
-        logger.info("running '{0}' with version '{1}' of pycaravel".format(
+        logger.info("running '{}' with version '{}' of pycaravel".format(
             self.__function__.__name__, __version__))
         return self.__function__(**data)
 

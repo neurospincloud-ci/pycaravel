@@ -45,7 +45,7 @@ def get_parser(project, confdir, layoutdir):
         parser = parser_class(project, confdir, layoutdir)
         if parser.can_load():
             return parser
-    raise ValueError("No loader available for '{0}'.".format(project))
+    raise ValueError("No loader available for '{}'.".format(project))
 
 
 def listify(obj):
@@ -141,7 +141,7 @@ def build_path(keys, path_patterns, strict=False):
         for fmt, name, valid, defval in keys_matched:
             valid_expanded = valid.split('|')
             if valid_expanded and defval and defval not in valid_expanded:
-                warnings.warn("Pattern '{0}' is inconsistent as it defines an "
+                warnings.warn("Pattern '{}' is inconsistent as it defines an "
                               "invalid default value.".format(fmt))
             if (valid_expanded and name in keys and
                     set(keys[name]) - set(valid_expanded)):

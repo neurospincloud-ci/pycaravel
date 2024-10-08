@@ -45,7 +45,7 @@ def info():
     info: str
         package information.
     """
-    version = "Package version: {0}\n\n".format(__version__)
-    license = "License: {0}\n\n".format(LICENSE)
-    authors = "Authors: \n{0}\n".format(AUTHOR)
+    version = "Package version: {}\n\n".format(__version__)
+    license = "License: {}\n\n".format(LICENSE)
+    authors = "Authors: \n{}\n".format(AUTHOR)
     return logo() + "\n\n" + version + license + authors
