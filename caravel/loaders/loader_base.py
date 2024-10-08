@@ -12,7 +12,7 @@ This module defines the loader base class.
 """
 
 
-class LoaderBase(object):
+class LoaderBase:
     """ Base class for all loaders.
     """
     allowed_extensions = []

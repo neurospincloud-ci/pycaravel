@@ -25,7 +25,7 @@ import pandas as pd
 from caravel.io import load
 
 
-class ParserBase(object):
+class ParserBase:
     """ Base parser to retrieve data from a BIDS directory.
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
