@@ -99,8 +99,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"pycravel"
-copyright = u"""{0}, pycravel developers <antoine.grigis@cea.fr>""".format(
+project = u"pycaravel"
+copyright = u"""{0}, pycaravel developers <antoine.grigis@cea.fr>""".format(
     datetime.date.today().year)
 
 # The version info for the project you're documenting, acts as replacement for
