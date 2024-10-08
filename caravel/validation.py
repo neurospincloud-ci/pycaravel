@@ -240,7 +240,7 @@ def run_validation(data, validators=None, logfile=None):
             if isinstance(extra_data, dict):
                 logger.info(f"adding extra kwargs '{extra_data.keys()}'")
                 data.update(extra_data)
-        except Exception as ex:
+        except Exception:
             result = {"Internal error:": [traceback.format_exc()]}
         if result is None or result == {} or result == []:
             continue
