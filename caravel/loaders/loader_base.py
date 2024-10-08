@@ -30,10 +30,7 @@ class LoaderBase(object):
         out: bool
             True if the file extension is valid, False otherwise.
         """
-        for ext in self.allowed_extensions:
-            if path.endswith(ext):
-                return True
-        return False
+        return any(path.endswith(ext) for ext in self.allowed_extensions)
 
     def load(self, path):
         """ A method that load the data and associated metadata.
@@ -64,10 +61,7 @@ class LoaderBase(object):
         out: bool
             True if the output file extension is valid, False otherwise.
         """
-        for ext in self.allowed_extensions:
-            if outpath.endswith(ext):
-                return True
-        return False
+        return any(outpath.endswith(ext) for ext in self.allowed_extensions)
 
     def save(self, data, outpath):
         """ A method that save the data and associated metadata.
