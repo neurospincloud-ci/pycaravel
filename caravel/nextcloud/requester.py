@@ -119,7 +119,7 @@ class WebDAVRequester(Requester):
     """ Requester for WebDAV API.
     """
     def __init__(self, *args, **kwargs):
-        super(WebDAVRequester, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def rtn(self, resp, data=None):
         return WebDAVResponse(response=resp, data=data)

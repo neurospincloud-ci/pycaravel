@@ -30,7 +30,7 @@ class WebDAVResponse(NextCloudResponse):
     }
 
     def __init__(self, response, data=None):
-        super(WebDAVResponse, self).__init__(
+        super().__init__(
             response=response, data=data, json_output=False)
         request_method = response.request.method
         self.is_ok = False

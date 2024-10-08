@@ -8,7 +8,7 @@ class WebDAV(WithRequester):
     API_URL = "/remote.php/dav/files"
 
     def __init__(self, *args, **kwargs):
-        super(WebDAV, self).__init__(*args)
+        super().__init__(*args)
         self.json_output = kwargs.get('json_output')
 
     def list_folders(self, uid, path=None, depth=1, all_properties=False):
