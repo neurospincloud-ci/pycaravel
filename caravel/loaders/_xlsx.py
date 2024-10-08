@@ -13,7 +13,6 @@ This module defines the XLSX dataset loader.
 
 # Third party import
 import pandas as pd
-import math
 
 # Package import
 from .loader_base import LoaderBase
