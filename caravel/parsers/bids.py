@@ -114,9 +114,7 @@ class BIDSParser(ParserBase):
             header = ["filename"] + self.list_keys(name)
             data = []
             for file_obj in files:
-                row = []
-                for key in header:
-                    row.append(getattr(file_obj, key, np.nan))
+                row = [getattr(file_obj, key, np.nan) for key in header]
                 data.append(row)
             df = pd.DataFrame(data, columns=header)
         df.dropna(axis="columns", how="all", inplace=True)
