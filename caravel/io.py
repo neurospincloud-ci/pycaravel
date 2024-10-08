@@ -80,7 +80,7 @@ def get_loader(path):
         loader = loader_class()
         if loader.can_load(path):
             return loader
-    raise Exception("No loader available for '{}'.".format(path))
+    raise Exception(f"No loader available for '{path}'.")
 
 
 def get_saver(path):
@@ -101,4 +101,4 @@ def get_saver(path):
         saver = saver_class()
         if saver.can_save(path):
             return saver
-    raise Exception("No saver available for '{}'.".format(path))
+    raise Exception(f"No saver available for '{path}'.")

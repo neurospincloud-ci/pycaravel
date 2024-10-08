@@ -60,8 +60,8 @@ class BIDSParser(ParserBase):
             the layout keys.
         """
         layout = self._load_layout(name)
-        return list([elem.replace("{}.".format(name), "")
-                     for elem in layout.entities])
+        return list([elem.replace(f"{name}.", "")
+                     for elem in layout.entities.keys()])
 
     def list_values(self, name, key):
         """ List all the filtering key values available in the layout.
@@ -79,9 +79,9 @@ class BIDSParser(ParserBase):
             the key associated values in the layout.
         """
         layout = self._load_layout(name)
-        _key = "{}.{}".format(name, key)
+        _key = f"{name}.{key}"
         if _key not in layout.entities:
-            raise ValueError("Unrecognize layout key '{}'.".format(key))
+            raise ValueError(f"Unrecognize layout key '{key}'.")
         return list(layout.unique(_key))
 
     def filter_layout(self, name, extension=None, **kwargs):
@@ -142,8 +142,7 @@ class BIDSParser(ParserBase):
         self._check_conf(name)
         layout_root = os.path.join(bids_root, name)
         if not os.path.isdir(layout_root):
-            raise ValueError("'{}' is not a valid directory.".format(
-                layout_root))
+            raise ValueError(f"'{layout_root}' is not a valid directory.")
         if subset is None:
             layout = Layout([(layout_root, self.conf[name])])
         else:
@@ -152,9 +151,9 @@ class BIDSParser(ParserBase):
                 for dirname in subset])
         self.layouts[name] = layout
         now = datetime.datetime.now()
-        timestamp = "{}-{}-{}".format(now.year, now.month, now.day)
+        timestamp = f"{now.year}-{now.month}-{now.day}"
         outfile = os.path.join(
-            outdir, "{}_{}_{}.pkl".format(self.project, name, timestamp))
+            outdir, f"{self.project}_{name}_{timestamp}.pkl")
         with open(outfile, "wb") as open_file:
             pickle.dump(layout, open_file, -1)
         return outfile

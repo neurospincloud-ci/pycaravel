@@ -75,7 +75,7 @@ class UserLDAP(WithRequester):
     def edit_ldap_config(self, config_id, data):
         """ Update a configuration with the provided values.
         """
-        prepared_data = {'configData[{}]'.format(key): value
+        prepared_data = {f'configData[{key}]': value
                          for key, value in data.items()}
         return self.requester.put(config_id, data=prepared_data)
 
@@ -90,7 +90,7 @@ for ldap_key in UserLDAP.CONFIG_KEYS:
     key_name = re.sub('([a-z0-9])([A-Z])', r'\1_\2', key_name).lower()
 
     # create and add getter method
-    getter_name = "get_ldap_{}".format(key_name)
+    getter_name = f"get_ldap_{key_name}"
 
     def getter_method(param):
         def getter(self, config_id):
@@ -103,7 +103,7 @@ for ldap_key in UserLDAP.CONFIG_KEYS:
     setattr(UserLDAP, getter_name, getter_method(ldap_key))
 
     # create and add setter method
-    setter_name = "set_ldap_{}".format(key_name)
+    setter_name = f"set_ldap_{key_name}"
 
     def setter_method(param):
         def setter(self, config_id, value):

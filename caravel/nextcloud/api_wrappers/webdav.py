@@ -40,7 +40,7 @@ class WebDAV(WithRequester):
             data = None
         additional_url = uid
         if path:
-            additional_url = "{}/{}".format(additional_url, path)
+            additional_url = f"{additional_url}/{path}"
         resp = self.requester.propfind(additional_url=additional_url,
                                        headers={"Depth": str(depth)},
                                        data=data)

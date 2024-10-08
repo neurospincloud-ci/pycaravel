@@ -32,11 +32,10 @@ def export_report(report, timestamp, outfile):
     section = document.sections[0]
     header = section.header
     paragraph = header.paragraphs[0]
-    paragraph.text = "NeuroSpin\tReporting\t{}".format(timestamp)
+    paragraph.text = f"NeuroSpin\tReporting\t{timestamp}"
     paragraph = document.add_paragraph(
-        "\n\n\n\nYou will find below the report generated the "
-        "'{}'. If you have any questions please use the contact mail: "
-        "rlink@cea.fr.".format(timestamp))
+        f"\n\n\n\nYou will find below the report generated on '{timestamp}'. "
+        "If you have any questions please use the contact mail: rlink@cea.fr.")
     for family, family_item in report.items():
         document.add_heading(family.replace(".", " ").title())
         for validator, validator_item in family_item.items():

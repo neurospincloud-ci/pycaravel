@@ -54,8 +54,8 @@ class ParserBase:
             _repr = self._get_repr(layoutdir)
             if project not in _repr:
                 raise ValueError(
-                    "Unknown representation for project '{}'. Available "
-                    "projects are: {}.".format(project, _repr.keys()))
+                    f"Unknown representation for project '{project}'. "
+                    f"Available projects are: {_repr.keys()}.")
             self.representation = _repr[project]
         else:
             self.representation = {"manager": [{"path": "to_be_created.pkl"}]}
@@ -79,8 +79,8 @@ class ParserBase:
         """
         if name not in self.AVAILABLE_LAYOUTS:
             raise ValueError(
-                "Layout '{}' is not yet supported. Available layouts are: "
-                "{}.".format(name, self.AVAILABLE_LAYOUTS))
+                f"Layout '{name}' is not yet supported. "
+                f"Available layouts are: {self.AVAILABLE_LAYOUTS}.")
 
     @classmethod
     def _get_conf(cls, confdir):
@@ -128,9 +128,9 @@ class ParserBase:
         if name not in self.layouts:
             if name not in self.representation:
                 raise ValueError(
-                    "A pre-generated '{}' layout for your project '{}' is "
-                    "expected in user mode. Please contact the developers "
-                    "of the module.".format(name, self.project))
+                    f"A pre-generated '{name}' layout for your project "
+                    f"'{self.project}' is expected in user mode. Please "
+                    "contact the developers of the module.")
             path = self.representation[name][-1]["path"]
             with open(path, "rb") as open_file:
                 self.layouts[name] = pickle.load(open_file)
@@ -243,7 +243,7 @@ class ParserBase:
         for index, path in enumerate(df["filename"]):
             if isinstance(path, dict):
                 _data = pd.DataFrame.from_records([path])
-                path = ["{}-{}".format(key, val)
+                path = [f"{key}-{val}"
                         for key, val in zip(df.columns, df.to_numpy()[index])
                         if key != "filename"]
                 path = "_".join(path)

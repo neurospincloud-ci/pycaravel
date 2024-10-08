@@ -12,7 +12,7 @@ version_minor = 0
 version_micro = 0
 
 # Expected by setup.py: string of form "X.Y.Z"
-__version__ = "{}.{}.{}".format(version_major, version_minor, version_micro)
+__version__ = f"{version_major}.{version_minor}.{version_micro}"
 
 # Expected by setup.py: the status of the project
 CLASSIFIERS = ["Development Status :: 1 - Planning",

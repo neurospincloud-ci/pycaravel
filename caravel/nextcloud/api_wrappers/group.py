@@ -24,14 +24,14 @@ class Group(WithRequester):
     def get_group(self, gid):
         """ Retrieve a list of group members.
         """
-        return self.requester.get("{gid}".format(gid=gid))
+        return self.requester.get(f"{gid}")
 
     def get_subadmins(self, gid):
         """ List subadmins of the group.
         """
-        return self.requester.get("{gid}/subadmins".format(gid=gid))
+        return self.requester.get(f"{gid}/subadmins")
 
     def delete_group(self, gid):
         """ Remove a group.
         """
-        return self.requester.delete("{gid}".format(gid=gid))
+        return self.requester.delete(f"{gid}")
