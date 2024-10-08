@@ -85,11 +85,11 @@ class Share(WithRequester):
         """
         if permissions is not None:
             permissions = int(permissions)
-        params = dict(
-            permissions=permissions,
-            password=password,
-            expireDate=expire_date
-        )
+        params = {
+            "permissions": permissions,
+            "password": password,
+            "expireDate": expire_date
+        }
         if public_upload:
             params["publicUpload"] = "true"
         if public_upload is False:

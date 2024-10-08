@@ -32,11 +32,11 @@ class User(WithRequester):
         Users are able to edit email, displayname and password; admins can
         also edit the quota value.
         """
-        what_to_key_map = dict(
-            email="email", quota="quota", phone="phone", address="address",
-            website="website", twitter="twitter", displayname="displayname",
-            password="password"
-        )
+        what_to_key_map = {
+            "email": "email", "quota": "quota", "phone": "phone",
+            "address": "address", "website": "website", "twitter": "twitter",
+            "displayname": "displayname", "password": "password"
+        }
         assert what in what_to_key_map, (
             "You have chosen to edit user's '{what}', but you can choose only"
             "from: {choices}".format(
@@ -44,10 +44,10 @@ class User(WithRequester):
         )
 
         url = "{uid}".format(uid=uid)
-        msg = dict(
-            key=what_to_key_map[what],
-            value=value,
-        )
+        msg = {
+            "key": what_to_key_map[what],
+            "value": value,
+        }
         return self.requester.put(url, msg)
 
     def disable_user(self, uid):
