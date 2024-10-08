@@ -24,12 +24,12 @@ class JSON(LoaderBase):
     allowed_extensions = [".json", ]
 
     def load(self, path):
-        """ A method that load a JSON file.
+        """ A method that loads a JSON file.
 
         Parameters
         ----------
         path: str
-            the path to the JOSN file.
+            the path to the JSON file.
 
         Returns
         -------
@@ -40,15 +40,15 @@ class JSON(LoaderBase):
             data = json.load(open_file)
         return data
 
-    def save(self, data, outpath):
-        """ A method that save the data in a JSON file.
+    def save(self, data, path):
+        """ A method that saves data into a JSON file.
 
         Parameters
         ----------
         data: object
             the data to be saved.
-        outpath: str
-            the path where the the data will be saved.
+        path: str
+            the path to the JSON file to save data into.
         """
         with open(path, "wt") as open_file:
             json.dump(data, open_file, indent=4)
