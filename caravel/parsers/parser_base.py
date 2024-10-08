@@ -245,7 +245,7 @@ class ParserBase(object):
             if isinstance(path, dict):
                 _data = pd.DataFrame.from_records([path])
                 path = ["{0}-{1}".format(key, val)
-                        for key, val in zip(df.columns, df.values[index])
+                        for key, val in zip(df.columns, df.to_numpy()[index])
                         if key != "filename"]
                 path = "_".join(path)
             else:
