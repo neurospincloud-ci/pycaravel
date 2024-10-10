@@ -186,14 +186,14 @@
         <span class="n">_conf</span> <span class="o">=</span> <span class="n">ParserBase</span><span class="o">.</span><span class="n">_get_conf</span><span class="p">(</span><span class="n">confdir</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_conf</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Unkown configuration for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available projects &quot;</span>
+                <span class="s2">&quot;Unknown configuration for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available projects &quot;</span>
                 <span class="s2">&quot;are: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_conf</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">_conf</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">layoutdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_repr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_repr</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_repr</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Unkown representation for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available &quot;</span>
+                    <span class="s2">&quot;Unknown representation for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available &quot;</span>
                     <span class="s2">&quot;projects are: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_repr</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="n">_repr</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
@@ -259,7 +259,7 @@
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">conf</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                 <span class="s2">&quot;No configuration available for layout &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Please contact &quot;</span>
-                <span class="s2">&quot;the module developpers to add the support for your project.&quot;</span><span class="p">)</span>
+                <span class="s2">&quot;the module developers to add the support for your project.&quot;</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_load_layout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Load a layout from its pre-generated representation.</span>
@@ -268,7 +268,7 @@
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                     <span class="s2">&quot;A pre-generated &#39;</span><span class="si">{0}</span><span class="s2">&#39; layout for your project &#39;</span><span class="si">{1}</span><span class="s2">&#39; is &quot;</span>
-                    <span class="s2">&quot;expected in user mode. Please contact the developpers &quot;</span>
+                    <span class="s2">&quot;expected in user mode. Please contact the developers &quot;</span>
                     <span class="s2">&quot;of the module.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">))</span>
             <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
@@ -327,7 +327,7 @@
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        values: list</span>
-<span class="sd">            the key assocaited values in the layout.</span>
+<span class="sd">            the key associated values in the layout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;This function has to be defined in child &quot;</span>
                                   <span class="s2">&quot;child class.&quot;</span><span class="p">)</span></div>
