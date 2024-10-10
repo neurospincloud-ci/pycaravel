@@ -8,7 +8,7 @@ class Share(WithRequester):
 
     def get_local_url(self, additional_url=""):
         if additional_url:
-            return "/".join([self.LOCAL, additional_url])
+            return f"{self.LOCAL}/{additional_url}"
         return self.LOCAL
 
     @staticmethod

@@ -7,7 +7,7 @@ class FederatedCloudShare(WithRequester):
 
     def get_federated_url(self, additional_url=""):
         if additional_url:
-            return "/".join([self.FEDERATED, additional_url])
+            return f"{self.FEDERATED}/{additional_url}"
         return self.FEDERATED
 
     def list_accepted_federated_cloudshares(self):
