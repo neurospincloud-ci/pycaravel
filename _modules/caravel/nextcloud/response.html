@@ -168,7 +168,7 @@
     <span class="p">}</span>
 
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">WebDAVResponse</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
             <span class="n">response</span><span class="o">=</span><span class="n">response</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">json_output</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">request_method</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">method</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">is_ok</span> <span class="o">=</span> <span class="kc">False</span>
@@ -178,7 +178,7 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">is_ok_str</span> <span class="o">=</span> <span class="s2">&quot;OK&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ok</span> <span class="k">else</span> <span class="s2">&quot;Failed&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;OCSResponse: Status: </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">is_ok_str</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;OCSResponse: Status: </span><span class="si">{</span><span class="n">is_ok_str</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div>
 
 
 <div class="viewcode-block" id="OCSResponse"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.response.OCSResponse.html#caravel.nextcloud.response.OCSResponse">[docs]</a><span class="k">class</span> <span class="nc">OCSResponse</span><span class="p">(</span><span class="n">NextCloudResponse</span><span class="p">):</span>
@@ -206,7 +206,7 @@
 
     <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">is_ok_str</span> <span class="o">=</span> <span class="s2">&quot;OK&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_ok</span> <span class="k">else</span> <span class="s2">&quot;Failed&quot;</span>
-        <span class="k">return</span> <span class="s2">&quot;&lt;OCSResponse: Status: </span><span class="si">{}</span><span class="s2">&gt;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">is_ok_str</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;&lt;OCSResponse: Status: </span><span class="si">{</span><span class="n">is_ok_str</span><span class="si">}</span><span class="s2">&gt;&quot;</span></div>
 </pre></div>
                     </div>
                 <div class="spacer"></div>

@@ -136,8 +136,7 @@
                     
                     <div class="document">
                         <h1>Source code for caravel.io</h1><div class='divider-1 wow fadeInUp'><span></span></div><div class="highlight"><pre>
-<span></span><span class="c1"># coding: utf-8</span>
-<span class="c1">##########################################################################</span>
+<span></span><span class="c1">##########################################################################</span>
 <span class="c1"># NSAp - Copyright (C) CEA, 2019</span>
 <span class="c1"># Distributed under the terms of the CeCILL-B license, as published by</span>
 <span class="c1"># the CEA-CNRS-INRIA. Refer to the LICENSE file or to</span>
@@ -219,7 +218,7 @@
         <span class="n">loader</span> <span class="o">=</span> <span class="n">loader_class</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">loader</span><span class="o">.</span><span class="n">can_load</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">loader</span>
-    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No loader available for &#39;</span><span class="si">{0}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No loader available for &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="get_saver"><a class="viewcode-back" href="../../generated/caravel.io.get_saver.html#caravel.io.get_saver">[docs]</a><span class="k">def</span> <span class="nf">get_saver</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
@@ -240,7 +239,7 @@
         <span class="n">saver</span> <span class="o">=</span> <span class="n">saver_class</span><span class="p">()</span>
         <span class="k">if</span> <span class="n">saver</span><span class="o">.</span><span class="n">can_save</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
             <span class="k">return</span> <span class="n">saver</span>
-    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s2">&quot;No saver available for &#39;</span><span class="si">{0}</span><span class="s2">&#39;.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">path</span><span class="p">))</span></div>
+    <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No saver available for &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 </pre></div>
                     </div>
                 <div class="spacer"></div>

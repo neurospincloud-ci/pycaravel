@@ -136,8 +136,7 @@
                     
                     <div class="document">
                         <h1>Source code for caravel.parsers.parser_base</h1><div class='divider-1 wow fadeInUp'><span></span></div><div class="highlight"><pre>
-<span></span><span class="c1"># coding: utf-8</span>
-<span class="c1">##########################################################################</span>
+<span></span><span class="c1">##########################################################################</span>
 <span class="c1"># NSAp - Copyright (C) CEA, 2019</span>
 <span class="c1"># Distributed under the terms of the CeCILL-B license, as published by</span>
 <span class="c1"># the CEA-CNRS-INRIA. Refer to the LICENSE file or to</span>
@@ -163,7 +162,7 @@
 <span class="kn">from</span> <span class="nn">caravel.io</span> <span class="kn">import</span> <span class="n">load</span>
 
 
-<div class="viewcode-block" id="ParserBase"><a class="viewcode-back" href="../../../generated/caravel.parsers.parser_base.ParserBase.html#caravel.parsers.parser_base.ParserBase">[docs]</a><span class="k">class</span> <span class="nc">ParserBase</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ParserBase"><a class="viewcode-back" href="../../../generated/caravel.parsers.parser_base.ParserBase.html#caravel.parsers.parser_base.ParserBase">[docs]</a><span class="k">class</span> <span class="nc">ParserBase</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Base parser to retrieve data from a BIDS directory.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">AVAILABLE_LAYOUTS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;sourcedata&quot;</span><span class="p">,</span> <span class="s2">&quot;rawdata&quot;</span><span class="p">,</span> <span class="s2">&quot;derivatives&quot;</span><span class="p">,</span> <span class="s2">&quot;phenotype&quot;</span><span class="p">)</span>
@@ -186,15 +185,15 @@
         <span class="n">_conf</span> <span class="o">=</span> <span class="n">ParserBase</span><span class="o">.</span><span class="n">_get_conf</span><span class="p">(</span><span class="n">confdir</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_conf</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Unknown configuration for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available projects &quot;</span>
+                <span class="s2">&quot;Unknown configuration for project &#39;</span><span class="si">{}</span><span class="s2">&#39;. Available projects &quot;</span>
                 <span class="s2">&quot;are: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_conf</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">conf</span> <span class="o">=</span> <span class="n">_conf</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
         <span class="k">if</span> <span class="n">layoutdir</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
             <span class="n">_repr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_repr</span><span class="p">(</span><span class="n">layoutdir</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">project</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_repr</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;Unknown representation for project &#39;</span><span class="si">{0}</span><span class="s2">&#39;. Available &quot;</span>
-                    <span class="s2">&quot;projects are: </span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">_repr</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
+                    <span class="sa">f</span><span class="s2">&quot;Unknown representation for project &#39;</span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2">&#39;. &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;Available projects are: </span><span class="si">{</span><span class="n">_repr</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="n">_repr</span><span class="p">[</span><span class="n">project</span><span class="p">]</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">representation</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;manager&quot;</span><span class="p">:</span> <span class="p">[{</span><span class="s2">&quot;path&quot;</span><span class="p">:</span> <span class="s2">&quot;to_be_created.pkl&quot;</span><span class="p">}]}</span>
@@ -218,8 +217,8 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">AVAILABLE_LAYOUTS</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s2">&quot;Layout &#39;</span><span class="si">{0}</span><span class="s2">&#39; is not yet supported. Available layouts are: &quot;</span>
-                <span class="s2">&quot;</span><span class="si">{1}</span><span class="s2">.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">AVAILABLE_LAYOUTS</span><span class="p">))</span>
+                <span class="sa">f</span><span class="s2">&quot;Layout &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; is not yet supported. &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;Available layouts are: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">AVAILABLE_LAYOUTS</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
 
     <span class="nd">@classmethod</span>
     <span class="k">def</span> <span class="nf">_get_conf</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">confdir</span><span class="p">):</span>
@@ -267,9 +266,9 @@
         <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                    <span class="s2">&quot;A pre-generated &#39;</span><span class="si">{0}</span><span class="s2">&#39; layout for your project &#39;</span><span class="si">{1}</span><span class="s2">&#39; is &quot;</span>
-                    <span class="s2">&quot;expected in user mode. Please contact the developers &quot;</span>
-                    <span class="s2">&quot;of the module.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="p">))</span>
+                    <span class="sa">f</span><span class="s2">&quot;A pre-generated &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39; layout for your project &quot;</span>
+                    <span class="sa">f</span><span class="s2">&quot;&#39;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">project</span><span class="si">}</span><span class="s2">&#39; is expected in user mode. Please &quot;</span>
+                    <span class="s2">&quot;contact the developers of the module.&quot;</span><span class="p">)</span>
             <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">representation</span><span class="p">[</span><span class="n">name</span><span class="p">][</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="s2">&quot;path&quot;</span><span class="p">]</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;rb&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">layouts</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">open_file</span><span class="p">)</span>
@@ -382,7 +381,7 @@
         <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;filename&quot;</span><span class="p">]):</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
                 <span class="n">_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">([</span><span class="n">path</span><span class="p">])</span>
-                <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;</span><span class="si">{0}</span><span class="s2">-</span><span class="si">{1}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">val</span><span class="p">)</span>
+                <span class="n">path</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">key</span><span class="si">}</span><span class="s2">-</span><span class="si">{</span><span class="n">val</span><span class="si">}</span><span class="s2">&quot;</span>
                         <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">val</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">,</span> <span class="n">df</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()[</span><span class="n">index</span><span class="p">])</span>
                         <span class="k">if</span> <span class="n">key</span> <span class="o">!=</span> <span class="s2">&quot;filename&quot;</span><span class="p">]</span>
                 <span class="n">path</span> <span class="o">=</span> <span class="s2">&quot;_&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
