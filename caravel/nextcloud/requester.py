@@ -164,7 +164,7 @@ class WebDAVRequester(Requester):
     def move(self, url, destination, overwrite=False):
         url = self.get_full_url(additional_url=url)
         destination_url = self.get_full_url(additional_url=destination)
-        logger.debug(f"{url} -> {destionation_url}")
+        logger.debug(f"{url} -> {destination_url}")
         headers = {
             "Destination": destination_url.encode('utf-8'),
             "Overwrite": "T" if overwrite else "F"
