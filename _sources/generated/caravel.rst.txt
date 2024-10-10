@@ -17,21 +17,15 @@ Main module that contains the 'Caravel' generic parser.
     * `caravel.get_parser <caravel.parser.get_parser.html>`_
     * `caravel.info <caravel.configure.info.html>`_
 
-caravel.parser
-^^^^^^^^^^^^^^
+caravel.utils
+^^^^^^^^^^^^^
 
-This module contains the generic parser definition.
+This module provides common utilities.
 
 .. rst-class:: documentation-contents
 
-  **Classes**:
-    * `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
-
   **Functions**:
-    * `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
-    * `caravel.parser.build_path <caravel.parser.build_path.html>`_
-    * `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
-    * `caravel.parser.listify <caravel.parser.listify.html>`_
+    * `caravel.utils.export_report <caravel.utils.export_report.html>`_
 
 caravel.validation
 ^^^^^^^^^^^^^^^^^^
@@ -64,16 +58,6 @@ This module contains generic functions to load/save a dataset.
     * `caravel.io.load <caravel.io.load.html>`_
     * `caravel.io.save <caravel.io.save.html>`_
 
-caravel.utils
-^^^^^^^^^^^^^
-
-This module provides common utilities.
-
-.. rst-class:: documentation-contents
-
-  **Functions**:
-    * `caravel.utils.export_report <caravel.utils.export_report.html>`_
-
 caravel.configure
 ^^^^^^^^^^^^^^^^^
 
@@ -95,4 +79,20 @@ A module to simplify email sending.
 
   **Classes**:
     * `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
+
+caravel.parser
+^^^^^^^^^^^^^^
+
+This module contains the generic parser definition.
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
+
+  **Functions**:
+    * `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
+    * `caravel.parser.build_path <caravel.parser.build_path.html>`_
+    * `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
+    * `caravel.parser.listify <caravel.parser.listify.html>`_
 

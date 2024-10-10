@@ -32,19 +32,25 @@ First checks
 In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-23
+.. GENERATED FROM PYTHON SOURCE LINES 16-29
 
 .. code-block:: default
 
 
     import os
+    from pprint import pprint
+
+    import rlink
+    from rlink.validation import get_validators
+
     import caravel
+    from caravel.validation import run_validation
 
     print(caravel.__version__)
     print(caravel.info())
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-29
+.. GENERATED FROM PYTHON SOURCE LINES 30-35
 
 Load the validators
 -------------------
@@ -52,33 +58,27 @@ Load the validators
 First load the validators of the 'rlink' project that only check the
 MRI structure.
 
-.. GENERATED FROM PYTHON SOURCE LINES 29-36
+.. GENERATED FROM PYTHON SOURCE LINES 35-40
 
 .. code-block:: default
 
-
-    from rlink.validation import get_validators
 
     validators = get_validators(family="mri.structure")
     print(validators)
 
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 37-41
+.. GENERATED FROM PYTHON SOURCE LINES 41-45
 
 Apply validators
 ----------------
 
 Apply the loaded validators and generate a report.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-61
+.. GENERATED FROM PYTHON SOURCE LINES 45-61
 
 .. code-block:: default
 
-
-    import rlink
-    from pprint import pprint
-    from caravel.validation import run_validation
 
     datadir = "/neurospin/rlink/workspace/ci_toy/rlink-mri-upload"
     projectdir = os.path.dirname(os.path.realpath(rlink.__file__))

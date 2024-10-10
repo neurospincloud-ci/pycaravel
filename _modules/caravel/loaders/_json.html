@@ -162,12 +162,12 @@
     <span class="n">allowed_extensions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;.json&quot;</span><span class="p">,</span> <span class="p">]</span>
 
 <div class="viewcode-block" id="JSON.load"><a class="viewcode-back" href="../../../generated/caravel.loaders._json.JSON.html#caravel.loaders.JSON.load">[docs]</a>    <span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; A method that load a JSON file.</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; A method that loads a JSON file.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        path: str</span>
-<span class="sd">            the path to the JOSN file.</span>
+<span class="sd">            the path to the JSON file.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
@@ -178,15 +178,15 @@
             <span class="n">data</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">open_file</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">data</span></div>
 
-<div class="viewcode-block" id="JSON.save"><a class="viewcode-back" href="../../../generated/caravel.loaders._json.JSON.html#caravel.loaders.JSON.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">outpath</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot; A method that save the data in a JSON file.</span>
+<div class="viewcode-block" id="JSON.save"><a class="viewcode-back" href="../../../generated/caravel.loaders._json.JSON.html#caravel.loaders.JSON.save">[docs]</a>    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot; A method that saves data into a JSON file.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        data: object</span>
 <span class="sd">            the data to be saved.</span>
-<span class="sd">        outpath: str</span>
-<span class="sd">            the path where the the data will be saved.</span>
+<span class="sd">        path: str</span>
+<span class="sd">            the path to the JSON file to save data into.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;wt&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">open_file</span><span class="p">:</span>
             <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">open_file</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span></div></div>

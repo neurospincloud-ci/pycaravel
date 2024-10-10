@@ -15,7 +15,13 @@ check the package version.
 """
 
 import os
+from pprint import pprint
+
+import rlink
+from rlink.validation import get_validators
+
 import caravel
+from caravel.validation import run_validation
 
 print(caravel.__version__)
 print(caravel.info())
@@ -27,8 +33,6 @@ print(caravel.info())
 # First load the validators of the 'rlink' project that only check the
 # MRI structure.
 
-from rlink.validation import get_validators
-
 validators = get_validators(family="mri.structure")
 print(validators)
 
@@ -38,10 +42,6 @@ print(validators)
 # ----------------
 #
 # Apply the loaded validators and generate a report.
-
-import rlink
-from pprint import pprint
-from caravel.validation import run_validation
 
 datadir = "/neurospin/rlink/workspace/ci_toy/rlink-mri-upload"
 projectdir = os.path.dirname(os.path.realpath(rlink.__file__))

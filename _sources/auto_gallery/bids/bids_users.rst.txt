@@ -32,19 +32,21 @@ First checks
 In order to test if pycaravel package is installed on your machine, you can
 check the package version.
 
-.. GENERATED FROM PYTHON SOURCE LINES 16-23
+.. GENERATED FROM PYTHON SOURCE LINES 16-25
 
 .. code-block:: default
 
 
     import os
+    from pprint import pprint
+
     import caravel
 
     print(caravel.__version__)
     print(caravel.info())
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 24-31
+.. GENERATED FROM PYTHON SOURCE LINES 26-33
 
 Create a parser for your project
 --------------------------------
@@ -54,7 +56,7 @@ parsing rules are defined by projects in the module, so we will beed to
 specify the project name you are working on. For the moement it is not
 possible to specify these rules via the API.
 
-.. GENERATED FROM PYTHON SOURCE LINES 31-37
+.. GENERATED FROM PYTHON SOURCE LINES 33-39
 
 .. code-block:: default
 
@@ -65,18 +67,16 @@ possible to specify these rules via the API.
         layoutdir=cwdir)
 
 
-.. GENERATED FROM PYTHON SOURCE LINES 38-41
+.. GENERATED FROM PYTHON SOURCE LINES 40-43
 
 You can now list the available configurations for your project, and the
 available layout representations pre-generated. Note that these
 representations are sorted by dates, and that the latest one will be used.
 
-.. GENERATED FROM PYTHON SOURCE LINES 41-47
+.. GENERATED FROM PYTHON SOURCE LINES 43-47
 
 .. code-block:: default
 
-
-    from pprint import pprint
 
     pprint(parser.conf)
     pprint(parser.representation)
