@@ -131,9 +131,8 @@ def build_path(keys, path_patterns, strict=False):
         defined = [elem[1] for elem in keys_matched]
 
         # If strict, all keys must be contained in the pattern
-        if strict:
-            if set(keys.keys()) - set(defined):
-                continue
+        if strict and set(keys.keys()) - set(defined):
+            continue
 
         # Iterate through the provided path patterns
         new_path = pattern
