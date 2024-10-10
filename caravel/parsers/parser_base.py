@@ -72,7 +72,7 @@ class ParserBase:
         checks = [elem[-1]["path"] for elem in self.representation.values()]
         if len(checks) == 0:
             return False
-        return all([elem.endswith(self.EXT) for elem in checks])
+        return all(elem.endswith(self.EXT) for elem in checks)
 
     def _check_layout(self, name):
         """ Check if the layout name is supported.

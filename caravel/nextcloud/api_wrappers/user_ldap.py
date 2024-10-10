@@ -69,7 +69,7 @@ class UserLDAP(WithRequester):
     def get_ldap_config(self, config_id, show_password=None):
         """ Get all keys and values of the specified LDAP configuration.
         """
-        params = dict(showPassword=show_password)
+        params = {"showPassword": show_password}
         return self.requester.get(config_id, params=params)
 
     def edit_ldap_config(self, config_id, data):

@@ -60,8 +60,8 @@ class BIDSParser(ParserBase):
             the layout keys.
         """
         layout = self._load_layout(name)
-        return list([elem.replace(f"{name}.", "")
-                     for elem in layout.entities.keys()])
+        return [elem.replace(f"{name}.", "")
+                for elem in layout.entities]
 
     def list_values(self, name, key):
         """ List all the filtering key values available in the layout.

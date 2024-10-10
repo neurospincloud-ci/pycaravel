@@ -10,13 +10,13 @@ class Activity(WithRequester):
         """ Get an activity feed showing your file changes and other
         interesting things going on in your Nextcloud
         """
-        params = dict(
-            since=since,
-            limit=limit,
-            object_type=object_type,
-            object_id=object_id,
-            sort=sort
-        )
+        params = {
+            "since": since,
+            "limit": limit,
+            "object_type": object_type,
+            "object_id": object_id,
+            "sort": sort
+        }
         if params['object_type'] and params['object_id']:
             return self.requester.get(url="filter", params=params)
         return self.requester.get(params=params)
