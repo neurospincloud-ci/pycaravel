@@ -269,9 +269,8 @@
         <span class="n">defined</span> <span class="o">=</span> <span class="p">[</span><span class="n">elem</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">elem</span> <span class="ow">in</span> <span class="n">keys_matched</span><span class="p">]</span>
 
         <span class="c1"># If strict, all keys must be contained in the pattern</span>
-        <span class="k">if</span> <span class="n">strict</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">defined</span><span class="p">):</span>
-                <span class="k">continue</span>
+        <span class="k">if</span> <span class="n">strict</span> <span class="ow">and</span> <span class="nb">set</span><span class="p">(</span><span class="n">keys</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">-</span> <span class="nb">set</span><span class="p">(</span><span class="n">defined</span><span class="p">):</span>
+            <span class="k">continue</span>
 
         <span class="c1"># Iterate through the provided path patterns</span>
         <span class="n">new_path</span> <span class="o">=</span> <span class="n">pattern</span>
