@@ -85,7 +85,7 @@ def _expand_keys(entities):
     """
     keys = list(entities.keys())
     values = list(product(*[entities[k] for k in keys]))
-    return [{k: v for k, v in zip(keys, combs)} for combs in values]
+    return [dict(zip(keys, combs)) for combs in values]
 
 
 _PATTERN_FIND = re.compile(
