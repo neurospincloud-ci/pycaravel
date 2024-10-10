@@ -27,7 +27,7 @@ print(caravel.info())
 # --------------------------------
 #
 # The package provides a common interface to parse a BIDS directory. The
-# parsing rules are defined by projects in the module, so we will beed to
+# parsing rules are defined by projects in the module, so we will need to
 # specify the project name you are working on. For the moment it is not
 # possible to specify these rules via the API. Set the layoutdir to None
 # in order to switch to the managers mode.

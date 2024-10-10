@@ -39,7 +39,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
       and password in the NEXTCLOUD_ADMIN_USER and NEXTCLOUD_PASSWORD
       environment variables if they are not present.
     * Parameters and Configurations: the logger is initialized to print and
-      save (to a log file named 'stdout_<timestemp>.log') all information, the
+      save (to a log file named 'stdout_<timestamp>.log') all information, the
       code is run in debug mode if verbose, a 'logs', 'layout' and 'data'
       folder are created in the 'working_dir' directory, and the allowed
       subjects are loaded from the 'allowed_subjects' file if specified.
@@ -101,7 +101,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         the SMTP port.
     support_email: str
         the support email in case of internal error.
-    test_mod: bool, deafault=False
+    test_mod: bool, default=False
         if set select only the '<family>.structure' validators.
     login: str, default None
         the NextCloud service login to use.
