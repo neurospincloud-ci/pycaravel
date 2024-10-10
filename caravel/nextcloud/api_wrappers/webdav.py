@@ -58,14 +58,14 @@ class WebDAV(WithRequester):
         """ Check file of given user exists.
         """
         dirname, basename = path.rsplit("/", 1)
-        dirs, files = self.lsdir(uid, dirname)
+        _dirs, files = self.lsdir(uid, dirname)
         return basename in (files or [])
 
     def isdir(self, uid, path):
         """ Check dir of given user exists.
         """
         dirname, basename = path.rsplit("/", 1)
-        dirs, files = self.lsdir(uid, dirname)
+        dirs, _files = self.lsdir(uid, dirname)
         return basename in (dirs or [])
 
     def lsdir(self, uid, path):

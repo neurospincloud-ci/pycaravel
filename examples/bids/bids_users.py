@@ -15,6 +15,8 @@ check the package version.
 """
 
 import os
+from pprint import pprint
+
 import caravel
 
 print(caravel.__version__)
@@ -38,8 +40,6 @@ parser = caravel.get_parser(
 # You can now list the available configurations for your project, and the
 # available layout representations pre-generated. Note that these
 # representations are sorted by dates, and that the latest one will be used.
-
-from pprint import pprint
 
 pprint(parser.conf)
 pprint(parser.representation)
