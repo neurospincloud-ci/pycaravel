@@ -24,7 +24,7 @@ class User(WithRequester):
     def get_user(self, uid):
         """ Retrieve information about a single user.
         """
-        return self.requester.get("{uid}".format(uid=uid))
+        return self.requester.get(f"{uid}")
 
     def edit_user(self, uid, what, value):
         """ Edit attributes related to a user.
@@ -42,8 +42,7 @@ class User(WithRequester):
             "from: {choices}".format(
                 what=what, choices=", ".join(what_to_key_map.keys()))
         )
-
-        url = "{uid}".format(uid=uid)
+        url = f"{uid}"
         msg = {
             "key": what_to_key_map[what],
             "value": value,
@@ -54,37 +53,37 @@ class User(WithRequester):
         """ Disable a user on the Nextcloud server so that the user cannot
         login anymore.
         """
-        return self.requester.put("{uid}/disable".format(uid=uid))
+        return self.requester.put(f"{uid}/disable")
 
     def enable_user(self, uid):
         """ Enable a user on the Nextcloud server so that the user can login
         again.
         """
-        return self.requester.put("{uid}/enable".format(uid=uid))
+        return self.requester.put(f"{uid}/enable")
 
     def delete_user(self, uid):
         """ Delete a user from the Nextcloud server.
         """
-        return self.requester.delete("{uid}".format(uid=uid))
+        return self.requester.delete(f"{uid}")
 
     def add_to_group(self, uid, gid):
         """ Add the specified user to the specified group.
         """
-        url = "{uid}/groups".format(uid=uid)
+        url = f"{uid}/groups"
         msg = {'groupid': gid}
         return self.requester.post(url, msg)
 
     def remove_from_group(self, uid, gid):
         """ Remove the specified user from the specified group.
         """
-        url = "{uid}/groups".format(uid=uid)
+        url = f"{uid}/groups"
         msg = {'groupid': gid}
         return self.requester.delete(url, msg)
 
     def create_subadmin(self, uid, gid):
         """ Make a user the subadmin of a group.
         """
-        url = "{uid}/subadmins".format(uid=uid)
+        url = f"{uid}/subadmins"
         msg = {'groupid': gid}
         return self.requester.post(url, msg)
 
@@ -92,18 +91,18 @@ class User(WithRequester):
         """ Remove the subadmin rights for the user specified from the group
         specified.
         """
-        url = "{uid}/subadmins".format(uid=uid)
+        url = f"{uid}/subadmins"
         msg = {'groupid': gid}
         return self.requester.delete(url, msg)
 
     def get_subadmin_groups(self, uid):
         """ Get the groups in which the user is a subadmin.
         """
-        url = "{uid}/subadmins".format(uid=uid)
+        url = f"{uid}/subadmins"
         return self.requester.get(url)
 
     def resend_welcome_mail(self, uid):
         """ Trigger the welcome email for this user again.
         """
-        url = "{uid}/welcome".format(uid=uid)
+        url = f"{uid}/welcome"
         return self.requester.post(url)

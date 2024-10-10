@@ -1,4 +1,3 @@
-# coding: utf-8
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2019
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -46,7 +45,7 @@ def info():
     info: str
         package information.
     """
-    version = "Package version: {0}\n\n".format(__version__)
-    license = "License: {0}\n\n".format(LICENSE)
-    authors = "Authors: \n{0}\n".format(AUTHOR)
+    version = f"Package version: {__version__}\n\n"
+    license = f"License: {LICENSE}\n\n"
+    authors = f"Authors: \n{AUTHOR}\n"
     return logo() + "\n\n" + version + license + authors

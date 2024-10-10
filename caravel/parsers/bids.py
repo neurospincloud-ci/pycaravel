@@ -1,4 +1,3 @@
-# coding: utf-8
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2019
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -61,7 +60,7 @@ class BIDSParser(ParserBase):
             the layout keys.
         """
         layout = self._load_layout(name)
-        return [elem.replace("{0}.".format(name), "")
+        return [elem.replace(f"{name}.", "")
                 for elem in layout.entities]
 
     def list_values(self, name, key):
@@ -80,9 +79,9 @@ class BIDSParser(ParserBase):
             the key associated values in the layout.
         """
         layout = self._load_layout(name)
-        _key = "{0}.{1}".format(name, key)
+        _key = f"{name}.{key}"
         if _key not in layout.entities:
-            raise ValueError("Unrecognize layout key '{0}'.".format(key))
+            raise ValueError(f"Unrecognize layout key '{key}'.")
         return list(layout.unique(_key))
 
     def filter_layout(self, name, extension=None, **kwargs):
@@ -143,8 +142,7 @@ class BIDSParser(ParserBase):
         self._check_conf(name)
         layout_root = os.path.join(bids_root, name)
         if not os.path.isdir(layout_root):
-            raise ValueError("'{0}' is not a valid directory.".format(
-                layout_root))
+            raise ValueError(f"'{layout_root}' is not a valid directory.")
         if subset is None:
             layout = Layout([(layout_root, self.conf[name])])
         else:
@@ -153,9 +151,9 @@ class BIDSParser(ParserBase):
                 for dirname in subset])
         self.layouts[name] = layout
         now = datetime.datetime.now()
-        timestamp = "{0}-{1}-{2}".format(now.year, now.month, now.day)
+        timestamp = f"{now.year}-{now.month}-{now.day}"
         outfile = os.path.join(
-            outdir, "{0}_{1}_{2}.pkl".format(self.project, name, timestamp))
+            outdir, f"{self.project}_{name}_{timestamp}.pkl")
         with open(outfile, "wb") as open_file:
             pickle.dump(layout, open_file, -1)
         return outfile

@@ -1,4 +1,3 @@
-# coding: utf-8
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2019
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -12,7 +11,7 @@ This module defines the loader base class.
 """
 
 
-class LoaderBase(object):
+class LoaderBase:
     """ Base class for all loaders.
     """
     allowed_extensions = []

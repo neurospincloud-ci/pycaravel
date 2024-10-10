@@ -1,4 +1,3 @@
-# coding: utf-8
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2019
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -46,7 +45,7 @@ def get_parser(project, confdir, layoutdir):
         parser = parser_class(project, confdir, layoutdir)
         if parser.can_load():
             return parser
-    raise ValueError("No loader available for '{0}'.".format(project))
+    raise ValueError(f"No loader available for '{project}'.")
 
 
 def listify(obj):
@@ -142,8 +141,8 @@ def build_path(keys, path_patterns, strict=False):
         for fmt, name, valid, defval in keys_matched:
             valid_expanded = valid.split('|')
             if valid_expanded and defval and defval not in valid_expanded:
-                warnings.warn("Pattern '{0}' is inconsistent as it defines an "
-                              "invalid default value.".format(fmt))
+                warnings.warn(f"Pattern '{fmt}' is inconsistent as it defines "
+                              "an invalid default value.")
             if (valid_expanded and name in keys and
                     set(keys[name]) - set(valid_expanded)):
                 continue
@@ -152,14 +151,14 @@ def build_path(keys, path_patterns, strict=False):
 
             # At this point, valid & default values are checked &
             # set - simplify pattern
-            new_path = new_path.replace(fmt, '{%s}' % name)
+            new_path = new_path.replace(fmt, f'{{{name}}}')
 
         optional_patterns = re.findall(r'(\[.*?\])', new_path)
         # Optional patterns with selector are cast to mandatory or removed
         for op in optional_patterns:
             for ent_name in {k for k, v in keys.items() if (v is not None)
                              and not (v[0] != v[0])}:
-                if ('{%s}' % ent_name) in op:
+                if (f'{{{ent_name}}}') in op:
                     new_path = new_path.replace(op, op[1:-1])
                     continue
 

@@ -1,4 +1,3 @@
-# coding: utf-8
 ##########################################################################
 # NSAp - Copyright (C) CEA, 2019
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -25,7 +24,7 @@ import pandas as pd
 from caravel.io import load
 
 
-class ParserBase(object):
+class ParserBase:
     """ Base parser to retrieve data from a BIDS directory.
     """
     AVAILABLE_LAYOUTS = ("sourcedata", "rawdata", "derivatives", "phenotype")
@@ -48,15 +47,15 @@ class ParserBase(object):
         _conf = ParserBase._get_conf(confdir)
         if project not in _conf:
             raise ValueError(
-                "Unknown configuration for project '{0}'. Available projects "
+                "Unknown configuration for project '{}'. Available projects "
                 "are: {1}.".format(project, _conf.keys()))
         self.conf = _conf[project]
         if layoutdir is not None:
             _repr = self._get_repr(layoutdir)
             if project not in _repr:
                 raise ValueError(
-                    "Unknown representation for project '{0}'. Available "
-                    "projects are: {1}.".format(project, _repr.keys()))
+                    f"Unknown representation for project '{project}'. "
+                    f"Available projects are: {_repr.keys()}.")
             self.representation = _repr[project]
         else:
             self.representation = {"manager": [{"path": "to_be_created.pkl"}]}
@@ -80,8 +79,8 @@ class ParserBase(object):
         """
         if name not in self.AVAILABLE_LAYOUTS:
             raise ValueError(
-                "Layout '{0}' is not yet supported. Available layouts are: "
-                "{1}.".format(name, self.AVAILABLE_LAYOUTS))
+                f"Layout '{name}' is not yet supported. "
+                f"Available layouts are: {self.AVAILABLE_LAYOUTS}.")
 
     @classmethod
     def _get_conf(cls, confdir):
@@ -129,9 +128,9 @@ class ParserBase(object):
         if name not in self.layouts:
             if name not in self.representation:
                 raise ValueError(
-                    "A pre-generated '{0}' layout for your project '{1}' is "
-                    "expected in user mode. Please contact the developers "
-                    "of the module.".format(name, self.project))
+                    f"A pre-generated '{name}' layout for your project "
+                    f"'{self.project}' is expected in user mode. Please "
+                    "contact the developers of the module.")
             path = self.representation[name][-1]["path"]
             with open(path, "rb") as open_file:
                 self.layouts[name] = pickle.load(open_file)
@@ -244,7 +243,7 @@ class ParserBase(object):
         for index, path in enumerate(df["filename"]):
             if isinstance(path, dict):
                 _data = pd.DataFrame.from_records([path])
-                path = ["{0}-{1}".format(key, val)
+                path = [f"{key}-{val}"
                         for key, val in zip(df.columns, df.to_numpy()[index])
                         if key != "filename"]
                 path = "_".join(path)

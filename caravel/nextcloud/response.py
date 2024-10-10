@@ -30,7 +30,7 @@ class WebDAVResponse(NextCloudResponse):
     }
 
     def __init__(self, response, data=None):
-        super(WebDAVResponse, self).__init__(
+        super().__init__(
             response=response, data=data, json_output=False)
         request_method = response.request.method
         self.is_ok = False
@@ -40,7 +40,7 @@ class WebDAVResponse(NextCloudResponse):
 
     def __repr__(self):
         is_ok_str = "OK" if self.is_ok else "Failed"
-        return "<OCSResponse: Status: {}>".format(is_ok_str)
+        return f"<OCSResponse: Status: {is_ok_str}>"
 
 
 class OCSResponse(NextCloudResponse):
@@ -68,4 +68,4 @@ class OCSResponse(NextCloudResponse):
 
     def __repr__(self):
         is_ok_str = "OK" if self.is_ok else "Failed"
-        return "<OCSResponse: Status: {}>".format(is_ok_str)
+        return f"<OCSResponse: Status: {is_ok_str}>"

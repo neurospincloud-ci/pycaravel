@@ -27,9 +27,9 @@ class FederatedCloudShare(WithRequester):
         return self.requester.get(url)
 
     def accept_pending_federated_cloudshare(self, sid):
-        url = self.get_federated_url("pending/{sid}".format(sid=sid))
+        url = self.get_federated_url(f"pending/{sid}")
         return self.requester.post(url)
 
     def decline_pending_federated_cloudshare(self, sid):
-        url = self.get_federated_url("pending/{sid}".format(sid=sid))
+        url = self.get_federated_url(f"pending/{sid}")
         return self.requester.delete(url)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##########################################################################
 # pysphinxdoc - Copyright (C) AGrigis, 2021 - 2024
 # Distributed under the terms of the CeCILL-B license, as published by
@@ -99,9 +98,8 @@ source_suffix = ".rst"
 master_doc = "index"
 
 # General information about the project.
-project = u"pycaravel"
-copyright = u"""{0}, pycaravel developers <antoine.grigis@cea.fr>""".format(
-    datetime.date.today().year)
+project = "pycaravel"
+copyright = f"""{datetime.date.today().year}, pycaravel developers <antoine.grigis@cea.fr>"""
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

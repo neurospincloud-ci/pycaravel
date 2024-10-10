@@ -92,14 +92,12 @@ class Requester:
         :return: str
         """
         if additional_url and not str(additional_url).startswith("/"):
-            additional_url = "/{}".format(additional_url)
+            additional_url = f"/{additional_url}"
 
         if self.json_output:
             self.query_components.append("format=json")
 
-        ret = "{base_url}{api_url}{additional_url}".format(
-            base_url=self.base_url, api_url=self.API_URL,
-            additional_url=additional_url)
+        ret = f"{self.base_url}{self.API_URL}{additional_url}"
 
         if self.json_output:
             ret += "?format=json"
@@ -119,7 +117,7 @@ class WebDAVRequester(Requester):
     """ Requester for WebDAV API.
     """
     def __init__(self, *args, **kwargs):
-        super(WebDAVRequester, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def rtn(self, resp, data=None):
         return WebDAVResponse(response=resp, data=data)
@@ -166,7 +164,7 @@ class WebDAVRequester(Requester):
     def move(self, url, destination, overwrite=False):
         url = self.get_full_url(additional_url=url)
         destination_url = self.get_full_url(additional_url=destination)
-        logger.debug("{0} -> {1}".format(url, destination_url))
+        logger.debug(f"{url} -> {destionation_url}")
         headers = {
             "Destination": destination_url.encode('utf-8'),
             "Overwrite": "T" if overwrite else "F"
@@ -180,7 +178,7 @@ class WebDAVRequester(Requester):
     def copy(self, url, destination, overwrite=False):
         url = self.get_full_url(additional_url=url)
         destination_url = self.get_full_url(additional_url=destination)
-        logger.debug("{0} -> {1}".format(url, destination_url))
+        logger.debug(f"{url} -> {destionation_url}")
         headers = {
             "Destination": destination_url,
             "Overwrite": "T" if overwrite else "F"
