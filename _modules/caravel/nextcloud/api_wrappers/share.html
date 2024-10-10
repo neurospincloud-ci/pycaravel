@@ -146,7 +146,7 @@
 
     <span class="k">def</span> <span class="nf">get_local_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">additional_url</span><span class="p">:</span>
-            <span class="k">return</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">LOCAL</span><span class="p">,</span> <span class="n">additional_url</span><span class="p">])</span>
+            <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">LOCAL</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">additional_url</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">LOCAL</span>
 
 <div class="viewcode-block" id="Share.validate_share_parameters"><a class="viewcode-back" href="../../../../generated/caravel.nextcloud.api_wrappers.share.Share.html#caravel.nextcloud.api_wrappers.Share.validate_share_parameters">[docs]</a>    <span class="nd">@staticmethod</span>
