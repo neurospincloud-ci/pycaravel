@@ -108,7 +108,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     password: str, default None
         the associated NextCloud login password.
     allow_overwrite: bool, default False
-        optionaly, allow overwriting during data integration.
+        allow overwriting during data integration.
     verbose: int, default 0
         increase the verbosity level: 0 silent, [1, 2] verbose.
     """
