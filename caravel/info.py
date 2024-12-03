@@ -75,7 +75,8 @@ REQUIRES = [
     "pyEDFlib",
     "requests",
     "python-docx",
-    "fire"
+    "fire",
+    "pymzml"
 ]
 EXTRA_REQUIRES = {}
 SCRIPTS = [

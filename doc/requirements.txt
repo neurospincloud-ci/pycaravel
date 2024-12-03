@@ -12,3 +12,4 @@ pyEDFlib
 requests
 python-docx
 sphinx==3.5.4
+pymzml
