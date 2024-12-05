@@ -24,11 +24,12 @@ from caravel.loaders import PLINK
 from caravel.loaders import VCF
 from caravel.loaders import MP4
 from caravel.loaders import EDF
+from caravel.loaders import MZML
 
 # Global parameters
 # > define all the available loaders
 LOADERS = [MP4, EDF, PNG, TSV, CSV, NIFTI, JSON, DWI, TARGZ, XLSX, PDF,
-           PLINK, VCF]
+           PLINK, VCF, MZML]
 
 
 def load(path, **kwargs):

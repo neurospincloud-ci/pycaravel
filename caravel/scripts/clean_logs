@@ -1,0 +1,14 @@
+#! /usr/bin/env python3
+##########################################################################
+# NSAp - Copyright (C) CEA, 2020 - 2024
+# Distributed under the terms of the CeCILL-B license, as published by
+# the CEA-CNRS-INRIA. Refer to the LICENSE file or to
+# http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
+# for details.
+##########################################################################
+
+from caravel.utils import clean_logs_dir
+
+if __name__ == '__main__':
+    import fire
+    fire.Fire(clean_logs_dir)
