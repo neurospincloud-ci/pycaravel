@@ -125,7 +125,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     project_module = importlib.import_module(project)
     runtime = {
         "tool": "validation_and_integration",
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now().isoformat().replace(':','-'),
         "caravel_version": caravel.__version__,
         f"{project}_version": project_module.__version__}
     # set up internal logs
@@ -204,6 +204,8 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         # do not integrate if wip file present in upload folder
         if session.isfile(
             "admin", "/".join(["/", project, name, "wip"])):
+            logger.debug(f"wip file in {path}. Remove it if you want to "
+                        "integrate data.")
             continue
         # check associated collected folder exists
         collected_path = path.replace("-upload", "-collected")
