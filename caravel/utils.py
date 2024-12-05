@@ -57,9 +57,9 @@ def export_report(report, timestamp, outfile):
 
 
 def get_logs_to_remove(log_dir, cut_date=None):
-    """ Return all files that are older than cut_date 
+    """ Return all files that are older than cut_date
     according to their name.
-    
+
     Parameters
     ----------
     log_dir: str
@@ -77,17 +77,18 @@ def get_logs_to_remove(log_dir, cut_date=None):
     else:
         cut_date = datetime.strptime(cut_date, "%Y-%m-%d").date()
     print("Cut date", cut_date)
-    
+
     files2remove = []
 
     for filename in os.listdir(log_dir):
         date_regex = r'20\d\d-(0|1)\d-(0|1|2|3)\d'
         file_date = re.search(date_regex, filename)
         if file_date is not None:
-            file_date = datetime.strptime(file_date.group(0), '%Y-%m-%d').date()
+            file_date = datetime.strptime(file_date.group(0),
+                                          '%Y-%m-%d').date()
             if file_date <= cut_date:
                 files2remove.append(filename)
-    
+
     return files2remove
 
 
@@ -98,7 +99,7 @@ def clean_logs_dir(log_dir, cut_date=None):
     ----------
     log_dir: str
         path to the directory to clean.
-    cut_date: 
+    cut_date:
         date from before which files are suppressed. If None,
         remove files than are older than one year old.  
         Should be formatted %Y-%m-%d (e.g. 2024-08-06).
