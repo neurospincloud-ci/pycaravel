@@ -388,10 +388,12 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         else:
             logger.info(f"In error: {item.uploaddir}")
             # save the report in local_reports
-            local_reportfile = os.path.join(local_report_dir, f"report.json")
+            local_reportfile = os.path.join(local_report_dir,
+                                            f"report_{runtime['timestamp']}.json")
             with open(local_reportfile, "wt") as open_file:
                 json.dump(report, open_file, indent=2)
-            local_docx_reportfile = os.path.join(local_report_dir, f"report.docx")
+            local_docx_reportfile = os.path.join(local_report_dir,
+                                                 f"report_{runtime['timestamp']}.docx")
             export_report(report, runtime["timestamp"], local_docx_reportfile)
             # upload the reports in the upload folder
             for path in (local_reportfile, local_docx_reportfile):
