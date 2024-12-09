@@ -398,6 +398,8 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
             # upload the reports in the upload folder
             for path in (local_reportfile, local_docx_reportfile):
                 filename = os.path.basename(path)
+                # remove timestamp for users
+                filename = filename.replace('_'+runtime['timestamp'], '')
                 res = session.upload_file(
                     "admin", local_filepath=local_reportfile,
                     remote_filepath="/".join(
