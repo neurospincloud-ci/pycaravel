@@ -23,3 +23,4 @@ from ._plink import PLINK
 from ._vcf import VCF
 from ._mp4 import MP4
 from ._edf import EDF
+from ._mzml import MZML
