@@ -26,6 +26,11 @@ from caravel.validation import run_validation
 from caravel.nextcloud import NextCloud, ShareType, Permission
 
 
+# Remove warning
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+
 def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
          smtp_host, smtp_port, support_email, test_mod=False, login=None,
          password=None, allow_overwrite=False, verbose=0):
