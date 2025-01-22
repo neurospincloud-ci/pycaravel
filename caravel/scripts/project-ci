@@ -28,7 +28,7 @@ from caravel.nextcloud import NextCloud, ShareType, Permission
 
 def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
          smtp_host, smtp_port, support_email, test_mod=False, login=None,
-         password=None, allow_overwrite=False, verbose=0):
+         password=None, allow_overwrite=False, mute=False, verbose=0):
     """ The validation/integration script.
 
     You need first to mount the WEBDAV shares using the mount.davfs command:
@@ -280,32 +280,9 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         report = run_validation(data, validators=validators, logfile=logfile)
         logger.info(f"Report: {report}")
         in_error = "Internal error" in repr(report)
-        if in_error:
-            email_manager.send_mail(
-                item.mails + [support_email], subject="NeuroSpin data collection",
-                body=("The validation/integration process has failed due to an "
-                      "internal error. The support team is in copy of this email "
-                      "and will fix the problem quickly."),
-                from_addr="noreply@cea.fr", files=None)
-        else:
-            if [report[key] for key in report if report[key] != {}]:
-                mail_txt = (
-                    "The validation/integration process is now complete. "
-                    "Your last upload did not pass the checks, "
-                    "Please connect the service to see the report file "
-                    "and correct your input.")
-            else:
-                mail_txt = (
-                    "The validation/integration process is now complete. "
-                    "Your last upload passed the checks, "
-                    "you can see the result in the 'collected' "
-                    "folder of your modality.")
+        if not in_error:
             outputs.append((item, report))
             res = session.update_share(share["id"], Permission.ALL)
-            email_manager.send_mail(
-                item.mails, subject="NeuroSpin data collection",
-                body=(mail_txt),
-                from_addr="noreply@cea.fr", files=None)
 
     # Step 4: integrate the data listed by the 'list_<family>_datasets'
     # function or generate report output.
@@ -397,6 +374,32 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         with open(log_file, "wt") as open_file:
             json.dump(final_struct, open_file, sort_keys=True,
                       check_circular=True, indent=4)
+    
+    if not mute:   
+        if in_error:
+            email_manager.send_mail(
+                item.mails + [support_email], subject="NeuroSpin data collection",
+                body=("The validation/integration process has failed due to an "
+                        "internal error. The support team is in copy of this email "
+                        "and will fix the problem quickly."),
+                from_addr="noreply@cea.fr", files=None)
+        else:
+            if [report[key] for key in report if report[key] != {}]:
+                mail_txt = (
+                    "The validation/integration process is now complete. "
+                    "Your last upload did not pass the checks, "
+                    "Please connect the service to see the report file "
+                    "and correct your input.")
+            else:
+                mail_txt = (
+                    "The validation/integration process is now complete. "
+                    "Your last upload passed the checks, "
+                    "you can see the result in the 'collected' "
+                    "folder of your modality.")
+            email_manager.send_mail(
+                item.mails, subject="NeuroSpin data collection",
+                body=(mail_txt),
+                from_addr="noreply@cea.fr", files=None)
 
 
 if __name__ == "__main__":
