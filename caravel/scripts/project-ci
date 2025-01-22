@@ -33,7 +33,7 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
          smtp_host, smtp_port, support_email, test_mod=False, login=None,
-         password=None, allow_overwrite=False, verbose=0):
+         password=None, allow_overwrite=False, mute=False, verbose=0):
     """ The validation/integration script.
 
     You need first to mount the WEBDAV shares using the mount.davfs command:
@@ -45,11 +45,11 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
       environment variables if they are not present.
     * Parameters and Configurations: the logger is initialized to print and
       save (to a log file named 'stdout_<timestamp>.log') all information, the
-      code is run in debug mode if verbose, a 'logs', 'layout' and 'data'
+      code is run in debug mode if verbose, a 'logs', 'layout' and 'local_reports'
       folder are created in the 'working_dir' directory, and the allowed
       subjects are loaded from the 'allowed_subjects' file if specified.
     * Step 1: connect to the NextCloud service you are using.
-    * Step 2: verify that the provided mounts are shared, munted, properly
+    * Step 2: verify that the provided mounts are shared, mounted, properly
       named, and ready for validation (i.e., do not contain a WIP file and
       can be linked to a collected path). Any mount information that needs
       further processing is stored in a DataItem structure that contains the
@@ -130,9 +130,10 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     project_module = importlib.import_module(project)
     runtime = {
         "tool": "validation_and_integration",
-        "timestamp": datetime.now().isoformat(),
+        "timestamp": datetime.now().isoformat().replace(':','-'),
         "caravel_version": caravel.__version__,
         f"{project}_version": project_module.__version__}
+    # set up internal logs
     logdir = os.path.join(working_dir, "logs")
     if not os.path.isdir(logdir):
         os.mkdir(logdir)
@@ -142,14 +143,18 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     if verbose > 0:
         validation_module.ValidationBase.__level__ = "debug"
     validation_module.ValidationBase.setup_logging(logfile=logfile)
+    # set up layout (what is that?)
     layoutdir = os.path.join(working_dir, "layout")
     if os.path.isdir(layoutdir):
         shutil.rmtree(layoutdir)
     os.mkdir(layoutdir)
-    datadir = os.path.join(working_dir, "data")
-    if not os.path.isdir(datadir):
-        os.mkdir(datadir)
+    # set up local reports
+    local_report_dir = os.path.join(working_dir, "local_reports")
+    if not os.path.isdir(local_report_dir):
+        os.mkdir(local_report_dir)
+    # set up email manager
     email_manager = EmailManager(smtp_host, smtp_port)
+    # get the allowed subjects if existing
     subjects = None
     if allowed_subjects is not None:
         subjects = np.loadtxt(allowed_subjects, dtype=str)
@@ -171,7 +176,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
         endpoint=nextcloud_url, user=login, password=password,
         json_output=True, verify=False)
 
-    # Step 2: verify that the provided mounts are shared, munted, properly
+    # Step 2: verify that the provided mounts are shared, mounted, properly
     # named, and ready for validation (i.e., do not contain a wip file and can
     # be linked to a collected path).
     shares = session.get_shares()
@@ -185,28 +190,35 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     DataItem = namedtuple("DataItem",
                           ("uploadname uploaddir collectname collectdir "
                            "wipfile family mails"))
-    local_wipfile = os.path.join(datadir, "wip")
-    local_mountfile = os.path.join(datadir, "ismounted")
+    local_wipfile = os.path.join(local_report_dir, "wip")
+    local_mountfile = os.path.join(local_report_dir, "ismounted")
     for local_file in (local_wipfile, local_mountfile):
         if not os.path.isfile(local_file):
             os.mknod(local_file)
     for path in upload_mounts:
+        logger.info(f"Checks on {path}")
+        # perform checks before integration
         if not path.endswith("-upload"):
             raise ValueError(f"Mount suffix MUST be '-upload': '{path}'.")
         name = os.path.basename(path)
         if name not in shares:
             raise ValueError(f"Mount '{path}' is not a share.")
         family= re.split("-|_", name)[1]
-        logger.info(f"Family: {family}")
+        logger.debug(f"Family: {family}")
         wip_file = os.path.join(path, "wip")
+        # do not integrate if wip file present in upload folder
         if session.isfile(
             "admin", "/".join(["/", project, name, "wip"])):
+            logger.debug(f"wip file in {path}. Remove it if you want to "
+                        "integrate data.")
             continue
+        # check associated collected folder exists
         collected_path = path.replace("-upload", "-collected")
         collected_name = os.path.basename(collected_path)
         if not os.path.isdir(collected_path):
             raise ValueError(
                 f"An associated '-collected' path is expected for '{path}'.")
+        # get associated group info
         if name not in groups:
             raise ValueError(f"An associated group is expected for '{name}'.")
         group_users = session.get_group(name).data["users"]
@@ -217,9 +229,11 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
             if mail is not None:
                 to_addrs.append(mail)
         logger.debug(f"To emails: {to_addrs}")
+        # put all relevant information in one object
         item = DataItem(name, path, collected_name, collected_path,
                         wip_file, family, to_addrs)
         data.append(item)
+        # checks that folders are well mounted
         res = session.upload_file(
             "admin", local_filepath=local_mountfile,
             remote_filepath="/".join([project, item.uploadname, "ismounted"]))
@@ -242,16 +256,21 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
     for item in data:
         logger.info(f"Processing '{item.uploaddir}'...")
         logger.debug(f"Generate report for item: {item}")
+        # set the upload folder in read only
         share = shares[item.uploadname]
         res = session.update_share(share["id"], Permission.READ)
+        # get the get_<family>_status function of the item's family
+        # defined in the project specific python module
         status_fct = getattr(
             validation_module, f"get_{item.family}_status", None)
         if status_fct is None:
             raise ValueError(
                 f"You need to define a 'get_{item.family}_status' status "
                 f"function for '{item.family}'.")
+        # get already collected subjects
         already_integrated = status_fct(item.collectdir)
         logger.info(f"Already integrated: {already_integrated}")
+        # parse upload dirs and check if empty
         projectdir = os.path.dirname(os.path.realpath(project_module.__file__))
         parser = caravel.get_parser(
             project=f"{project}-{item.family}",
@@ -263,18 +282,21 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                     bids_root=item.uploaddir, name=dirname, outdir=layoutdir)
                 contain_data = True
         if not contain_data:
+            # if both no source nor rawdata dir, add wip file and raise error
             res = session.upload_file(
                 "admin", local_filepath=local_wipfile,
                 remote_filepath="/".join([project, item.uploadname, "wip"]))
             if not res.is_ok:
                 raise ValueError("Unable to upload WIP file.")
             raise ValueError("No data to integrate.")
+        # select validators to run
         if test_mod:
             family_selector = f"{item.family}.structure"
         else:
             family_selector = f"{item.family}.*"
         validators = validation_module.get_validators(family=family_selector)
         logger.info(f"Validators: {validators}")
+        # run validations
         data = {
             "layoutdir": layoutdir,
             "confdir": os.path.join(projectdir, "conf"),
@@ -284,8 +306,10 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
             data["allowed_subjects"] = subjects
         report = run_validation(data, validators=validators, logfile=logfile)
         logger.info(f"Report: {report}")
+        # check for internal error
         in_error = "Internal error" in repr(report)
-        if in_error:
+        if in_error and not mute:
+            # send internal error warning mail (with support in copy)
             email_manager.send_mail(
                 item.mails + [support_email], subject="NeuroSpin data collection",
                 body=("The validation/integration process has failed due to an "
@@ -293,29 +317,14 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                       "and will fix the problem quickly."),
                 from_addr="noreply@cea.fr", files=None)
         else:
-            if [report[key] for key in report if report[key] != {}]:
-                mail_txt = (
-                    "The validation/integration process is now complete. "
-                    "Your last upload did not pass the checks, "
-                    "Please connect the service to see the report file "
-                    "and correct your input.")
-            else:
-                mail_txt = (
-                    "The validation/integration process is now complete. "
-                    "Your last upload passed the checks, "
-                    "you can see the result in the 'collected' "
-                    "folder of your modality.")
+            # add item and report in outputs to be treated
             outputs.append((item, report))
-            res = session.update_share(share["id"], Permission.ALL)
-            email_manager.send_mail(
-                item.mails, subject="NeuroSpin data collection",
-                body=(mail_txt),
-                from_addr="noreply@cea.fr", files=None)
 
     # Step 4: integrate the data listed by the 'list_<family>_datasets'
     # function or generate report output.
     for item, report in outputs:
-        logger.debug(f"Integrate item: {item}")
+        logger.info(f"Integrate item: {item}")
+        # delete old reports from upload directory
         for filename in ("report.json", "report.docx"):
             if os.path.isfile(os.path.join(item.uploaddir, filename)):
                 res = session.delete_path(
@@ -323,8 +332,10 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                         project, item.uploadname, filename]))
                 if not res.is_ok:
                     raise ValueError(f"Unable to delete '{filename}'.")
+        # if no issue in report...
         if all(len(val) == 0 for val in report.values()):
             logger.info(f"Ready to integrate: '{item.uploaddir}'.")
+            # get the set of folders to move from upload to collected
             list_fct = getattr(
                 validation_module, f"list_{item.family}_datasets", None)
             if list_fct is None:
@@ -333,6 +344,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                     f"datasets function for '{family}'.")
             datasets = list_fct(item.uploaddir)
             logger.info(f"Datasets to move: {datasets}")
+            # move the upload folders
             for name in datasets:
                 is_already_collected = (
                     os.path.isdir(os.path.join(item.collectdir, name)) or
@@ -344,6 +356,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                     logger.info(f"- {name}...")
                     path = "/".join([project, item.collectname])
                     splits = name.split(os.sep)
+                    # create all necessary subfolders in collected
                     for idx in range(1, len(splits)):
                         if not os.path.isdir(os.path.join(
                                 item.collectdir, os.sep.join(splits[:idx]))):
@@ -353,6 +366,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                             if not res.is_ok:
                                 raise ValueError(
                                     f"Unable to CREATE directory '{path}'.")
+                    # move the target upload folder at the same place in collected
                     srcdir = "/".join([project, item.uploadname, name])
                     dstdir = "/".join([project, item.collectname, name])
                     res = session.move_path(
@@ -362,6 +376,7 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                         raise ValueError(
                             f"Unable to INTEGRATE data '{name}': "
                             f"{srcdir} -> {dstdir}.")
+                    # remove the now unnecessary subfolders in upload
                     path = "/".join([project, item.uploadname])
                     for idx in range(len(splits), 0, -1):
                         currentdir = os.path.join(
@@ -374,28 +389,58 @@ def main(project, upload_mounts, allowed_subjects, working_dir, nextcloud_url,
                                 raise ValueError(
                                     "Unable to delete path: "
                                     f"'{'/'.join([path] + splits[:idx])}.")
+        # if at least one issue in report...
         else:
             logger.info(f"In error: {item.uploaddir}")
-            local_reportfile = os.path.join(datadir, f"report.json")
+            # save the report in local_reports
+            local_reportfile = os.path.join(local_report_dir,
+                                            f"report_{runtime['timestamp']}.json")
             with open(local_reportfile, "wt") as open_file:
                 json.dump(report, open_file, indent=2)
-            local_docx_reportfile = os.path.join(datadir, f"report.docx")
+            local_docx_reportfile = os.path.join(local_report_dir,
+                                                 f"report_{runtime['timestamp']}.docx")
             export_report(report, runtime["timestamp"], local_docx_reportfile)
+            # upload the reports in the upload folder
             for path in (local_reportfile, local_docx_reportfile):
                 filename = os.path.basename(path)
+                # remove timestamp for users
+                filename = filename.replace('_'+runtime['timestamp'], '')
                 res = session.upload_file(
                     "admin", local_filepath=local_reportfile,
                     remote_filepath="/".join(
                         [project, item.uploadname, filename]))
                 if not res.is_ok:
                     raise ValueError(f"Unable to upload '{filename}'.")
+        # add the wip file in the upload folder
         res = session.upload_file(
             "admin", local_filepath=local_wipfile,
             remote_filepath="/".join([project, item.uploadname, "wip"]))
         if not res.is_ok:
             raise ValueError("Unable to upload WIP file.")
+        # sending mail to users
+        # internal error already handled
+        if [report[key] for key in report if report[key] != {}]:
+            mail_txt = (
+                "The validation/integration process is now complete. "
+                "Your last upload did not pass the checks, "
+                "Please connect the service to see the report file "
+                "and correct your input.")
+        else:
+            mail_txt = (
+                "The validation/integration process is now complete. "
+                "Your last upload passed the checks, "
+                "you can see the result in the 'collected' "
+                "folder of your modality.")
+        # reset write permissions on folders
+        res = session.update_share(share["id"], Permission.ALL)
+        if not mute:
+            email_manager.send_mail(
+                item.mails, subject="NeuroSpin data collection",
+                body=(mail_txt),
+                from_addr="noreply@cea.fr", files=None)
+            logger.info(f"Email concerning {item.uploadname} sent to users")
 
-    # Save Logs.
+    # save logs locally (logs dir)
     for name, final_struct in [("inputs", inputs), ("outputs", outputs),
                                ("runtime", runtime)]:
         log_file = os.path.join(logdir, f"{name}_{runtime['timestamp']}.json")
