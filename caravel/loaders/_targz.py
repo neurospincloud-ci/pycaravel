@@ -36,5 +36,5 @@ class TARGZ(LoaderBase):
             the loaded data.
         """
         with gzip.open(path, "rb") as open_file:
-            for line in open_file:
+            for _ in open_file:
                 pass
