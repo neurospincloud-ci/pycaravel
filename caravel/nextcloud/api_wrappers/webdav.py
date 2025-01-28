@@ -231,7 +231,7 @@ class File:
                 continue
             for file_property in propstat.find('d:prop',
                                                self.xml_namespaces_map):
-                file_property_name = re.sub("{.*}", "", file_property.tag)
+                file_property_name = re.sub(r"{.*}", "", file_property.tag)
                 if file_property_name not in self.FILE_PROPERTIES:
                     continue
                 if file_property_name == 'resourcetype':
@@ -243,7 +243,7 @@ class File:
     def _extract_resource_type(self, file_property):
         file_type = list(file_property)
         if file_type:
-            return re.sub("{.*}", "", file_type[0].tag)
+            return re.sub(r"{.*}", "", file_type[0].tag)
         return None
 
     def as_dict(self):

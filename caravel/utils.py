@@ -40,7 +40,7 @@ def export_report(report, timestamp, outfile):
     for family, family_item in report.items():
         document.add_heading(family.replace(".", " ").title())
         for validator, validator_item in family_item.items():
-            split_validator = re.findall("[A-Z][^A-Z]*", validator)
+            split_validator = re.findall(r"[A-Z][^A-Z]*", validator)
             document.add_heading(" ".join(split_validator))
             paragraph = document.add_paragraph(
                 "\n\n Below the table summarizing the errors.\n\n")
