@@ -27,6 +27,7 @@ Search in API documentation of CARAVEL
         <li><a href='caravel.loaders._edf.EDF.html'>caravel.loaders.EDF</a></li>
         <li><a href='caravel.loaders._json.JSON.html'>caravel.loaders.JSON</a></li>
         <li><a href='caravel.loaders._mp4.MP4.html'>caravel.loaders.MP4</a></li>
+        <li><a href='caravel.loaders._mzml.MZML.html'>caravel.loaders.MZML</a></li>
         <li><a href='caravel.loaders._nifti.NIFTI.html'>caravel.loaders.NIFTI</a></li>
         <li><a href='caravel.loaders._pdf.PDF.html'>caravel.loaders.PDF</a></li>
         <li><a href='caravel.loaders._plink.PLINK.html'>caravel.loaders.PLINK</a></li>
@@ -40,6 +41,7 @@ Search in API documentation of CARAVEL
         <li><a href='caravel.loaders._edf.EDF.html'>caravel.loaders._edf.EDF</a></li>
         <li><a href='caravel.loaders._json.JSON.html'>caravel.loaders._json.JSON</a></li>
         <li><a href='caravel.loaders._mp4.MP4.html'>caravel.loaders._mp4.MP4</a></li>
+        <li><a href='caravel.loaders._mzml.MZML.html'>caravel.loaders._mzml.MZML</a></li>
         <li><a href='caravel.loaders._nifti.NIFTI.html'>caravel.loaders._nifti.NIFTI</a></li>
         <li><a href='caravel.loaders._pdf.PDF.html'>caravel.loaders._pdf.PDF</a></li>
         <li><a href='caravel.loaders._plink.PLINK.html'>caravel.loaders._plink.PLINK</a></li>

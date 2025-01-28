@@ -124,6 +124,8 @@ This is the classes and functions reference in caravel. Please refer to the gall
 
           `caravel.loaders.MP4 <caravel.loaders._mp4.MP4.html>`_
 
+          `caravel.loaders.MZML <caravel.loaders._mzml.MZML.html>`_
+
           `caravel.loaders.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
 
           `caravel.loaders.PDF <caravel.loaders._pdf.PDF.html>`_
@@ -163,6 +165,8 @@ This is the classes and functions reference in caravel. Please refer to the gall
           `caravel.loaders._png.PNG <caravel.loaders._png.PNG.html>`_
 
           `caravel.loaders._targz.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+
+          `caravel.loaders._mzml.MZML <caravel.loaders._mzml.MZML.html>`_
 
           `caravel.loaders.loader_base.LoaderBase <caravel.loaders.loader_base.LoaderBase.html>`_
 

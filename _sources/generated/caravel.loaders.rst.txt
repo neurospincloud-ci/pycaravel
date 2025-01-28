@@ -18,6 +18,7 @@ This module defines common loaders for imaging-genetic datasets.
     * `caravel.loaders.EDF <caravel.loaders._edf.EDF.html>`_
     * `caravel.loaders.JSON <caravel.loaders._json.JSON.html>`_
     * `caravel.loaders.MP4 <caravel.loaders._mp4.MP4.html>`_
+    * `caravel.loaders.MZML <caravel.loaders._mzml.MZML.html>`_
     * `caravel.loaders.NIFTI <caravel.loaders._nifti.NIFTI.html>`_
     * `caravel.loaders.PDF <caravel.loaders._pdf.PDF.html>`_
     * `caravel.loaders.PLINK <caravel.loaders._plink.PLINK.html>`_
@@ -146,6 +147,16 @@ This module defines the TARGZ dataset tester.
 
   **Classes**:
     * `caravel.loaders._targz.TARGZ <caravel.loaders._targz.TARGZ.html>`_
+
+caravel.loaders._mzml
+^^^^^^^^^^^^^^^^^^^^^
+
+This module defines the mzml dataset loader.
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.loaders._mzml.MZML <caravel.loaders._mzml.MZML.html>`_
 
 caravel.loaders.loader_base
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
