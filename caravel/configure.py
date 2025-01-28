@@ -13,9 +13,7 @@ properly.
 
 
 # Imports
-from .info import __version__
-from .info import LICENSE
-from .info import AUTHOR
+from .info import AUTHOR, LICENSE, __version__
 
 
 def logo():

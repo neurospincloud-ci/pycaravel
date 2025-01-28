@@ -13,6 +13,7 @@ This module provides common utilities.
 
 # Imports
 import re
+
 from docx import Document
 
 

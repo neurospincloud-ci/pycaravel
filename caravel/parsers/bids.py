@@ -11,9 +11,9 @@ This module contains the BIDS parser definition.
 """
 
 # System import
+import datetime
 import os
 import pickle
-import datetime
 
 # Third party import
 import numpy as np

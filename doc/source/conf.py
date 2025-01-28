@@ -7,14 +7,14 @@
 ##########################################################################
 
 # Imports
-import sys
-import os
 import datetime
+import os
 import subprocess
+import sys
 from distutils.version import LooseVersion
-import sphinx
-import pysphinxdoc
 
+import pysphinxdoc
+import sphinx
 
 installdir = os.path.abspath("../..")
 env = os.environ

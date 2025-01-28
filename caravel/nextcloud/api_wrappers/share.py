@@ -1,4 +1,4 @@
-from ..base import WithRequester, ShareType
+from ..base import ShareType, WithRequester
 
 
 class Share(WithRequester):

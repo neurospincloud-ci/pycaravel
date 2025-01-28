@@ -13,10 +13,10 @@ This module contains the generic parser definition.
 # Imports
 import re
 import warnings
-from string import Formatter
 from itertools import product
-from caravel.parsers import BIDSParser
+from string import Formatter
 
+from caravel.parsers import BIDSParser
 
 # Global parameters
 # > define all the available parsers

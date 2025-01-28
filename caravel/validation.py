@@ -13,13 +13,15 @@ the validation stage.
 """
 
 # Imports
-import re
 import logging
-import warnings
+import re
 import traceback
-from operator import itemgetter
+import warnings
 from collections import namedtuple
+from operator import itemgetter
+
 from .info import __version__
+
 logger = logging.getLogger("caravel")
 
 

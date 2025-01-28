@@ -11,20 +11,22 @@ This module contains generic functions to load/save a dataset.
 """
 
 # Package import
-from caravel.loaders import TSV
-from caravel.loaders import NIFTI
-from caravel.loaders import JSON
-from caravel.loaders import DWI
-from caravel.loaders import TARGZ
-from caravel.loaders import PNG
-from caravel.loaders import CSV
-from caravel.loaders import XLSX
-from caravel.loaders import PDF
-from caravel.loaders import PLINK
-from caravel.loaders import VCF
-from caravel.loaders import MP4
-from caravel.loaders import EDF
-from caravel.loaders import MZML
+from caravel.loaders import (
+    CSV,
+    DWI,
+    EDF,
+    JSON,
+    MP4,
+    MZML,
+    NIFTI,
+    PDF,
+    PLINK,
+    PNG,
+    TARGZ,
+    TSV,
+    VCF,
+    XLSX,
+)
 
 # Global parameters
 # > define all the available loaders

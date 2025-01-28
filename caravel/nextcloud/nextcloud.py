@@ -1,5 +1,5 @@
-from .requester import OCSRequester, WebDAVRequester
 from .api_wrappers import OCS_API_CLASSES, WEBDAV_CLASS
+from .requester import OCSRequester, WebDAVRequester
 
 
 class NextCloud:

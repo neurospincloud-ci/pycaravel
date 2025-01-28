@@ -11,11 +11,11 @@ This module contains the generic parser definition.
 """
 
 # System import
-import os
-import json
-import glob
-import pickle
 import datetime
+import glob
+import json
+import os
+import pickle
 
 # Third party import
 import pandas as pd

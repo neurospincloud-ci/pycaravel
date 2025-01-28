@@ -12,13 +12,13 @@ A module to simplify email sending.
 
 
 # System import
+import mimetypes
 import os
+import smtplib
 from email import encoders
-from email.mime.text import MIMEText
 from email.mime.base import MIMEBase
 from email.mime.multipart import MIMEMultipart
-import smtplib
-import mimetypes
+from email.mime.text import MIMEText
 
 
 class EmailManager:

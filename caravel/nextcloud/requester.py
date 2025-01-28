@@ -1,7 +1,10 @@
-import requests
 import logging
 from functools import wraps
-from .response import WebDAVResponse, OCSResponse
+
+import requests
+
+from .response import OCSResponse, WebDAVResponse
+
 logger = logging.getLogger("rlink")
 
 
