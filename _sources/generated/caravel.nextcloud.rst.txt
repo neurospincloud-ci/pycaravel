@@ -17,16 +17,6 @@ NextCloud Python API from https://github.com/matejak/nextcloud-API.git.
     * `caravel.nextcloud.Permission <caravel.nextcloud.base.Permission.html>`_
     * `caravel.nextcloud.ShareType <caravel.nextcloud.base.ShareType.html>`_
 
-caravel.nextcloud.nextcloud
-^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-
-
-.. rst-class:: documentation-contents
-
-  **Classes**:
-    * `caravel.nextcloud.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
-
 caravel.nextcloud.requester
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -70,4 +60,14 @@ caravel.nextcloud.response
     * `caravel.nextcloud.response.NextCloudResponse <caravel.nextcloud.response.NextCloudResponse.html>`_
     * `caravel.nextcloud.response.OCSResponse <caravel.nextcloud.response.OCSResponse.html>`_
     * `caravel.nextcloud.response.WebDAVResponse <caravel.nextcloud.response.WebDAVResponse.html>`_
+
+caravel.nextcloud.nextcloud
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.nextcloud.nextcloud.NextCloud <caravel.nextcloud.nextcloud.NextCloud.html>`_
 

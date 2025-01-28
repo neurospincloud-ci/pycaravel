@@ -136,21 +136,21 @@
                     
                     <div class="document">
                         <h1>Source code for caravel.nextcloud.requester</h1><div class='divider-1 wow fadeInUp'><span></span></div><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">requests</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
-<span class="kn">from</span> <span class="nn">.response</span> <span class="kn">import</span> <span class="n">WebDAVResponse</span><span class="p">,</span> <span class="n">OCSResponse</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">functools</span><span class="w"> </span><span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.response</span><span class="w"> </span><span class="kn">import</span> <span class="n">WebDAVResponse</span><span class="p">,</span> <span class="n">OCSResponse</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;rlink&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="NextCloudConnectionError"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.NextCloudConnectionError.html#caravel.nextcloud.requester.NextCloudConnectionError">[docs]</a><span class="k">class</span> <span class="nc">NextCloudConnectionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
+<div class="viewcode-block" id="NextCloudConnectionError"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.NextCloudConnectionError.html#caravel.nextcloud.requester.NextCloudConnectionError">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">NextCloudConnectionError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; A connection error occurred.</span>
 <span class="sd">    &quot;&quot;&quot;</span></div>
 
 
-<div class="viewcode-block" id="catch_connection_error"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.catch_connection_error.html#caravel.nextcloud.requester.catch_connection_error">[docs]</a><span class="k">def</span> <span class="nf">catch_connection_error</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+<div class="viewcode-block" id="catch_connection_error"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.catch_connection_error.html#caravel.nextcloud.requester.catch_connection_error">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">catch_connection_error</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
     <span class="nd">@wraps</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
-    <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">wrapper</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="k">except</span> <span class="n">requests</span><span class="o">.</span><span class="n">RequestException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
@@ -160,8 +160,8 @@
     <span class="k">return</span> <span class="n">wrapper</span></div>
 
 
-<div class="viewcode-block" id="Requester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.Requester.html#caravel.nextcloud.requester.Requester">[docs]</a><span class="k">class</span> <span class="nc">Requester</span><span class="p">:</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">passwd</span><span class="p">,</span> <span class="n">json_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="Requester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.Requester.html#caravel.nextcloud.requester.Requester">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Requester</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">passwd</span><span class="p">,</span> <span class="n">json_output</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">query_components</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">json_output</span> <span class="o">=</span> <span class="n">json_output</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="n">verify</span>
@@ -173,14 +173,14 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span> <span class="o">=</span> <span class="kc">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">SUCCESS_CODE</span> <span class="o">=</span> <span class="kc">None</span>
 
-    <span class="k">def</span> <span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">json_output</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">resp</span><span class="o">.</span><span class="n">content</span><span class="o">.</span><span class="n">decode</span><span class="p">(</span><span class="s2">&quot;UTF-8&quot;</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
@@ -190,7 +190,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -200,7 +200,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">put</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">put</span><span class="p">(</span>
@@ -209,7 +209,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">delete</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -218,7 +218,7 @@
             <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
-<div class="viewcode-block" id="Requester.get_full_url"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.Requester.html#caravel.nextcloud.requester.Requester.get_full_url">[docs]</a>    <span class="k">def</span> <span class="nf">get_full_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Requester.get_full_url"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.Requester.html#caravel.nextcloud.requester.Requester.get_full_url">[docs]</a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_full_url</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build full url for request to NextCloud api</span>
 
@@ -242,26 +242,26 @@
         <span class="k">return</span> <span class="n">ret</span></div></div>
 
 
-<div class="viewcode-block" id="OCSRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.OCSRequester.html#caravel.nextcloud.requester.OCSRequester">[docs]</a><span class="k">class</span> <span class="nc">OCSRequester</span><span class="p">(</span><span class="n">Requester</span><span class="p">):</span>
+<div class="viewcode-block" id="OCSRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.OCSRequester.html#caravel.nextcloud.requester.OCSRequester">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OCSRequester</span><span class="p">(</span><span class="n">Requester</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Requester for OCS API.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">OCSResponse</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">resp</span><span class="p">,</span>
                            <span class="n">json_output</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">json_output</span><span class="p">,</span>
                            <span class="n">success_code</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">SUCCESS_CODE</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="WebDAVRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.WebDAVRequester.html#caravel.nextcloud.requester.WebDAVRequester">[docs]</a><span class="k">class</span> <span class="nc">WebDAVRequester</span><span class="p">(</span><span class="n">Requester</span><span class="p">):</span>
+<div class="viewcode-block" id="WebDAVRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.requester.WebDAVRequester.html#caravel.nextcloud.requester.WebDAVRequester">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">WebDAVRequester</span><span class="p">(</span><span class="n">Requester</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Requester for WebDAV API.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">rtn</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">resp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">WebDAVResponse</span><span class="p">(</span><span class="n">response</span><span class="o">=</span><span class="n">resp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">propfind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">propfind</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">additional_url</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s1">&#39;PROPFIND&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_pk</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
@@ -269,20 +269,20 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">proppatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">proppatch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">additional_url</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="s1">&#39;PROPPATCH&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_pk</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">resp</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">additional_url</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s1">&#39;REPORT&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_pk</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">resp</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">download</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
@@ -292,14 +292,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">resp</span><span class="o">=</span><span class="n">res</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">content</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">make_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">make_collection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">additional_url</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">additional_url</span><span class="p">)</span>
         <span class="n">res</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">request</span><span class="p">(</span>
             <span class="s2">&quot;MKCOL&quot;</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">auth</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">auth_pk</span><span class="p">,</span> <span class="n">verify</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">verify</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">resp</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">move</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
         <span class="n">destination_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">destination_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -313,7 +313,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rtn</span><span class="p">(</span><span class="n">resp</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
     <span class="nd">@catch_connection_error</span>
-    <span class="k">def</span> <span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">copy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">destination</span><span class="p">,</span> <span class="n">overwrite</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="n">url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">url</span><span class="p">)</span>
         <span class="n">destination_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_full_url</span><span class="p">(</span><span class="n">additional_url</span><span class="o">=</span><span class="n">destination</span><span class="p">)</span>
         <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">url</span><span class="si">}</span><span class="s2"> -&gt; </span><span class="si">{</span><span class="n">destionation_url</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
@@ -342,7 +342,7 @@
 									<a href="https://www.youtube.com/CEASaclay"><i class="fab fa-youtube"></i></a>
 									<a href="https://twitter.com/neurospin_91"><i class="fab fa-twitter"></i></a>
 									<a href="https://github.com/AGrigis/pysphinxdoc"><i class="fab fa-github"></i></a>
-                                    <p>&copy; 2024, 
+                                    <p>&copy; 2025, 
 Antoine Grigis <antoine.grigis@cea.fr>
  <antoine.grigis@cea.fr></p>
 		                    	</div>

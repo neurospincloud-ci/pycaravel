@@ -149,11 +149,11 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Imports</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">from</span> <span class="nn">string</span> <span class="kn">import</span> <span class="n">Formatter</span>
-<span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="n">product</span>
-<span class="kn">from</span> <span class="nn">caravel.parsers</span> <span class="kn">import</span> <span class="n">BIDSParser</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">string</span><span class="w"> </span><span class="kn">import</span> <span class="n">Formatter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.parsers</span><span class="w"> </span><span class="kn">import</span> <span class="n">BIDSParser</span>
 
 
 <span class="c1"># Global parameters</span>
@@ -161,7 +161,7 @@
 <span class="n">PARSERS</span> <span class="o">=</span> <span class="p">[</span><span class="n">BIDSParser</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../generated/caravel.parser.get_parser.html#caravel.get_parser">[docs]</a><span class="k">def</span> <span class="nf">get_parser</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">confdir</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
+<div class="viewcode-block" id="get_parser"><a class="viewcode-back" href="../../generated/caravel.parser.get_parser.html#caravel.get_parser">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_parser</span><span class="p">(</span><span class="n">project</span><span class="p">,</span> <span class="n">confdir</span><span class="p">,</span> <span class="n">layoutdir</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Method to return the appropriate parser for your study.</span>
 
 <span class="sd">    Parameters</span>
@@ -186,13 +186,13 @@
     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No loader available for &#39;</span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="listify"><a class="viewcode-back" href="../../generated/caravel.parser.listify.html#caravel.listify">[docs]</a><span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
+<div class="viewcode-block" id="listify"><a class="viewcode-back" href="../../generated/caravel.parser.listify.html#caravel.listify">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">listify</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Wraps all non-list or tuple objects in a list.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">obj</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">)))</span> <span class="k">else</span> <span class="p">[</span><span class="n">obj</span><span class="p">]</span></div>
 
 
-<div class="viewcode-block" id="_expand_keys"><a class="viewcode-back" href="../../generated/caravel.parser._expand_keys.html#caravel._expand_keys">[docs]</a><span class="k">def</span> <span class="nf">_expand_keys</span><span class="p">(</span><span class="n">entities</span><span class="p">):</span>
+<div class="viewcode-block" id="_expand_keys"><a class="viewcode-back" href="../../generated/caravel.parser._expand_keys.html#caravel._expand_keys">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">_expand_keys</span><span class="p">(</span><span class="n">entities</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Generate multiple replacement queries based on all combinations</span>
 <span class="sd">    of values.</span>
 
@@ -229,7 +229,7 @@
     <span class="sa">r</span><span class="s2">&quot;({([\w\d]*?)(?:&lt;([^&gt;]+)&gt;)?(?:\|((?:\.?[\w])+))?\})&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="build_path"><a class="viewcode-back" href="../../generated/caravel.parser.build_path.html#caravel.build_path">[docs]</a><span class="k">def</span> <span class="nf">build_path</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">path_patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="build_path"><a class="viewcode-back" href="../../generated/caravel.parser.build_path.html#caravel.build_path">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">build_path</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">path_patterns</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Constructs a path given a set of keys and a list of potential filename</span>
 <span class="sd">    patterns to use.</span>
 
@@ -337,7 +337,7 @@
 									<a href="https://www.youtube.com/CEASaclay"><i class="fab fa-youtube"></i></a>
 									<a href="https://twitter.com/neurospin_91"><i class="fab fa-twitter"></i></a>
 									<a href="https://github.com/AGrigis/pysphinxdoc"><i class="fab fa-github"></i></a>
-                                    <p>&copy; 2024, 
+                                    <p>&copy; 2025, 
 Antoine Grigis <antoine.grigis@cea.fr>
  <antoine.grigis@cea.fr></p>
 		                    	</div>

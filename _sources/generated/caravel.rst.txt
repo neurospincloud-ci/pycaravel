@@ -17,6 +17,44 @@ Main module that contains the 'Caravel' generic parser.
     * `caravel.get_parser <caravel.parser.get_parser.html>`_
     * `caravel.info <caravel.configure.info.html>`_
 
+caravel.configure
+^^^^^^^^^^^^^^^^^
+
+This module provides tools to check that all the dependencies are installed
+properly.
+
+.. rst-class:: documentation-contents
+
+  **Functions**:
+    * `caravel.configure.info <caravel.configure.info.html>`_
+    * `caravel.configure.logo <caravel.configure.logo.html>`_
+
+caravel.mail
+^^^^^^^^^^^^
+
+A module to simplify email sending.
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
+
+caravel.parser
+^^^^^^^^^^^^^^
+
+This module contains the generic parser definition.
+
+.. rst-class:: documentation-contents
+
+  **Classes**:
+    * `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
+
+  **Functions**:
+    * `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
+    * `caravel.parser.build_path <caravel.parser.build_path.html>`_
+    * `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
+    * `caravel.parser.listify <caravel.parser.listify.html>`_
+
 caravel.utils
 ^^^^^^^^^^^^^
 
@@ -57,42 +95,4 @@ This module contains generic functions to load/save a dataset.
     * `caravel.io.get_saver <caravel.io.get_saver.html>`_
     * `caravel.io.load <caravel.io.load.html>`_
     * `caravel.io.save <caravel.io.save.html>`_
-
-caravel.configure
-^^^^^^^^^^^^^^^^^
-
-This module provides tools to check that all the dependencies are installed
-properly.
-
-.. rst-class:: documentation-contents
-
-  **Functions**:
-    * `caravel.configure.info <caravel.configure.info.html>`_
-    * `caravel.configure.logo <caravel.configure.logo.html>`_
-
-caravel.mail
-^^^^^^^^^^^^
-
-A module to simplify email sending.
-
-.. rst-class:: documentation-contents
-
-  **Classes**:
-    * `caravel.mail.EmailManager <caravel.mail.EmailManager.html>`_
-
-caravel.parser
-^^^^^^^^^^^^^^
-
-This module contains the generic parser definition.
-
-.. rst-class:: documentation-contents
-
-  **Classes**:
-    * `caravel.parser.BIDSParser <caravel.parsers.bids.BIDSParser.html>`_
-
-  **Functions**:
-    * `caravel.parser._expand_keys <caravel.parser._expand_keys.html>`_
-    * `caravel.parser.build_path <caravel.parser.build_path.html>`_
-    * `caravel.parser.get_parser <caravel.parser.get_parser.html>`_
-    * `caravel.parser.listify <caravel.parser.listify.html>`_
 

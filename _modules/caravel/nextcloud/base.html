@@ -136,17 +136,17 @@
                     
                     <div class="document">
                         <h1>Source code for caravel.nextcloud.base</h1><div class='divider-1 wow fadeInUp'><span></span></div><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">enum</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">enum</span>
 
 
-<div class="viewcode-block" id="WithRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.WithRequester.html#caravel.nextcloud.WithRequester">[docs]</a><span class="k">class</span> <span class="nc">WithRequester</span><span class="p">:</span>
+<div class="viewcode-block" id="WithRequester"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.WithRequester.html#caravel.nextcloud.WithRequester">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">WithRequester</span><span class="p">:</span>
     <span class="n">API_URL</span> <span class="o">=</span> <span class="ne">NotImplementedError</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requester</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">requester</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_requester</span> <span class="o">=</span> <span class="n">requester</span>
 
     <span class="nd">@property</span>
-    <span class="k">def</span> <span class="nf">requester</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">requester</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Get requester instance &quot;&quot;&quot;</span>
         <span class="c1"># dynamically set API_URL for requester</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_requester</span><span class="o">.</span><span class="n">API_URL</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">API_URL</span>
@@ -154,7 +154,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_requester</span></div>
 
 
-<div class="viewcode-block" id="OCSCode"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.OCSCode.html#caravel.nextcloud.OCSCode">[docs]</a><span class="k">class</span> <span class="nc">OCSCode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+<div class="viewcode-block" id="OCSCode"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.OCSCode.html#caravel.nextcloud.OCSCode">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">OCSCode</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">OK</span> <span class="o">=</span> <span class="mi">100</span>
     <span class="n">SERVER_ERROR</span> <span class="o">=</span> <span class="mi">996</span>
     <span class="n">NOT_AUTHORIZED</span> <span class="o">=</span> <span class="mi">997</span>
@@ -162,7 +162,7 @@
     <span class="n">UNKNOWN_ERROR</span> <span class="o">=</span> <span class="mi">999</span></div>
 
 
-<div class="viewcode-block" id="ShareType"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.ShareType.html#caravel.nextcloud.ShareType">[docs]</a><span class="k">class</span> <span class="nc">ShareType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+<div class="viewcode-block" id="ShareType"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.ShareType.html#caravel.nextcloud.ShareType">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ShareType</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
     <span class="n">USER</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">GROUP</span> <span class="o">=</span> <span class="mi">1</span>
     <span class="n">PUBLIC_LINK</span> <span class="o">=</span> <span class="mi">3</span>
@@ -170,7 +170,7 @@
     <span class="n">CIRCLE</span> <span class="o">=</span> <span class="mi">7</span></div>
 
 
-<div class="viewcode-block" id="Permission"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.Permission.html#caravel.nextcloud.Permission">[docs]</a><span class="k">class</span> <span class="nc">Permission</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
+<div class="viewcode-block" id="Permission"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.Permission.html#caravel.nextcloud.Permission">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">Permission</span><span class="p">(</span><span class="n">enum</span><span class="o">.</span><span class="n">IntEnum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Permission for Share have to be sum of selected permissions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">READ</span> <span class="o">=</span> <span class="mi">1</span>
@@ -184,7 +184,7 @@
 <span class="n">QUOTA_UNLIMITED</span> <span class="o">=</span> <span class="o">-</span><span class="mi">3</span>
 
 
-<div class="viewcode-block" id="datetime_to_expire_date"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.datetime_to_expire_date.html#caravel.nextcloud.datetime_to_expire_date">[docs]</a><span class="k">def</span> <span class="nf">datetime_to_expire_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
+<div class="viewcode-block" id="datetime_to_expire_date"><a class="viewcode-back" href="../../../generated/caravel.nextcloud.base.datetime_to_expire_date.html#caravel.nextcloud.datetime_to_expire_date">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">datetime_to_expire_date</span><span class="p">(</span><span class="n">date</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">date</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">)</span></div>
 </pre></div>
                     </div>
@@ -203,7 +203,7 @@
 									<a href="https://www.youtube.com/CEASaclay"><i class="fab fa-youtube"></i></a>
 									<a href="https://twitter.com/neurospin_91"><i class="fab fa-twitter"></i></a>
 									<a href="https://github.com/AGrigis/pysphinxdoc"><i class="fab fa-github"></i></a>
-                                    <p>&copy; 2024, 
+                                    <p>&copy; 2025, 
 Antoine Grigis <antoine.grigis@cea.fr>
  <antoine.grigis@cea.fr></p>
 		                    	</div>

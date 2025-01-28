@@ -149,19 +149,19 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Package import</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">TSV</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">NIFTI</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">JSON</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">DWI</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">TARGZ</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">PNG</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">CSV</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">XLSX</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">PDF</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">PLINK</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">VCF</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">MP4</span>
-<span class="kn">from</span> <span class="nn">caravel.loaders</span> <span class="kn">import</span> <span class="n">EDF</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TSV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">NIFTI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">JSON</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">DWI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">TARGZ</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">PNG</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">CSV</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">XLSX</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">PDF</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">PLINK</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">VCF</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">MP4</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">caravel.loaders</span><span class="w"> </span><span class="kn">import</span> <span class="n">EDF</span>
 
 <span class="c1"># Global parameters</span>
 <span class="c1"># &gt; define all the available loaders</span>
@@ -169,7 +169,7 @@
            <span class="n">PLINK</span><span class="p">,</span> <span class="n">VCF</span><span class="p">]</span>
 
 
-<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../generated/caravel.io.load.html#caravel.io.load">[docs]</a><span class="k">def</span> <span class="nf">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="load"><a class="viewcode-back" href="../../generated/caravel.io.load.html#caravel.io.load">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Load the data.</span>
 
 <span class="sd">    Parameters</span>
@@ -186,7 +186,7 @@
     <span class="k">return</span> <span class="n">loader</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="save"><a class="viewcode-back" href="../../generated/caravel.io.save.html#caravel.io.save">[docs]</a><span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="save"><a class="viewcode-back" href="../../generated/caravel.io.save.html#caravel.io.save">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Save the data.</span>
 
 <span class="sd">    Parameters</span>
@@ -200,7 +200,7 @@
     <span class="n">saver</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_loader"><a class="viewcode-back" href="../../generated/caravel.io.get_loader.html#caravel.io.get_loader">[docs]</a><span class="k">def</span> <span class="nf">get_loader</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="get_loader"><a class="viewcode-back" href="../../generated/caravel.io.get_loader.html#caravel.io.get_loader">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_loader</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Search for a suitable loader in the declared loaders.</span>
 <span class="sd">    Raise an exception if no loader is found.</span>
 
@@ -221,7 +221,7 @@
     <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;No loader available for &#39;</span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s2">&#39;.&quot;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="get_saver"><a class="viewcode-back" href="../../generated/caravel.io.get_saver.html#caravel.io.get_saver">[docs]</a><span class="k">def</span> <span class="nf">get_saver</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="get_saver"><a class="viewcode-back" href="../../generated/caravel.io.get_saver.html#caravel.io.get_saver">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_saver</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Search for a suitable saver in the declared savers.</span>
 <span class="sd">    Raise an exception if no saver is found.</span>
 
@@ -257,7 +257,7 @@
 									<a href="https://www.youtube.com/CEASaclay"><i class="fab fa-youtube"></i></a>
 									<a href="https://twitter.com/neurospin_91"><i class="fab fa-twitter"></i></a>
 									<a href="https://github.com/AGrigis/pysphinxdoc"><i class="fab fa-github"></i></a>
-                                    <p>&copy; 2024, 
+                                    <p>&copy; 2025, 
 Antoine Grigis <antoine.grigis@cea.fr>
  <antoine.grigis@cea.fr></p>
 		                    	</div>

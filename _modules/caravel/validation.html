@@ -151,22 +151,22 @@
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="c1"># Imports</span>
-<span class="kn">import</span> <span class="nn">re</span>
-<span class="kn">import</span> <span class="nn">logging</span>
-<span class="kn">import</span> <span class="nn">warnings</span>
-<span class="kn">import</span> <span class="nn">traceback</span>
-<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
-<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-<span class="kn">from</span> <span class="nn">.info</span> <span class="kn">import</span> <span class="n">__version__</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">traceback</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">operator</span><span class="w"> </span><span class="kn">import</span> <span class="n">itemgetter</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">namedtuple</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.info</span><span class="w"> </span><span class="kn">import</span> <span class="n">__version__</span>
 <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;caravel&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="MetaRegister"><a class="viewcode-back" href="../../generated/caravel.validation.MetaRegister.html#caravel.validation.MetaRegister">[docs]</a><span class="k">class</span> <span class="nc">MetaRegister</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="viewcode-block" id="MetaRegister"><a class="viewcode-back" href="../../generated/caravel.validation.MetaRegister.html#caravel.validation.MetaRegister">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">MetaRegister</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Simple Python metaclass registry pattern.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">REGISTRY</span> <span class="o">=</span> <span class="p">{}</span>
 
-    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">attrs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Allocation.</span>
 
 <span class="sd">        Parameters</span>
@@ -187,7 +187,7 @@
         <span class="k">return</span> <span class="n">new_cls</span></div>
 
 
-<div class="viewcode-block" id="ValidationBase"><a class="viewcode-back" href="../../generated/caravel.validation.ValidationBase.html#caravel.validation.ValidationBase">[docs]</a><span class="k">class</span> <span class="nc">ValidationBase</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MetaRegister</span><span class="p">):</span>
+<div class="viewcode-block" id="ValidationBase"><a class="viewcode-back" href="../../generated/caravel.validation.ValidationBase.html#caravel.validation.ValidationBase">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ValidationBase</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MetaRegister</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; A validation test must inherit from this base class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">LEVELS</span> <span class="o">=</span> <span class="p">{</span>
@@ -202,13 +202,13 @@
     <span class="n">__function__</span> <span class="o">=</span> <span class="kc">None</span>
     <span class="n">__level__</span> <span class="o">=</span> <span class="s2">&quot;error&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Initialize the ValidationBase class.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">ValidationBase</span><span class="o">.</span><span class="n">setup_logging</span><span class="p">()</span>
 
 <div class="viewcode-block" id="ValidationBase.setup_logging"><a class="viewcode-back" href="../../generated/caravel.validation.ValidationBase.html#caravel.validation.ValidationBase.setup_logging">[docs]</a>    <span class="nd">@classmethod</span>
-    <span class="k">def</span> <span class="nf">setup_logging</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_logging</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Setup the logging.</span>
 
 <span class="sd">        Parameters</span>
@@ -239,7 +239,7 @@
         <span class="k">if</span> <span class="n">level</span> <span class="o">!=</span> <span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">:</span>
             <span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="ne">DeprecationWarning</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; The method to run the test.</span>
 
 <span class="sd">        Parameters</span>
@@ -252,13 +252,13 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__function__</span><span class="p">(</span><span class="o">**</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ValidationDecorator"><a class="viewcode-back" href="../../generated/caravel.validation.ValidationDecorator.html#caravel.validation.ValidationDecorator">[docs]</a><span class="k">class</span> <span class="nc">ValidationDecorator</span><span class="p">:</span>
+<div class="viewcode-block" id="ValidationDecorator"><a class="viewcode-back" href="../../generated/caravel.validation.ValidationDecorator.html#caravel.validation.ValidationDecorator">[docs]</a><span class="k">class</span><span class="w"> </span><span class="nc">ValidationDecorator</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Dynamically create a validator.</span>
 
 <span class="sd">    In order to make the class publicly accessible, we assign the result of</span>
 <span class="sd">    the function to a variable dynamically using globals().</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s2">&quot;default&quot;</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">7</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Initialize the ValidationDecorator class.</span>
 
 <span class="sd">        Parameters</span>
@@ -272,7 +272,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">family</span> <span class="o">=</span> <span class="n">family</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span>
 
-    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">function</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; Create the validator.</span>
 
 <span class="sd">        Parameters</span>
@@ -294,7 +294,7 @@
             <span class="nb">type</span><span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="p">(</span><span class="n">ValidationBase</span><span class="p">,</span> <span class="p">),</span> <span class="n">class_parameters</span><span class="p">))</span></div>
 
 
-<div class="viewcode-block" id="get_validators"><a class="viewcode-back" href="../../generated/caravel.validation.get_validators.html#caravel.validation.get_validators">[docs]</a><span class="k">def</span> <span class="nf">get_validators</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_validators"><a class="viewcode-back" href="../../generated/caravel.validation.get_validators.html#caravel.validation.get_validators">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">get_validators</span><span class="p">(</span><span class="n">family</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; List/sort all available validators.</span>
 
 <span class="sd">    Parameters</span>
@@ -324,7 +324,7 @@
     <span class="k">return</span> <span class="n">validators</span></div>
 
 
-<div class="viewcode-block" id="listify"><a class="viewcode-back" href="../../generated/caravel.validation.listify.html#caravel.validation.listify">[docs]</a><span class="k">def</span> <span class="nf">listify</span><span class="p">(</span><span class="n">validators</span><span class="p">):</span>
+<div class="viewcode-block" id="listify"><a class="viewcode-back" href="../../generated/caravel.validation.listify.html#caravel.validation.listify">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">listify</span><span class="p">(</span><span class="n">validators</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Sort the validators by priority level.</span>
 
 <span class="sd">    Parameters</span>
@@ -349,7 +349,7 @@
     <span class="k">return</span> <span class="n">sorted_validators</span></div>
 
 
-<div class="viewcode-block" id="run_validation"><a class="viewcode-back" href="../../generated/caravel.validation.run_validation.html#caravel.validation.run_validation">[docs]</a><span class="k">def</span> <span class="nf">run_validation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="run_validation"><a class="viewcode-back" href="../../generated/caravel.validation.run_validation.html#caravel.validation.run_validation">[docs]</a><span class="k">def</span><span class="w"> </span><span class="nf">run_validation</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">validators</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">logfile</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; Safely run a validation plane.</span>
 
 <span class="sd">    Parameters</span>
@@ -401,7 +401,7 @@
 									<a href="https://www.youtube.com/CEASaclay"><i class="fab fa-youtube"></i></a>
 									<a href="https://twitter.com/neurospin_91"><i class="fab fa-twitter"></i></a>
 									<a href="https://github.com/AGrigis/pysphinxdoc"><i class="fab fa-github"></i></a>
-                                    <p>&copy; 2024, 
+                                    <p>&copy; 2025, 
 Antoine Grigis <antoine.grigis@cea.fr>
  <antoine.grigis@cea.fr></p>
 		                    	</div>
