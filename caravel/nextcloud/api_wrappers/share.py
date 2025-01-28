@@ -96,8 +96,7 @@ class Share(WithRequester):
             params["publicUpload"] = "false"
 
         # check if only one param specified
-        specified_params_count = sum([
-            int(bool(each)) for each in params.values()])
+        specified_params_count = sum(int(bool(each)) for each in params.values())
         if specified_params_count > 1:
             raise ValueError("Only one parameter for update can be specified "
                              "per request")
