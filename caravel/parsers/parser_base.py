@@ -47,8 +47,8 @@ class ParserBase:
         _conf = ParserBase._get_conf(confdir)
         if project not in _conf:
             raise ValueError(
-                "Unknown configuration for project '{}'. Available projects "
-                "are: {}.".format(project, _conf.keys()))
+                f"Unknown configuration for project '{project}'. Available projects "
+                f"are: {_conf.keys()}.")
         self.conf = _conf[project]
         if layoutdir is not None:
             _repr = self._get_repr(layoutdir)
