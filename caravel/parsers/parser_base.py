@@ -140,7 +140,7 @@ class ParserBase:
         """ Load the configuration associated to a layout.
         """
         if not isinstance(self.conf[name], dict):
-            with open(self.conf[name], "rt") as open_file:
+            with open(self.conf[name]) as open_file:
                 self.conf[name] = json.load(open_file)
 
     def export_layout(self, name):

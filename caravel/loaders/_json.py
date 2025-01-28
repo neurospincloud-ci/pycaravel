@@ -35,7 +35,7 @@ class JSON(LoaderBase):
         data: object
             the loaded data.
         """
-        with open(path, "rt") as open_file:
+        with open(path) as open_file:
             data = json.load(open_file)
         return data
 
@@ -49,5 +49,5 @@ class JSON(LoaderBase):
         path: str
             the path to the JSON file to save data into.
         """
-        with open(path, "wt") as open_file:
+        with open(path, "w") as open_file:
             json.dump(data, open_file, indent=4)
