@@ -19,7 +19,7 @@ import warnings
 import traceback
 from operator import itemgetter
 from collections import namedtuple
-from .info import __version__
+from ._version import __version__
 logger = logging.getLogger("caravel")
 
 

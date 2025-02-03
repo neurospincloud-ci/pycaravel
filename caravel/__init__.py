@@ -10,7 +10,7 @@
 Main module that contains the 'Caravel' generic parser.
 """
 
-from .info import __version__
+from ._version import __version__
 from .configure import info
 from .parser import get_parser
 from .parser import build_path

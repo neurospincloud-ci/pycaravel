@@ -13,9 +13,7 @@ properly.
 
 
 # Imports
-from .info import __version__
-from .info import LICENSE
-from .info import AUTHOR
+from ._version import __version__
 
 
 def logo():
@@ -46,6 +44,4 @@ def info():
         package information.
     """
     version = f"Package version: {__version__}\n\n"
-    license = f"License: {LICENSE}\n\n"
-    authors = f"Authors: \n{AUTHOR}\n"
-    return logo() + "\n\n" + version + license + authors
+    return logo() + "\n\n" + version
