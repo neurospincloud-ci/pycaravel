@@ -11,7 +11,7 @@
 |PyPi|_
 
 
-.. |PythonVersion| image:: https://img.shields.io/badge/python-3.8%20%7C%203.12-blue
+.. |PythonVersion| image:: https://img.shields.io/badge/python-3.8%20%7C%203.13-blue
 .. _PythonVersion: https://github.com/neurospincloud-ci/pycaravel
 
 .. |Pep8| image:: https://github.com/neurospincloud-ci/pycaravel/actions/workflows/pep8.yml/badge.svg
@@ -23,7 +23,7 @@
 .. |Doc| image:: https://github.com/neurospincloud-ci/pycaravel/actions/workflows/documentation.yml/badge.svg
 .. _Doc: http://neurospincloud-ci.github.io/pycaravel
 
-.. |License| image:: https://img.shields.io/badge/License-CeCILLB-blue.svg
+.. |License| image:: https://img.shields.io/badge/License-CeCILL--B-blue.svg
 .. _License: http://www.cecill.info/licences/Licence_CeCILL-B_V1-en.html
 
 .. |PoweredBy| image:: https://img.shields.io/badge/Powered%20by-CEA%2FNeuroSpin-blue.svg
