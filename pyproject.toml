@@ -61,3 +61,25 @@ with-coverage = "1"
 source-dir = "doc"
 build-dir = "doc/build"
 all_files = "1"
+
+[tool.ruff.lint]
+extend-select = [
+    "W",     # pycodestyle warnings
+    "I",     # isort
+    "UP",    # pyupgrade
+    "B",     # flake8-bugbear
+    "C4",    # flake8-comprehensions
+    "ISC",   # flake8-implicit-str-concat
+    "PERF",  # Perflint
+    "RUF",
+]
+ignore = [
+    "RUF005",
+    "RUF012",
+    "B023",
+    "B028",
+    "B904",
+]
+
+[tool.ruff.lint.extend-per-file-ignores]
+"__init__.py" = ["F401"]

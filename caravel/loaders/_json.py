@@ -18,12 +18,14 @@ from .loader_base import LoaderBase
 
 
 class JSON(LoaderBase):
-    """ Define the JSON loader.
-    """
-    allowed_extensions = [".json", ]
+    """Define the JSON loader."""
+
+    allowed_extensions = [
+        ".json",
+    ]
 
     def load(self, path):
-        """ A method that loads a JSON file.
+        """A method that loads a JSON file.
 
         Parameters
         ----------
@@ -35,12 +37,12 @@ class JSON(LoaderBase):
         data: object
             the loaded data.
         """
-        with open(path, "rt") as open_file:
+        with open(path) as open_file:
             data = json.load(open_file)
         return data
 
     def save(self, data, path):
-        """ A method that saves data into a JSON file.
+        """A method that saves data into a JSON file.
 
         Parameters
         ----------
@@ -49,5 +51,5 @@ class JSON(LoaderBase):
         path: str
             the path to the JSON file to save data into.
         """
-        with open(path, "wt") as open_file:
+        with open(path, "w") as open_file:
             json.dump(data, open_file, indent=4)

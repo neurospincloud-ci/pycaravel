@@ -18,12 +18,14 @@ from .loader_base import LoaderBase
 
 
 class TARGZ(LoaderBase):
-    """ Define the TARGZ tester.
-    """
-    allowed_extensions = [".tar.gz", ]
+    """Define the TARGZ tester."""
+
+    allowed_extensions = [
+        ".tar.gz",
+    ]
 
     def load(self, path):
-        """ A method that test a TARGZ file.
+        """A method that test a TARGZ file.
 
         Parameters
         ----------
@@ -36,5 +38,5 @@ class TARGZ(LoaderBase):
             the loaded data.
         """
         with gzip.open(path, "rb") as open_file:
-            for line in open_file:
+            for _ in open_file:
                 pass

@@ -13,11 +13,12 @@ This module provides common utilities.
 
 # Imports
 import re
+
 from docx import Document
 
 
 def export_report(report, timestamp, outfile):
-    """ Export the report in docx format.
+    """Export the report in docx format.
 
     Parameters
     ----------
@@ -35,14 +36,16 @@ def export_report(report, timestamp, outfile):
     paragraph.text = f"NeuroSpin\tReporting\t{timestamp}"
     paragraph = document.add_paragraph(
         f"\n\n\n\nYou will find below the report generated on '{timestamp}'. "
-        "If you have any questions please use the contact mail: rlink@cea.fr.")
+        "If you have any questions please use the contact mail: rlink@cea.fr."
+    )
     for family, family_item in report.items():
         document.add_heading(family.replace(".", " ").title())
         for validator, validator_item in family_item.items():
-            split_validator = re.findall("[A-Z][^A-Z]*", validator)
+            split_validator = re.findall(r"[A-Z][^A-Z]*", validator)
             document.add_heading(" ".join(split_validator))
             paragraph = document.add_paragraph(
-                "\n\n Below the table summarizing the errors.\n\n")
+                "\n\n Below the table summarizing the errors.\n\n"
+            )
             for key, values in validator_item.items():
                 table = document.add_table(rows=len(values), cols=2)
                 cell = table.cell(0, 0)

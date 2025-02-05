@@ -11,29 +11,45 @@ This module contains generic functions to load/save a dataset.
 """
 
 # Package import
-from caravel.loaders import TSV
-from caravel.loaders import NIFTI
-from caravel.loaders import JSON
-from caravel.loaders import DWI
-from caravel.loaders import TARGZ
-from caravel.loaders import PNG
-from caravel.loaders import CSV
-from caravel.loaders import XLSX
-from caravel.loaders import PDF
-from caravel.loaders import PLINK
-from caravel.loaders import VCF
-from caravel.loaders import MP4
-from caravel.loaders import EDF
-from caravel.loaders import MZML
+from caravel.loaders import (
+    CSV,
+    DWI,
+    EDF,
+    JSON,
+    MP4,
+    MZML,
+    NIFTI,
+    PDF,
+    PLINK,
+    PNG,
+    TARGZ,
+    TSV,
+    VCF,
+    XLSX,
+)
 
 # Global parameters
 # > define all the available loaders
-LOADERS = [MP4, EDF, PNG, TSV, CSV, NIFTI, JSON, DWI, TARGZ, XLSX, PDF,
-           PLINK, VCF, MZML]
+LOADERS = [
+    MP4,
+    EDF,
+    PNG,
+    TSV,
+    CSV,
+    NIFTI,
+    JSON,
+    DWI,
+    TARGZ,
+    XLSX,
+    PDF,
+    PLINK,
+    VCF,
+    MZML,
+]
 
 
 def load(path, **kwargs):
-    """ Load the data.
+    """Load the data.
 
     Parameters
     ----------
@@ -50,7 +66,7 @@ def load(path, **kwargs):
 
 
 def save(data, path, **kwargs):
-    """ Save the data.
+    """Save the data.
 
     Parameters
     ----------
@@ -64,7 +80,7 @@ def save(data, path, **kwargs):
 
 
 def get_loader(path):
-    """ Search for a suitable loader in the declared loaders.
+    """Search for a suitable loader in the declared loaders.
     Raise an exception if no loader is found.
 
     Parameters
@@ -85,7 +101,7 @@ def get_loader(path):
 
 
 def get_saver(path):
-    """ Search for a suitable saver in the declared savers.
+    """Search for a suitable saver in the declared savers.
     Raise an exception if no saver is found.
 
     Parameters

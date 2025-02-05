@@ -18,11 +18,10 @@ import os
 from pprint import pprint
 
 import ensemble
-from ensemble.validation import get_validators
-from ensemble.validation import ValidationBase
+from ensemble.validation import ValidationBase, get_validators
 
-from caravel.validation import run_validation
 import caravel
+from caravel.validation import run_validation
 
 print(caravel.__version__)
 print(caravel.info())
@@ -50,13 +49,15 @@ print(validators)
 datadir = "/neurospin/rlink/workspace/ci_toy/ensemble/ensemble-videoraw-upload"
 projectdir = os.path.dirname(os.path.realpath(ensemble.__file__))
 parser = caravel.get_parser(
-    project="ensemble-videoraw", confdir=os.path.join(projectdir, "conf"),
-    layoutdir=None)
-parser.pickling_layout(
-    bids_root=datadir, name="rawdata", outdir=datadir)
+    project="ensemble-videoraw",
+    confdir=os.path.join(projectdir, "conf"),
+    layoutdir=None,
+)
+parser.pickling_layout(bids_root=datadir, name="rawdata", outdir=datadir)
 data = {
     "layoutdir": datadir,
     "confdir": os.path.join(projectdir, "conf"),
-    "project": "ensemble-videoraw"}
+    "project": "ensemble-videoraw",
+}
 report = run_validation(data, validators=validators, logfile=None)
 pprint(report)
