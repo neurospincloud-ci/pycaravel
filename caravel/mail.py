@@ -25,7 +25,7 @@ class EmailManager:
     """ Define a class to simplify emails sending.
     """
     def __init__(self, smtp_host, smtp_port):
-        """ Initilaize the EmailManager class.
+        """ Initialize the EmailManager class.
 
         Parameters
         ----------
