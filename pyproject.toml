@@ -3,9 +3,12 @@ requires = ["setuptools>=61.2"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "pycaravel"
+name = "caravel"
 version = "1.0.0"
 authors = [
+    {name = "Antoine Grigis", email = "antoine.grigis@cea.fr"},
+]
+maintainers = [
     {name = "Antoine Grigis", email = "antoine.grigis@cea.fr"},
 ]
 description = """
@@ -37,7 +40,8 @@ dependencies = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/neurospincloud-ci/pycaravel"
+homepage = "https://neurospincloud-ci.github.io/pycaravel"
+source = "https://github.com/neurospincloud-ci/pycaravel"
 
 [tool.setuptools]
 script-files = ["caravel/scripts/project-ci"]
